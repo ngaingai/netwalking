@@ -6,18 +6,20 @@
     "link": "https://www.meetup.com/glokyo/events/306568120/",
     "meetingPoint": "Sendagi Station, Exit 1",
     "mapLink": "https://maps.app.goo.gl/JNAF2fDxgayq2Uv57",
-    "linkedinPost": "https://www.linkedin.com/posts/netwalking-event-123456/"
+    "image": "https://cdn.midjourney.com/90a6d995-0fd8-4e58-9f4a-2e1216c97557/0_3.png"
   },
   "previousEvents": [
     {
       "name": "NetWalking #09: Palace Walk!🏯",
       "date": "February 19, 2025",
-      "course": "Imperial Palace"
+      "course": "Imperial Palace",
+      "linkedinPost": "https://www.linkedin.com/posts/netwalking-palace-walk-123456/"
     },
     {
       "name": "NetWalking #08: Sumida River Walk🍂",
       "date": "January 27, 2025",
-      "course": "Asakusa & Sumida riverside"
+      "course": "Asakusa & Sumida riverside",
+      "linkedinPost": "https://www.linkedin.com/posts/netwalking-palace-walk-123456/"
     },
     {
       "name": "NetWalking #07: Meguro River Walk!🌉",

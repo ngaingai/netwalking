@@ -111,32 +111,38 @@
                         const response = await fetch('events.json');
                         const events = await response.json();
 
-                        let imageUrl = "";
-
-                        if (events.nextEvent.linkedinPost) {
-                              imageUrl = await fetchLinkedInImage(events.nextEvent.linkedinPost);
-                        } else if (events.nextEvent.image) {
-                              imageUrl = events.nextEvent.image;
-                        }
-
+                        // Next event with a manually set featured image
                         document.getElementById('next-event').innerHTML = `
-            <h2>Next NetWalking Event</h2>
-            <div class="event">
-                ${imageUrl ? `<img src="${imageUrl}" alt="${events.nextEvent.name}" style="width:100%; border-radius: 8px; margin-bottom: 10px;">` : ""}
-                <p><strong>${events.nextEvent.name}</strong></p>
-                <p><strong>Date:</strong> ${events.nextEvent.date}</p>
-                <p><strong>Course:</strong> ${events.nextEvent.course}</p>
-                <p><strong>Meeting Point:</strong> ${events.nextEvent.meetingPoint}</p>
-                <p><a href="${events.nextEvent.mapLink}" target="_blank">📍 View on Map</a></p>
-                <a href="${events.nextEvent.link}" target="_blank">Event Details</a>
-            </div>`;
+                    <h2>Next NetWalking Event</h2>
+                    <div class="event">
+                        ${events.nextEvent.image ? `<img src="${events.nextEvent.image}" alt="${events.nextEvent.name}" style="width:100%; border-radius: 8px; margin-bottom: 10px;">` : ""}
+                        <p><strong>${events.nextEvent.name}</strong></p>
+                        <p><strong>Date:</strong> ${events.nextEvent.date}</p>
+                        <p><strong>Course:</strong> ${events.nextEvent.course}</p>
+                        <p><strong>Meeting Point:</strong> ${events.nextEvent.meetingPoint}</p>
+                        <p><a href="${events.nextEvent.mapLink}" target="_blank">📍 View on Map</a></p>
+                        <a href="${events.nextEvent.link}" target="_blank">Event Details</a>
+                    </div>`;
+
+                        // Previous events with LinkedIn images
+                        let pastEventsHtml = "";
+                        for (const event of events.previousEvents) {
+                              let imageUrl = event.linkedinPost ? await fetchLinkedInImage(event.linkedinPost) : "";
+                              pastEventsHtml += `
+                        <div class="event">
+                            ${imageUrl ? `<img src="${imageUrl}" alt="${event.name}" style="width:100%; border-radius: 8px; margin-bottom: 10px;">` : ""}
+                            <p><strong>${event.name}</strong></p>
+                            <p><strong>Date:</strong> ${event.date}</p>
+                            <p><strong>Course:</strong> ${event.course}</p>
+                        </div>`;
+                        }
+                        document.getElementById('previous-events').innerHTML = pastEventsHtml;
                   } catch (error) {
                         document.getElementById('next-event').innerHTML = "<p>Unable to load events.</p>";
                   }
             }
 
             window.onload = loadEvents;
-
       </script>
 </head>
 

@@ -5,34 +5,29 @@
       <meta charset="UTF-8">
       <meta name="viewport"
             content="width=device-width, initial-scale=1.0">
-      <title>Event Series</title>
+      <title>NetWalking</title>
       <style>
             body {
                   font-family: 'Arial', sans-serif;
                   text-align: center;
                   margin: 0;
                   padding: 20px;
-                  background-color: #14213d;
-                  color: #ffffff;
+                  background-color: #f5f5f5;
+                  color: #14213d;
             }
 
             .container {
                   max-width: 700px;
                   margin: auto;
                   padding: 30px;
-                  background: #3590F3;
+                  background: #ffffff;
                   border-radius: 12px;
-                  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.25);
-                  transition: transform 0.2s;
-            }
-
-            .container:hover {
-                  transform: scale(1.02);
+                  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
             }
 
             h1,
             h2 {
-                  color: #ffffff;
+                  color: #14213d;
                   margin-bottom: 15px;
             }
 
@@ -40,8 +35,8 @@
                   margin: 20px 0;
                   padding: 20px;
                   border-radius: 8px;
-                  background-color: #4cccc3;
-                  color: #14213d;
+                  background-color: #3590F3;
+                  color: #ffffff;
                   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
                   transition: transform 0.2s, box-shadow 0.2s;
             }
@@ -83,7 +78,7 @@
 
                         if (events.nextEvent) {
                               document.getElementById('next-event').innerHTML = `
-                        <h2>Next Event</h2>
+                        <h2>Next NetWalking Event</h2>
                         <div class="event">
                             <p><strong>${events.nextEvent.name}</strong></p>
                             <p>${events.nextEvent.date}</p>
@@ -114,20 +109,20 @@
 
 <body>
       <div class="container">
-            <h1>Welcome to Our Event Series</h1>
-            <p>Bringing people together for great conversations.</p>
+            <h1>Welcome to NetWalking</h1>
+            <p>Bringing people together for great conversations, one walk at a time.</p>
 
             <div id="next-event">
                   <p>Loading next event...</p>
             </div>
 
-            <h2>Previous Events</h2>
+            <h2>Previous NetWalking Events</h2>
             <div id="previous-events">
                   <p>Loading previous events...</p>
             </div>
       </div>
 
-      <p class="footer">&copy; 2025 Event Series. All rights reserved.</p>
+      <p class="footer">&copy; 2025 NetWalking. All rights reserved.</p>
 </body>
 
 </html>

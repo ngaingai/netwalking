@@ -95,41 +95,48 @@
             }
       </style>
       <script>
+            async function fetchLinkedInImage(linkedinURL) {
+                  try {
+                        const response = await fetch(`https://og-image-fetcher.vercel.app/api?url=${encodeURIComponent(linkedinURL)}`);
+                        const data = await response.json();
+                        return data.image || "";
+                  } catch (error) {
+                        console.error("Error fetching LinkedIn image:", error);
+                        return "";
+                  }
+            }
+
             async function loadEvents() {
                   try {
                         const response = await fetch('events.json');
                         const events = await response.json();
 
-                        if (events.nextEvent) {
-                              document.getElementById('next-event').innerHTML = `
-                        <h2>Next NetWalking Event</h2>
-                        <div class="event">
-                            <p><strong>${events.nextEvent.name}</strong></p>
-                            <p><strong>Date:</strong> ${events.nextEvent.date}</p>
-                            <p><strong>Course:</strong> ${events.nextEvent.course}</p>
-                            <p><strong>Meeting Point:</strong> ${events.nextEvent.meetingPoint}</p>
-                            <p><a href="${events.nextEvent.mapLink}" target="_blank">📍 View on Map</a></p>
-                            <a href="${events.nextEvent.link}" target="_blank">Event Details</a>
-                        </div>`;
-                        } else {
-                              document.getElementById('next-event').innerHTML = "<p>No upcoming events.</p>";
+                        let imageUrl = "";
+
+                        if (events.nextEvent.linkedinPost) {
+                              imageUrl = await fetchLinkedInImage(events.nextEvent.linkedinPost);
+                        } else if (events.nextEvent.image) {
+                              imageUrl = events.nextEvent.image;
                         }
 
-                        let pastEventsHtml = "";
-                        events.previousEvents.forEach(event => {
-                              pastEventsHtml += `
-                        <div class="event">
-                            <p><strong>${event.name}</strong></p>
-                            <p><strong>Date:</strong> ${event.date}</p>
-                            <p><strong>Course:</strong> ${event.course}</p>
-                        </div>`;
-                        });
-                        document.getElementById('previous-events').innerHTML = pastEventsHtml;
+                        document.getElementById('next-event').innerHTML = `
+            <h2>Next NetWalking Event</h2>
+            <div class="event">
+                ${imageUrl ? `<img src="${imageUrl}" alt="${events.nextEvent.name}" style="width:100%; border-radius: 8px; margin-bottom: 10px;">` : ""}
+                <p><strong>${events.nextEvent.name}</strong></p>
+                <p><strong>Date:</strong> ${events.nextEvent.date}</p>
+                <p><strong>Course:</strong> ${events.nextEvent.course}</p>
+                <p><strong>Meeting Point:</strong> ${events.nextEvent.meetingPoint}</p>
+                <p><a href="${events.nextEvent.mapLink}" target="_blank">📍 View on Map</a></p>
+                <a href="${events.nextEvent.link}" target="_blank">Event Details</a>
+            </div>`;
                   } catch (error) {
                         document.getElementById('next-event').innerHTML = "<p>Unable to load events.</p>";
                   }
             }
+
             window.onload = loadEvents;
+
       </script>
 </head>
 

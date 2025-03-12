@@ -97,14 +97,15 @@
       <script>
             async function fetchLinkedInImage(linkedinURL) {
                   try {
-                        const response = await fetch(`https://og-image-fetcher.vercel.app/api?url=${encodeURIComponent(linkedinURL)}`);
+                        const response = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(linkedinURL)}&meta=true`);
                         const data = await response.json();
-                        return data.image || "";
+                        return data.data.image.url || "";
                   } catch (error) {
                         console.error("Error fetching LinkedIn image:", error);
                         return "";
                   }
             }
+
 
             async function loadEvents() {
                   try {

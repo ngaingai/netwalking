@@ -1,0 +1,17 @@
+{
+  "nextEvent": {
+    "name": "Upcoming Event Name",
+    "date": "March 25, 2025",
+    "link": "https://www.meetup.com/your-event-link"
+  },
+  "previousEvents": [
+    {
+      "name": "Past Event 1",
+      "date": "February 20, 2025"
+    },
+    {
+      "name": "Past Event 2",
+      "date": "January 15, 2025"
+    }
+  ]
+}

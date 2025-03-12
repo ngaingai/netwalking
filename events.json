@@ -1,8 +1,10 @@
 {
   "nextEvent": {
-    "name": "Upcoming Event Name",
-    "date": "March 25, 2025",
-    "link": "https://www.meetup.com/your-event-link"
+    "name": "NetWalking #10: Hanami Walk!🌸",
+    "date": "March 25, 2025 (Wed)",
+    "link": "https://www.meetup.com/glokyo/events/306568120/",
+    "meetingPoint": "Sendagi Station, Exit 1",
+    "mapLink": "https://maps.app.goo.gl/JNAF2fDxgayq2Uv57"
   },
   "previousEvents": [
     {

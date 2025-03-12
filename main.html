@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport"
+       content="width=device-width, initial-scale=1.0">
+ <title>Event Series</title>
+ <style>
+  body {
+   font-family: Arial, sans-serif;
+   text-align: center;
+   margin: 50px;
+  }
+
+  .container {
+   max-width: 600px;
+   margin: auto;
+  }
+
+  h1,
+  h2 {
+   color: #333;
+  }
+
+  .event {
+   margin: 20px 0;
+  }
+ </style>
+ <script>
+  async function fetchNextEvent() {
+   try {
+    const response = await fetch('https://api.meetup.com/YOUR_MEETUP_GROUP/events?&sign=true&photo-host=public&page=1');
+    const events = await response.json();
+    if (events.length > 0) {
+     document.getElementById('next-event').innerHTML = `
+                        <h2>Next Event</h2>
+                        <p><strong>${events[0].name}</strong></p>
+                        <p>${new Date(events[0].time).toLocaleString()}</p>
+                        <p><a href="${events[0].link}" target="_blank">Event Details</a></p>`;
+    } else {
+     document.getElementById('next-event').innerHTML = "<p>No upcoming events.</p>";
+    }
+   } catch (error) {
+    document.getElementById('next-event').innerHTML = "<p>Unable to load event details.</p>";
+   }
+  }
+  window.onload = fetchNextEvent;
+ </script>
+</head>
+
+<body>
+ <div class="container">
+  <h1>Welcome to Our Event Series</h1>
+  <p>Bringing people together for great conversations.</p>
+
+  <div id="next-event"
+       class="event">
+   <p>Loading next event...</p>
+  </div>
+
+  <h2>Previous Events</h2>
+  <ul>
+   <li>Event 1 - Date</li>
+   <li>Event 2 - Date</li>
+   <li>Event 3 - Date</li>
+  </ul>
+ </div>
+</body>
+
+</html>

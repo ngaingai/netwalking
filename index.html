@@ -99,12 +99,18 @@
                   try {
                         const response = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(meetupURL)}&meta=true`);
                         const data = await response.json();
-                        return data.data.image.url || "";
+
+                        // Meetup's default logo URL (we will avoid using this)
+                        const meetupLogo = "https://secure.meetupstatic.com/s/img/786824690296989575/logo/svg/logo--script.svg";
+
+                        // If the image is the Meetup logo, return an empty string instead
+                        return data.data.image.url && data.data.image.url !== meetupLogo ? data.data.image.url : "";
                   } catch (error) {
                         console.error("Error fetching Meetup image:", error);
                         return "";
                   }
             }
+
 
             async function loadEvents() {
                   try {
@@ -147,7 +153,6 @@
             }
 
             window.onload = loadEvents;
-
 
       </script>
 </head>

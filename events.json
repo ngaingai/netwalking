@@ -2,18 +2,21 @@
   "nextEvent": {
     "name": "NetWalking #10: Hanami Walk!🌸",
     "date": "March 25, 2025 (Wed)",
+    "course": "Yanesen",
     "link": "https://www.meetup.com/glokyo/events/306568120/",
     "meetingPoint": "Sendagi Station, Exit 1",
     "mapLink": "https://maps.app.goo.gl/JNAF2fDxgayq2Uv57"
   },
   "previousEvents": [
     {
-      "name": "Past Event 1",
-      "date": "February 20, 2025"
+      "name": "NetWalking #09: Palace Walk!🏯",
+      "date": "February 19, 2025",
+      "course": "Imperial Palace"
     },
     {
-      "name": "Past Event 2",
-      "date": "January 15, 2025"
+      "name": "NetWalking #08: Sumida River Walk🍂",
+      "date": "January 27, 2025",
+      "course": "Asakusa & Sumida riverside"
     }
   ]
 }

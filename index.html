@@ -61,7 +61,6 @@
             .event {
                   animation: fade-in 0.8s ease-out;
                   animation-timeline: view();
-                  /* Scroll-driven animation */
             }
 
             /* Highlight event cards that have a link */
@@ -106,7 +105,8 @@
                         <h2>Next NetWalking Event</h2>
                         <div class="event">
                             <p><strong>${events.nextEvent.name}</strong></p>
-                            <p>${events.nextEvent.date}</p>
+                            <p><strong>Date:</strong> ${events.nextEvent.date}</p>
+                            <p><strong>Course:</strong> ${events.nextEvent.course}</p>
                             <p><strong>Meeting Point:</strong> ${events.nextEvent.meetingPoint}</p>
                             <p><a href="${events.nextEvent.mapLink}" target="_blank">📍 View on Map</a></p>
                             <a href="${events.nextEvent.link}" target="_blank">Event Details</a>
@@ -120,7 +120,8 @@
                               pastEventsHtml += `
                         <div class="event">
                             <p><strong>${event.name}</strong></p>
-                            <p>${event.date}</p>
+                            <p><strong>Date:</strong> ${event.date}</p>
+                            <p><strong>Course:</strong> ${event.course}</p>
                         </div>`;
                         });
                         document.getElementById('previous-events').innerHTML = pastEventsHtml;

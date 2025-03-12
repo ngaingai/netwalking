@@ -30,7 +30,7 @@
  <script>
   async function fetchNextEvent() {
    try {
-    const response = await fetch('https://api.meetup.com/YOUR_MEETUP_GROUP/events?&sign=true&photo-host=public&page=1');
+    const response = await fetch('https://api.meetup.com/glokyo/events?&sign=true&photo-host=public&page=1');
     const events = await response.json();
     if (events.length > 0) {
      document.getElementById('next-event').innerHTML = `

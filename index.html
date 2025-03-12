@@ -111,14 +111,8 @@
                         const response = await fetch('events.json');
                         const events = await response.json();
 
-                        let meetupImage = "";
-
-                        // Fetch image from Meetup event page using OpenGraph metadata
-                        if (events.nextEvent.link) {
-                              meetupImage = await fetchMeetupImage(events.nextEvent.link);
-                        }
-
-                        // Use Meetup image if available, otherwise fallback to manual image
+                        // Fetch image from Meetup for the next event
+                        let meetupImage = events.nextEvent.link ? await fetchMeetupImage(events.nextEvent.link) : "";
                         let nextEventImage = meetupImage || events.nextEvent.image;
 
                         document.getElementById('next-event').innerHTML = `
@@ -133,12 +127,14 @@
                 <a href="${events.nextEvent.link}" target="_blank">Event Details</a>
             </div>`;
 
-                        // Previous events with manually set images
+                        // Fetch images for previous events (either from Meetup or manually set)
                         let pastEventsHtml = "";
                         for (const event of events.previousEvents) {
+                              let pastEventImage = event.image ? event.image : event.link ? await fetchMeetupImage(event.link) : "";
+
                               pastEventsHtml += `
                 <div class="event">
-                    ${event.image ? `<img src="${event.image}" alt="${event.name}" style="width:100%; border-radius: 8px; margin-bottom: 10px;">` : ""}
+                    ${pastEventImage ? `<img src="${pastEventImage}" alt="${event.name}" style="width:100%; border-radius: 8px; margin-bottom: 10px;">` : ""}
                     <p><strong>${event.name}</strong></p>
                     <p><strong>Date:</strong> ${event.date}</p>
                     <p><strong>Course:</strong> ${event.course}</p>
@@ -151,6 +147,7 @@
             }
 
             window.onload = loadEvents;
+
 
       </script>
 </head>

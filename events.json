@@ -13,48 +13,57 @@
       "name": "NetWalking #09: Palace Walk!🏯",
       "date": "February 19, 2025",
       "course": "Imperial Palace",
+      "link": "https://www.meetup.com/glokyo/events/305986218/",
       "image": "https://www.linkedin.com/feed/update/urn:li:activity:7298121692751503360/"
     },
     {
       "name": "NetWalking #08: Sumida River Walk🍂",
       "date": "January 27, 2025",
       "course": "Asakusa & Sumida riverside",
+      "link": "https://www.meetup.com/glokyo/events/305600888/",
       "image": "https://www.linkedin.com/posts/alex-ngai_beautiful-day-with-awesome-people-and-activity-7289803002293428224-BNxi?utm_source=share&utm_medium=member_desktop&rcm=ACoAACuyMrkBrPjQBIBKfL3ksdOAwnW6D5IuTRk"
     },
     {
       "name": "NetWalking #07: Meguro River Walk!🌉",
       "date": "December 9, 2024",
-      "course": "Ebisu to Osaki"
+      "course": "Ebisu to Osaki",
+      "link": "https://www.meetup.com/glokyo/events/304701023/"
     },
     {
-      "name": "NetWalking #06: Sumo Riverside Walk🪨",
+      "name": "NetWalking #06: Riverside Sumo Walk🪨",
       "date": "September 25, 2024",
-      "course": "Nihombashi to Ryogoku"
+      "course": "Nihombashi to Ryogoku",
+      "link": "https://www.meetup.com/glokyo/events/302994928/"
     },
     {
       "name": "NetWalking #05: Rainbow Bridge!🌈",
       "date": "June 19, 2024",
-      "course": "Odaiba to Tamachi"
+      "course": "Odaiba to Tamachi",
+      "link": "https://www.meetup.com/glokyo/events/301191254/"
     },
     {
       "name": "NetWalking #04: Bayside Walk🍂",
       "date": "May 15, 2024",
-      "course": "Shinagawa to Tennozu Isle"
+      "course": "Shinagawa to Tennozu Isle",
+      "link": "https://www.meetup.com/glokyo/events/300651269/"
     },
     {
-      "name": "NetWalking #03: Palace Walk!🏯",
+      "name": "NetWalking #03: Old to New!🏯",
       "date": "February 29, 2024",
-      "course": "Asakusa to Skytree"
+      "course": "Asakusa to Skytree",
+      "link": "https://www.meetup.com/glokyo/events/299209385/"
     },
     {
       "name": "NetWalking #02: Yoyogi Walk🍂",
       "date": "January 17, 2024",
-      "course": "Yoyogi Park"
+      "course": "Yoyogi Park",
+      "link": "https://www.meetup.com/glokyo/events/298346165/"
     },
     {
       "name": "NetWalking #01: Palace Walk!🏯",
       "date": "December 20, 2023",
-      "course": "Imperial Palace"
+      "course": "Imperial Palace",
+      "link": "https://www.meetup.com/glokyo/events/297936645/"
     }
   ]
 }

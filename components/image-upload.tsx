@@ -16,8 +16,6 @@ import {
 
 interface ImageUploadProps {
   eventId: string;
-  eventNo: string;
-  onImagesChange: (images: string[]) => void;
 }
 
 interface CloudinaryImage {
@@ -25,28 +23,23 @@ interface CloudinaryImage {
   secure_url: string;
 }
 
-export default function ImageUpload({
-  eventId,
-  eventNo,
-  onImagesChange,
-}: ImageUploadProps) {
+export default function ImageUpload({ eventId }: ImageUploadProps) {
   const [images, setImages] = useState<CloudinaryImage[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchImages();
-  }, [eventNo]);
+  }, [eventId]);
 
   const fetchImages = async () => {
     try {
-      const response = await fetch(`/api/events/${eventNo}/images`);
+      const response = await fetch(`/api/events/${eventId}/images`);
       if (!response.ok) {
         throw new Error("Failed to fetch images");
       }
       const data = (await response.json()) as CloudinaryImage[];
       setImages(data);
-      onImagesChange(data.map((img) => img.secure_url));
     } catch (error) {
       console.error("Error fetching images:", error);
       setError("Failed to load images");
@@ -67,7 +60,7 @@ export default function ImageUpload({
         formData.append("files", file);
       });
 
-      const response = await fetch(`/api/events/${eventNo}/images`, {
+      const response = await fetch(`/api/events/${eventId}/images`, {
         method: "POST",
         body: formData,
       });
@@ -79,7 +72,6 @@ export default function ImageUpload({
       const data = (await response.json()) as { images: CloudinaryImage[] };
       const newImages = [...images, ...data.images];
       setImages(newImages);
-      onImagesChange(newImages.map((img) => img.secure_url));
     } catch (error) {
       console.error("Error uploading images:", error);
       setError("Failed to upload images");
@@ -90,7 +82,7 @@ export default function ImageUpload({
 
   const handleDelete = async (publicId: string) => {
     try {
-      const response = await fetch(`/api/events/${eventNo}/images`, {
+      const response = await fetch(`/api/events/${eventId}/images`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +96,6 @@ export default function ImageUpload({
 
       const newImages = images.filter((img) => img.public_id !== publicId);
       setImages(newImages);
-      onImagesChange(newImages.map((img) => img.secure_url));
     } catch (error) {
       console.error("Error deleting image:", error);
       setError("Failed to delete image");
@@ -119,11 +110,10 @@ export default function ImageUpload({
     items.splice(result.destination.index, 0, reorderedItem);
 
     setImages(items);
-    onImagesChange(items.map((img) => img.secure_url));
 
     // Update the order in the backend
     try {
-      const response = await fetch(`/api/events/${eventNo}/images/reorder`, {
+      const response = await fetch(`/api/events/${eventId}/images/reorder`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -204,13 +194,6 @@ export default function ImageUpload({
                             className="object-contain"
                             sizes="256px"
                             onError={() => {
-                              onImagesChange(
-                                images
-                                  .filter(
-                                    (img) => img.public_id !== image.public_id
-                                  )
-                                  .map((img) => img.secure_url)
-                              );
                               toast.error("Failed to load image");
                             }}
                           />

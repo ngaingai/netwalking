@@ -109,6 +109,7 @@ export default function ImageUpload({ eventId }: ImageUploadProps) {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
+    // Optimistically update the UI
     setImages(items);
 
     // Update the order in the backend
@@ -124,9 +125,16 @@ export default function ImageUpload({ eventId }: ImageUploadProps) {
       if (!response.ok) {
         throw new Error("Failed to update image order");
       }
+
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.error || "Failed to update image order");
+      }
     } catch (error) {
       console.error("Error updating image order:", error);
-      toast.error("Failed to update image order");
+      // Revert the optimistic update on error
+      await fetchImages();
+      toast.error("Failed to update image order. Please try again.");
     }
   };
 

@@ -13,7 +13,9 @@
       "linkedinlink": "",
       "description": "Join us for a beautiful hanami walk through the Yanesen area!",
       "attendees": 0,
-      "status": "upcoming"
+      "status": "upcoming",
+      "stravaLink": "",
+      "komootLink": ""
     },
     {
       "id": "netwalking-009",
@@ -28,7 +30,10 @@
       "linkedinlink": "https://www.linkedin.com/feed/update/urn:li:activity:7298121692751503360/",
       "description": "A scenic walk around the Imperial Palace",
       "attendees": 0,
-      "status": "upcoming"
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
     },
     {
       "id": "netwalking-008",
@@ -43,7 +48,10 @@
       "linkedinlink": "https://www.linkedin.com/posts/alex-ngai_beautiful-day-with-awesome-people-and-activity-7289803002293428224-BNxi",
       "description": "Walk along the beautiful Sumida River",
       "attendees": 0,
-      "status": "upcoming"
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
     },
     {
       "id": "netwalking-007",
@@ -58,7 +66,10 @@
       "linkedinlink": "",
       "description": "A scenic walk along the Meguro River",
       "attendees": 0,
-      "status": "past"
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
     },
     {
       "id": "netwalking-006",
@@ -73,7 +84,10 @@
       "linkedinlink": "",
       "description": "Walk through the sumo district",
       "attendees": 0,
-      "status": "past"
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
     },
     {
       "id": "netwalking-005",
@@ -88,7 +102,10 @@
       "linkedinlink": "",
       "description": "Cross the iconic Rainbow Bridge",
       "attendees": 0,
-      "status": "past"
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
     },
     {
       "id": "netwalking-004",
@@ -103,7 +120,10 @@
       "linkedinlink": "",
       "description": "Walk along Tokyo Bay",
       "attendees": 0,
-      "status": "past"
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
     },
     {
       "id": "netwalking-003",
@@ -118,7 +138,10 @@
       "linkedinlink": "",
       "description": "From traditional to modern Tokyo",
       "attendees": 0,
-      "status": "past"
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
     },
     {
       "id": "netwalking-002",
@@ -133,7 +156,10 @@
       "linkedinlink": "",
       "description": "Explore Yoyogi Park",
       "attendees": 0,
-      "status": "past"
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
     },
     {
       "id": "netwalking-001",
@@ -148,7 +174,10 @@
       "linkedinlink": "",
       "description": "Our first walk around the Imperial Palace",
       "attendees": 0,
-      "status": "past"
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
     }
   ]
 }

@@ -29,8 +29,12 @@ export function EditEvent({ event, onClose }: EditEventProps) {
     title: event.title,
     date: event.date,
     time: event.time,
-    location: event.location,
+    meetingPoint: event.meetingPoint,
     course: event.course,
+    maplink: event.maplink || "",
+    meetuplink: event.meetuplink || "",
+    linkedinlink: event.linkedinlink || "",
+    linkedinReportLink: event.linkedinReportLink || "",
     description: event.description,
     stravaLink: event.stravaLink || "",
     komootLink: event.komootLink || "",
@@ -120,11 +124,11 @@ export function EditEvent({ event, onClose }: EditEventProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="location">Location</Label>
+            <Label htmlFor="meetingPoint">Meeting Point</Label>
             <Input
-              id="location"
-              name="location"
-              value={formData.location}
+              id="meetingPoint"
+              name="meetingPoint"
+              value={formData.meetingPoint}
               onChange={handleChange}
               required
             />
@@ -140,6 +144,51 @@ export function EditEvent({ event, onClose }: EditEventProps) {
               required
             />
           </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="maplink">Google Maps Link</Label>
+            <Input
+              id="maplink"
+              name="maplink"
+              value={formData.maplink}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="meetuplink">Meetup Event Link</Label>
+            <Input
+              id="meetuplink"
+              name="meetuplink"
+              value={formData.meetuplink}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="linkedinlink">LinkedIn Event Link</Label>
+            <Input
+              id="linkedinlink"
+              name="linkedinlink"
+              value={formData.linkedinlink}
+              onChange={handleChange}
+            />
+          </div>
+
+          {event.status === "past" && (
+            <div className="space-y-2">
+              <Label htmlFor="linkedinReportLink">
+                LinkedIn Event Report Link
+              </Label>
+              <Input
+                id="linkedinReportLink"
+                name="linkedinReportLink"
+                value={formData.linkedinReportLink}
+                onChange={handleChange}
+                placeholder="Add the link to your LinkedIn post about this event"
+              />
+            </div>
+          )}
 
           <div className="space-y-2">
             <Label htmlFor="description">Description</Label>

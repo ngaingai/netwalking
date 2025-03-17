@@ -1,7 +1,5 @@
-import path from "path";
-import { promises as fs } from "fs";
 import { v2 as cloudinary } from "cloudinary";
-import { getBaseUrl } from "./utils";
+import eventsData from "@/data/events.json";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -35,24 +33,21 @@ export interface CloudinaryImage {
 }
 
 export async function getEvents(): Promise<Event[]> {
-  const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/api/events`);
-  if (!res.ok) {
-    throw new Error("Failed to fetch events");
-  }
-  return res.json();
+  // Update status based on current date
+  return eventsData.events.map((event) => ({
+    ...event,
+    status: getEventStatus(event.date),
+  }));
 }
 
 export async function getEvent(id: string): Promise<Event | null> {
-  const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/api/events/${id}`);
-  if (!res.ok) {
-    if (res.status === 404) {
-      return null;
-    }
-    throw new Error("Failed to fetch event");
-  }
-  return res.json();
+  const event = eventsData.events.find((e) => e.id === id);
+  if (!event) return null;
+
+  return {
+    ...event,
+    status: getEventStatus(event.date),
+  };
 }
 
 export async function getPastEvents(): Promise<Event[]> {

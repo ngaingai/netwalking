@@ -1,6 +1,7 @@
 import path from "path";
 import { promises as fs } from "fs";
 import { v2 as cloudinary } from "cloudinary";
+import { getBaseUrl } from "./utils";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -30,24 +31,24 @@ export interface CloudinaryImage {
 }
 
 export async function getEvents(): Promise<Event[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const response = await fetch(`${baseUrl}/api/events`);
-  if (!response.ok) {
+  const baseUrl = getBaseUrl();
+  const res = await fetch(`${baseUrl}/api/events`);
+  if (!res.ok) {
     throw new Error("Failed to fetch events");
   }
-  return response.json() as Promise<Event[]>;
+  return res.json();
 }
 
 export async function getEvent(id: string): Promise<Event | null> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const response = await fetch(`${baseUrl}/api/events/${id}`);
-  if (!response.ok) {
-    if (response.status === 404) {
+  const baseUrl = getBaseUrl();
+  const res = await fetch(`${baseUrl}/api/events/${id}`);
+  if (!res.ok) {
+    if (res.status === 404) {
       return null;
     }
     throw new Error("Failed to fetch event");
   }
-  return response.json() as Promise<Event>;
+  return res.json();
 }
 
 export async function getPastEvents(): Promise<Event[]> {

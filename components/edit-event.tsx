@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -63,20 +63,13 @@ export function EditEvent({ event, onClose }: EditEventProps) {
         throw new Error("Failed to update event");
       }
 
-      toast({
-        title: "Success",
-        description: "Event updated successfully",
-      });
+      toast.success("Event updated successfully");
 
       router.refresh();
       onClose();
     } catch (error) {
       console.error("Error updating event:", error);
-      toast({
-        title: "Error",
-        description: "Failed to update event",
-        variant: "destructive",
-      });
+      toast.error("Failed to update event");
     }
   };
 

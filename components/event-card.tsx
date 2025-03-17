@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Event } from "@/lib/events";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pencil, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { EditEvent } from "./edit-event";
+import { getEventImages } from "@/lib/events";
 
 interface EventCardProps {
   event: Event;
@@ -14,6 +16,24 @@ interface EventCardProps {
 export function EventCard({ event }: EventCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [coverImage, setCoverImage] = useState<{ secure_url: string } | null>(
+    null
+  );
+
+  useEffect(() => {
+    const fetchEventImage = async () => {
+      try {
+        const images = await getEventImages(event.no);
+        if (images && images.length > 0) {
+          setCoverImage(images[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching event image:", error);
+      }
+    };
+
+    fetchEventImage();
+  }, [event.no]);
 
   return (
     <Card>
@@ -46,6 +66,17 @@ export function EventCard({ event }: EventCardProps) {
         </div>
       </CardHeader>
       <CardContent>
+        {coverImage && (
+          <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
+            <Image
+              src={coverImage.secure_url}
+              alt={`Cover image for Event #${event.no}`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        )}
         {isEditing ? (
           <EditEvent event={event} onClose={() => setIsEditing(false)} />
         ) : isExpanded ? (

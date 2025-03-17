@@ -3,9 +3,6 @@ import bcryptjs from "bcryptjs";
 import { ADMIN_PASSWORD_HASH } from "@/config";
 import { addSession } from "@/lib/sessions";
 
-// Store for valid session tokens (this should match the one in middleware.ts)
-const validSessions = new Set<string>();
-
 interface LoginRequest {
   password: string;
 }

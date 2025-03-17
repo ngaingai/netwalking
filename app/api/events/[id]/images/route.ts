@@ -5,6 +5,8 @@ interface DeleteRequest {
   publicId: string;
 }
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
+
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -60,21 +62,47 @@ export async function POST(
       return NextResponse.json({ error: "No files provided" }, { status: 400 });
     }
 
+    // Check file sizes
+    for (const file of files) {
+      if (file.size > MAX_FILE_SIZE) {
+        console.log(
+          `[ImageUpload] File too large: ${file.name} (${file.size} bytes)`
+        );
+        return NextResponse.json(
+          { error: `File ${file.name} exceeds the 10MB limit` },
+          { status: 400 }
+        );
+      }
+    }
+
     const uploadPromises = files.map(async (file) => {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const base64 = buffer.toString("base64");
-      const dataUri = `data:${file.type};base64,${base64}`;
+      try {
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        const base64 = buffer.toString("base64");
+        const dataUri = `data:${file.type};base64,${base64}`;
 
-      const uploadResult = await cloudinary.uploader.upload(dataUri, {
-        folder: `events/${eventNo}`,
-        resource_type: "auto",
-      });
+        const uploadResult = await cloudinary.uploader.upload(dataUri, {
+          folder: `events/${eventNo}`,
+          resource_type: "auto",
+          transformation: [
+            { quality: "auto" }, // Automatic quality optimization
+            { fetch_format: "auto" }, // Automatic format selection
+            { width: 2000, crop: "limit" }, // Limit maximum width
+          ],
+        });
 
-      return {
-        public_id: uploadResult.public_id,
-        secure_url: uploadResult.secure_url,
-      };
+        return {
+          public_id: uploadResult.public_id,
+          secure_url: uploadResult.secure_url,
+        };
+      } catch (error) {
+        console.error(
+          `[ImageUpload] Error uploading file ${file.name}:`,
+          error
+        );
+        throw new Error(`Failed to upload ${file.name}`);
+      }
     });
 
     const images = await Promise.all(uploadPromises);
@@ -83,10 +111,9 @@ export async function POST(
     return NextResponse.json({ images });
   } catch (error) {
     console.error("[ImageUpload] Error uploading files:", error);
-    return NextResponse.json(
-      { error: "Failed to upload files" },
-      { status: 500 }
-    );
+    const errorMessage =
+      error instanceof Error ? error.message : "Failed to upload files";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
 

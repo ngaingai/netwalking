@@ -65,6 +65,84 @@ export function EventCard({ event }: EventCardProps) {
             <p>
               <strong>Meeting Point:</strong> {event.meetingPoint}
             </p>
+            {event.maplink && (
+              <p>
+                <strong>Google Maps:</strong>{" "}
+                <a
+                  href={event.maplink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  View on Maps
+                </a>
+              </p>
+            )}
+            {event.meetuplink && (
+              <p>
+                <strong>Meetup:</strong>{" "}
+                <a
+                  href={event.meetuplink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  View on Meetup
+                </a>
+              </p>
+            )}
+            {event.linkedinlink && (
+              <p>
+                <strong>LinkedIn Event:</strong>{" "}
+                <a
+                  href={event.linkedinlink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  View on LinkedIn
+                </a>
+              </p>
+            )}
+            {event.status === "past" && event.linkedinReportLink && (
+              <p>
+                <strong>Event Report:</strong>{" "}
+                <a
+                  href={event.linkedinReportLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  View Report on LinkedIn
+                </a>
+              </p>
+            )}
+            {event.stravaLink && (
+              <p>
+                <strong>Strava:</strong>{" "}
+                <a
+                  href={event.stravaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  View on Strava
+                </a>
+              </p>
+            )}
+            {event.komootLink && (
+              <p>
+                <strong>Komoot:</strong>{" "}
+                <a
+                  href={event.komootLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  View on Komoot
+                </a>
+              </p>
+            )}
             <p>
               <strong>Status:</strong> {event.status}
             </p>

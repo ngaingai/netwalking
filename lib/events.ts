@@ -19,6 +19,7 @@ export interface Event {
   maplink: string;
   meetuplink: string;
   linkedinlink: string;
+  linkedinReportLink?: string;
   description: string;
   attendees: number;
   status: "past" | "upcoming";

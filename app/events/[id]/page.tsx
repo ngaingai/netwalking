@@ -79,8 +79,8 @@ export default async function EventPage({ params }: EventPageProps) {
             <p>{event.description}</p>
           </div>
 
-          {/* Event Gallery */}
-          {images.length > 0 && (
+          {/* Event Gallery - only show for past events */}
+          {isPastEvent && images.length > 0 && (
             <div className="pt-4">
               <h2 className="mb-4 text-2xl font-bold">Event Gallery</h2>
               <EventGallery eventId={event.no} images={images} />
@@ -115,7 +115,9 @@ export default async function EventPage({ params }: EventPageProps) {
                   <MapPinIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                   <div>
                     <p className="font-medium">Meeting Point</p>
-                    <p className="text-muted-foreground">{event.location}</p>
+                    <p className="text-muted-foreground">
+                      {event.meetingPoint}
+                    </p>
                     {event.stravaLink && (
                       <Button variant="link" asChild className="h-auto p-0">
                         <Link

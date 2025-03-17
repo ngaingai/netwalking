@@ -16,6 +16,7 @@ import {
 
 interface ImageUploadProps {
   eventId: string;
+  onUpdate?: () => void;
 }
 
 interface CloudinaryImage {
@@ -23,7 +24,7 @@ interface CloudinaryImage {
   secure_url: string;
 }
 
-export default function ImageUpload({ eventId }: ImageUploadProps) {
+export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
   const [images, setImages] = useState<CloudinaryImage[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -72,6 +73,7 @@ export default function ImageUpload({ eventId }: ImageUploadProps) {
       const data = (await response.json()) as { images: CloudinaryImage[] };
       const newImages = [...images, ...data.images];
       setImages(newImages);
+      onUpdate?.();
     } catch (error) {
       console.error("Error uploading images:", error);
       setError("Failed to upload images");
@@ -96,6 +98,7 @@ export default function ImageUpload({ eventId }: ImageUploadProps) {
 
       const newImages = images.filter((img) => img.public_id !== publicId);
       setImages(newImages);
+      onUpdate?.();
     } catch (error) {
       console.error("Error deleting image:", error);
       setError("Failed to delete image");
@@ -130,6 +133,7 @@ export default function ImageUpload({ eventId }: ImageUploadProps) {
       if (!data.success) {
         throw new Error(data.error || "Failed to update image order");
       }
+      onUpdate?.();
     } catch (error) {
       console.error("Error updating image order:", error);
       // Revert the optimistic update on error

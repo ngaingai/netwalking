@@ -1,6 +1,7 @@
 import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +22,14 @@ export async function FeaturedEvent({ event }: FeaturedEventProps) {
   const images = await getEventImages(event.no);
   const coverImage = images[0];
   const isPastEvent = new Date(event.date) < new Date();
+
+  const formatTime = (time: string) => {
+    const [hours, minutes] = time.split(":");
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minutes} ${ampm}`;
+  };
 
   return (
     <Card className="overflow-hidden">
@@ -81,7 +90,7 @@ export async function FeaturedEvent({ event }: FeaturedEventProps) {
             <ClockIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
             <div>
               <p className="font-medium">Time</p>
-              <p className="text-muted-foreground">{event.time}</p>
+              <p className="text-muted-foreground">{formatTime(event.time)}</p>
             </div>
           </div>
         </div>

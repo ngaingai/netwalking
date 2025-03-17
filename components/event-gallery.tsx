@@ -6,11 +6,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CloudinaryImage } from "@/lib/events";
 
 interface EventGalleryProps {
-  eventId: string;
   images: CloudinaryImage[];
 }
 
-export function EventGallery({ eventId, images }: EventGalleryProps) {
+export function EventGallery({ images }: EventGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextImage = () => {

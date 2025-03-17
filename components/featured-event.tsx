@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Event, getEventImages } from "@/lib/events";
-import { formatDate } from "@/lib/utils";
+import { formatDate, formatTime } from "@/lib/utils";
 
 interface FeaturedEventProps {
   event: Event;
@@ -22,14 +22,6 @@ export async function FeaturedEvent({ event }: FeaturedEventProps) {
   const images = await getEventImages(event.no);
   const coverImage = images[0];
   const isPastEvent = new Date(event.date) < new Date();
-
-  const formatTime = (time: string) => {
-    const [hours, minutes] = time.split(":");
-    const hour = parseInt(hours);
-    const ampm = hour >= 12 ? "PM" : "AM";
-    const hour12 = hour % 12 || 12;
-    return `${hour12}:${minutes} ${ampm}`;
-  };
 
   return (
     <Card className="overflow-hidden">
@@ -118,9 +110,7 @@ export async function FeaturedEvent({ event }: FeaturedEventProps) {
 
         {/* Action Button */}
         <Button asChild className="w-full mt-2">
-          <Link href={`/events/${event.id}`}>
-            {isPastEvent ? "View Event Details" : "Join This Event"}
-          </Link>
+          <Link href={`/events/${event.id}`}>Event RSVP Info</Link>
         </Button>
       </CardContent>
     </Card>

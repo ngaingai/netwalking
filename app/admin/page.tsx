@@ -16,43 +16,41 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        setError(null);
-        const response = await fetch("/api/events");
+  const fetchEvents = async () => {
+    try {
+      setError(null);
+      const response = await fetch("/api/events");
 
-        if (response.status === 401) {
-          router.push("/admin/login");
-          return;
-        }
-
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          console.error("Failed to fetch events:", {
-            status: response.status,
-            errorData,
-          });
-          throw new Error(errorData.error || "Failed to fetch events");
-        }
-
-        const data = (await response.json()) as Event[];
-        setEvents(data);
-      } catch (error) {
-        console.error("Error in admin page:", error);
-        setError(
-          error instanceof Error
-            ? error.message
-            : "An unexpected error occurred"
-        );
-        toast.error(
-          error instanceof Error ? error.message : "Failed to load events"
-        );
-      } finally {
-        setIsLoading(false);
+      if (response.status === 401) {
+        router.push("/admin/login");
+        return;
       }
-    };
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Failed to fetch events:", {
+          status: response.status,
+          errorData,
+        });
+        throw new Error(errorData.error || "Failed to fetch events");
+      }
+
+      const data = (await response.json()) as Event[];
+      setEvents(data);
+    } catch (error) {
+      console.error("Error in admin page:", error);
+      setError(
+        error instanceof Error ? error.message : "An unexpected error occurred"
+      );
+      toast.error(
+        error instanceof Error ? error.message : "Failed to load events"
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchEvents();
   }, [router]);
 
@@ -102,7 +100,7 @@ export default function AdminPage() {
                 }
                 router.push("/admin/login");
               } catch (error) {
-                console.error("Logout error:", error);
+                console.error("Error logging out:", error);
                 toast.error("Failed to logout");
               }
             }}
@@ -112,20 +110,15 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="grid gap-8">
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Add New Event</h2>
-          <AddEvent />
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Manage Events</h2>
-          <div className="grid gap-4">
-            {events.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
-        </section>
+      <div className="grid gap-6">
+        <AddEvent onEventAdded={fetchEvents} />
+        {events.map((event) => (
+          <EventCard
+            key={event.id}
+            event={event}
+            onEventUpdated={fetchEvents}
+          />
+        ))}
       </div>
     </div>
   );

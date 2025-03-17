@@ -21,9 +21,10 @@ import ImageUpload from "./image-upload";
 interface EditEventProps {
   event: Event;
   onClose: () => void;
+  onUpdate?: () => void;
 }
 
-export function EditEvent({ event, onClose }: EditEventProps) {
+export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     title: event.title,
@@ -64,6 +65,11 @@ export function EditEvent({ event, onClose }: EditEventProps) {
       }
 
       toast.success("Event updated successfully");
+
+      // Call onUpdate callback if provided
+      if (onUpdate) {
+        onUpdate();
+      }
 
       router.refresh();
       onClose();

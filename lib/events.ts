@@ -33,6 +33,18 @@ export interface CloudinaryImage {
   secure_url: string;
 }
 
+interface CloudinaryResource {
+  public_id: string;
+  secure_url: string;
+  tags?: string[];
+}
+
+interface OrderedImage {
+  public_id: string;
+  secure_url: string;
+  order: string | null;
+}
+
 export async function getEvents(): Promise<Event[]> {
   // Update status based on current date
   return eventsData.events.map((event) => ({
@@ -67,12 +79,39 @@ export async function getEventImages(
   try {
     const result = await cloudinary.search
       .expression(`folder:events/${eventNo}/*`)
+      .with_field("tags")
+      .max_results(500)
       .execute();
 
-    return result.resources.map((resource: any) => ({
-      public_id: resource.public_id,
-      secure_url: resource.secure_url,
-    }));
+    const images = result.resources
+      .map(
+        (resource: CloudinaryResource): OrderedImage => ({
+          public_id: resource.public_id,
+          secure_url: resource.secure_url,
+          order: resource.tags
+            ? resource.tags
+                .find((tag: string) => tag.startsWith("order_"))
+                ?.split("_")[1] ?? null
+            : null,
+        })
+      )
+      .sort((a: OrderedImage, b: OrderedImage) => {
+        // If both have order tags, sort by order
+        if (a.order !== null && b.order !== null) {
+          return parseInt(a.order) - parseInt(b.order);
+        }
+        // If only one has order, put the one without order at the end
+        if (a.order === null) return 1;
+        if (b.order === null) return -1;
+        // If neither has order, maintain original order
+        return 0;
+      })
+      .map(({ public_id, secure_url }: OrderedImage) => ({
+        public_id,
+        secure_url,
+      }));
+
+    return images;
   } catch (error) {
     console.error("Error fetching images from Cloudinary:", error);
     return [];

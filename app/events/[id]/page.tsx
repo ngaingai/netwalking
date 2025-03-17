@@ -77,7 +77,7 @@ export default async function EventPage({ params }: EventPageProps) {
           {isPastEvent && images.length > 0 && (
             <div className="pt-4">
               <h2 className="mb-4 text-2xl font-bold">Event Gallery</h2>
-              <EventGallery eventId={event.no} images={images} />
+              <EventGallery images={images} />
             </div>
           )}
         </div>

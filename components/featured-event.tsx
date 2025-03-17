@@ -92,6 +92,18 @@ export async function FeaturedEvent({ event }: FeaturedEventProps) {
           <div>
             <p className="font-medium">Meeting Point</p>
             <p className="text-muted-foreground">{event.meetingPoint}</p>
+            {event.maplink && (
+              <Button variant="link" asChild className="h-auto p-0">
+                <Link
+                  href={event.maplink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm"
+                >
+                  View on Map
+                </Link>
+              </Button>
+            )}
           </div>
         </div>
 

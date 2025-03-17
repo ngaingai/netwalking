@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
 import { Event, getEventImages } from "@/lib/events";
+import { Button } from "@/components/ui/button";
+import { MapPinIcon } from "lucide-react";
 
 interface EventsListProps {
   events: Event[];
@@ -57,9 +59,32 @@ export async function EventsList({ events }: EventsListProps) {
               <CardDescription>{event.course}</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">
-                {formatDate(event.date)}
-              </p>
+              <div className="space-y-2">
+                <p className="text-sm text-muted-foreground">
+                  {formatDate(event.date)}
+                </p>
+                <div className="flex items-start gap-2">
+                  <MapPinIcon className="mt-1 h-4 w-4 text-muted-foreground" />
+                  <div>
+                    <p className="text-sm text-muted-foreground">
+                      {event.meetingPoint}
+                    </p>
+                    {event.maplink && (
+                      <Button variant="link" asChild className="h-auto p-0">
+                        <Link
+                          href={event.maplink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          View on Map
+                        </Link>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </Link>

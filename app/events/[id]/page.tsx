@@ -3,6 +3,8 @@ import {
   MapPinIcon,
   ArrowLeftIcon,
   ExternalLinkIcon,
+  UsersIcon,
+  LinkedinIcon,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -100,18 +102,30 @@ export default async function EventPage({ params }: EventPageProps) {
                 <div className="flex items-start gap-3">
                   <MapPinIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                   <div>
-                    <p className="font-medium">Course</p>
-                    <p className="text-muted-foreground">{event.course}</p>
+                    <p className="font-medium">Meeting Point</p>
+                    <p className="text-muted-foreground">
+                      {event.meetingPoint}
+                    </p>
+                    {event.maplink && (
+                      <Button variant="link" asChild className="h-auto p-0">
+                        <Link
+                          href={event.maplink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm"
+                        >
+                          View Meeting Point
+                        </Link>
+                      </Button>
+                    )}
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <MapPinIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                   <div>
-                    <p className="font-medium">Meeting Point</p>
-                    <p className="text-muted-foreground">
-                      {event.meetingPoint}
-                    </p>
+                    <p className="font-medium">Course</p>
+                    <p className="text-muted-foreground">{event.course}</p>
                     {event.stravaLink && (
                       <Button variant="link" asChild className="h-auto p-0">
                         <Link
@@ -120,7 +134,7 @@ export default async function EventPage({ params }: EventPageProps) {
                           rel="noopener noreferrer"
                           className="text-sm"
                         >
-                          View on Map
+                          View Route
                         </Link>
                       </Button>
                     )}
@@ -128,6 +142,47 @@ export default async function EventPage({ params }: EventPageProps) {
                 </div>
 
                 <Separator />
+
+                {/* Event Links */}
+                <div className="space-y-3">
+                  {event.meetuplink && (
+                    <div className="flex items-start gap-3">
+                      <UsersIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium">Meetup</p>
+                        <Button variant="link" asChild className="h-auto p-0">
+                          <Link
+                            href={event.meetuplink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm"
+                          >
+                            View Event on Meetup
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {event.linkedinlink && (
+                    <div className="flex items-start gap-3">
+                      <LinkedinIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium">LinkedIn</p>
+                        <Button variant="link" asChild className="h-auto p-0">
+                          <Link
+                            href={event.linkedinlink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm"
+                          >
+                            View Event on LinkedIn
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 {!isPastEvent && (
                   <div className="space-y-2">

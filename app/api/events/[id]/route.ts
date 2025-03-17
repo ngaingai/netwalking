@@ -28,6 +28,7 @@ export async function PUT(
 
     // Read current data
     const eventsData = await getEventsData();
+    console.log("Current events data:", eventsData);
     const eventIndex = eventsData.events.findIndex(
       (event: Event) => event.id === id
     );
@@ -55,13 +56,17 @@ export async function PUT(
     if (process.env.NODE_ENV === "development") {
       const eventsFilePath = path.join(process.cwd(), "data", "events.json");
       console.log("Writing to file:", eventsFilePath);
+      console.log("Writing updated events array:", updatedEvents);
 
       try {
-        await fs.writeFile(
-          eventsFilePath,
-          JSON.stringify({ events: updatedEvents }, null, 2)
-        );
+        const fileContent = JSON.stringify({ events: updatedEvents }, null, 2);
+        console.log("File content to write:", fileContent);
+        await fs.writeFile(eventsFilePath, fileContent);
         console.log("Successfully wrote to file");
+
+        // Verify the write by reading back
+        const verifyData = await getEventsData();
+        console.log("Verified data after write:", verifyData);
       } catch (writeError) {
         console.error("Error writing to file:", writeError);
         throw writeError; // In development, we want to know if writes fail

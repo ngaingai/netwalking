@@ -3,6 +3,7 @@
 import type React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,7 +16,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/use-toast";
 
 export function AddEvent() {
   const [formData, setFormData] = useState({
@@ -53,11 +53,7 @@ export function AddEvent() {
       !formData.course ||
       !formData.meetingPoint
     ) {
-      toast({
-        title: "Missing fields",
-        description: "Please fill in all required fields",
-        variant: "destructive",
-      });
+      toast.error("Please fill in all required fields");
       return;
     }
 
@@ -82,10 +78,7 @@ export function AddEvent() {
         throw new Error("Failed to add event");
       }
 
-      toast({
-        title: "Event Added",
-        description: "The event has been added successfully",
-      });
+      toast.success("Event added successfully");
 
       // Reset form
       setFormData({
@@ -108,12 +101,9 @@ export function AddEvent() {
       router.refresh();
     } catch (error) {
       console.error("Error adding event:", error);
-      toast({
-        title: "Error",
-        description:
-          error instanceof Error ? error.message : "Failed to add event",
-        variant: "destructive",
-      });
+      toast.error(
+        error instanceof Error ? error.message : "Failed to add event"
+      );
     } finally {
       setIsLoading(false);
     }

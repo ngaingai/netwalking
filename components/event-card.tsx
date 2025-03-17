@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pencil, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { EditEvent } from "./edit-event";
-import { getEventImages } from "@/lib/events";
 
 interface EventCardProps {
   event: Event;
@@ -23,7 +22,11 @@ export function EventCard({ event }: EventCardProps) {
   useEffect(() => {
     const fetchEventImage = async () => {
       try {
-        const images = await getEventImages(event.no);
+        const response = await fetch(`/api/events/${event.no}/images`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch images");
+        }
+        const images = await response.json();
         if (images && images.length > 0) {
           setCoverImage(images[0]);
         }

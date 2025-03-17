@@ -9,6 +9,7 @@ import { Pencil, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { EditEvent } from "./edit-event";
 import { Label } from "@/components/ui/label";
 import ImageUpload from "@/components/image-upload";
+import { formatTime } from "@/lib/utils";
 
 interface EventCardProps {
   event: Event;
@@ -22,6 +23,14 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
     null
   );
   const [showEditDialog, setShowEditDialog] = useState(false);
+
+  const formatTime = (time: string) => {
+    const [hours, minutes] = time.split(":");
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minutes} ${ampm}`;
+  };
 
   const fetchEventImage = useCallback(async () => {
     try {
@@ -119,7 +128,7 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
                 <strong>Date:</strong> {event.date}
               </p>
               <p>
-                <strong>Time:</strong> {event.time}
+                <strong>Time:</strong> {formatTime(event.time)}
               </p>
               <p>
                 <strong>Course:</strong> {event.course}

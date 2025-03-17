@@ -90,7 +90,11 @@ export async function getEventImages(
           secure_url: resource.secure_url,
           order: resource.tags
             ? resource.tags
-                .find((tag: string) => tag.startsWith("order_"))
+                .filter((tag: string) => tag.startsWith("order_"))
+                .sort(
+                  (a, b) =>
+                    parseInt(b.split("_")[1]) - parseInt(a.split("_")[1])
+                )[0]
                 ?.split("_")[1] ?? null
             : null,
         })

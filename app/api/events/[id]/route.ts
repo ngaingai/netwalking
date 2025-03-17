@@ -3,7 +3,17 @@ import { promises as fs } from "fs";
 import path from "path";
 import type { Event } from "@/lib/events";
 import { getEventStatus } from "@/lib/events";
-import eventsData from "@/data/events.json";
+
+interface EventsData {
+  events: Event[];
+}
+
+// Helper function to read events data
+async function getEventsData(): Promise<EventsData> {
+  const eventsFilePath = path.join(process.cwd(), "data", "events.json");
+  const fileContents = await fs.readFile(eventsFilePath, "utf8");
+  return JSON.parse(fileContents);
+}
 
 export async function PUT(
   request: Request,
@@ -16,7 +26,11 @@ export async function PUT(
     const updatedEvent = (await request.json()) as Partial<Event>;
     console.log("Received updated event data:", updatedEvent);
 
-    const eventIndex = eventsData.events.findIndex((event) => event.id === id);
+    // Read current data
+    const eventsData = await getEventsData();
+    const eventIndex = eventsData.events.findIndex(
+      (event: Event) => event.id === id
+    );
     console.log("Found event at index:", eventIndex);
 
     if (eventIndex === -1) {
@@ -50,15 +64,13 @@ export async function PUT(
         console.log("Successfully wrote to file");
       } catch (writeError) {
         console.error("Error writing to file:", writeError);
-        // Don't throw the error, just log it
+        throw writeError; // In development, we want to know if writes fail
       }
     } else {
       console.log("Skipping file write in production environment");
       // TODO: Implement proper database storage
     }
 
-    // Return success even if we couldn't write to the file
-    // This allows the UI to update even though changes won't persist in production
     return NextResponse.json(mergedEvent);
   } catch (error) {
     console.error("Error in PUT /api/events/[id]:", error);
@@ -75,7 +87,8 @@ export async function GET(
 ) {
   try {
     const { id } = await context.params;
-    const event = eventsData.events.find((e) => e.id === id);
+    const eventsData = await getEventsData();
+    const event = eventsData.events.find((e: Event) => e.id === id);
 
     if (!event) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });

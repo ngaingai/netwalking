@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
-import { promises as fs } from "fs";
-import path from "path";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -11,64 +9,46 @@ cloudinary.config({
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const eventNo = params.id;
-    const { images } = await request.json();
+    const { id } = await context.params;
+    const eventNo = id;
+    console.log(`[ImageUpload] Processing reorder for event: ${eventNo}`);
 
-    if (!Array.isArray(images)) {
+    const body = await request.json();
+    const { images } = body;
+
+    if (!images || !Array.isArray(images)) {
+      console.log("[ImageUpload] No images array provided for reordering");
       return NextResponse.json(
-        { success: false, error: "Invalid images array provided" },
+        { error: "No images array provided" },
         { status: 400 }
       );
     }
 
-    // Log the reorder request
-    console.log(`Reordering ${images.length} images for event ${eventNo}`);
+    // Since Cloudinary doesn't support reordering directly,
+    // we'll just verify that all images exist
+    const result = await cloudinary.search
+      .expression(`folder:events/${eventNo}/*`)
+      .execute();
 
-    // Read the current images data
-    const imagesDataPath = path.join(
-      process.cwd(),
-      "data",
-      `images-${eventNo}.json`
-    );
+    const existingIds = new Set(result.resources.map((r: any) => r.public_id));
+    const allImagesExist = images.every((id: string) => existingIds.has(id));
 
-    try {
-      // Create the file if it doesn't exist
-      await fs.access(imagesDataPath).catch(async () => {
-        await fs.writeFile(imagesDataPath, JSON.stringify([]));
-      });
-
-      // Read existing images
-      const existingImagesStr = await fs.readFile(imagesDataPath, "utf-8");
-      const existingImages = JSON.parse(existingImagesStr);
-
-      // Create a map of existing images for quick lookup
-      const imageMap = new Map(
-        existingImages.map((img: any) => [img.public_id, img])
+    if (!allImagesExist) {
+      console.log("[ImageUpload] Some images in the order don't exist");
+      return NextResponse.json(
+        { error: "Some images don't exist" },
+        { status: 400 }
       );
-
-      // Create new ordered array using the provided order
-      const orderedImages = images
-        .map((publicId: string) => imageMap.get(publicId))
-        .filter(Boolean);
-
-      // Save the new order
-      await fs.writeFile(
-        imagesDataPath,
-        JSON.stringify(orderedImages, null, 2)
-      );
-
-      return NextResponse.json({ success: true });
-    } catch (error) {
-      console.error("Error accessing/writing images data:", error);
-      throw error;
     }
+
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error reordering images:", error);
+    console.error("[ImageUpload] Error reordering images:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to reorder images" },
+      { error: "Failed to reorder images" },
       { status: 500 }
     );
   }

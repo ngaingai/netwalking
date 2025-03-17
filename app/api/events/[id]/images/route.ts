@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
-import { promises as fs } from "fs";
-import path from "path";
 
 interface DeleteRequest {
   publicId: string;
@@ -24,33 +22,6 @@ export async function GET(
     const eventNo = id;
     console.log(`[ImageUpload] Getting images for event: ${eventNo}`);
 
-    // Try to read the stored order first
-    const imagesDataPath = path.join(
-      process.cwd(),
-      "data",
-      `images-${eventNo}.json`
-    );
-    let orderedImages: any[] = [];
-
-    try {
-      const existingImagesStr = await fs.readFile(imagesDataPath, "utf-8");
-      orderedImages = JSON.parse(existingImagesStr);
-      console.log(
-        `[ImageUpload] Found stored order with ${orderedImages.length} images`
-      );
-
-      // If we have a stored order, return it
-      if (orderedImages.length > 0) {
-        return NextResponse.json(orderedImages);
-      }
-    } catch (error) {
-      // If the file doesn't exist or is invalid, fall back to Cloudinary search
-      console.log(
-        "[ImageUpload] No stored order found, falling back to Cloudinary search"
-      );
-    }
-
-    // Fall back to Cloudinary search if no stored order
     const result = await cloudinary.search
       .expression(`folder:events/${eventNo}/*`)
       .sort_by("created_at", "asc")
@@ -60,9 +31,6 @@ export async function GET(
       public_id: resource.public_id,
       secure_url: resource.secure_url,
     }));
-
-    // Store the initial order
-    await fs.writeFile(imagesDataPath, JSON.stringify(images, null, 2));
 
     console.log(
       `[ImageUpload] Found ${images.length} images for event ${eventNo}`
@@ -142,26 +110,6 @@ export async function POST(
       `[ImageUpload] Successfully uploaded ${newImages.length} images`
     );
 
-    // Update the stored order
-    const imagesDataPath = path.join(
-      process.cwd(),
-      "data",
-      `images-${eventNo}.json`
-    );
-    let existingImages: any[] = [];
-
-    try {
-      const existingImagesStr = await fs.readFile(imagesDataPath, "utf-8");
-      existingImages = JSON.parse(existingImagesStr);
-    } catch (error) {
-      // If file doesn't exist, start with empty array
-      console.log("[ImageUpload] No existing images found, starting fresh");
-    }
-
-    // Append new images to existing ones
-    const updatedImages = [...existingImages, ...newImages];
-    await fs.writeFile(imagesDataPath, JSON.stringify(updatedImages, null, 2));
-
     return NextResponse.json({ images: newImages });
   } catch (error) {
     console.error("[ImageUpload] Error uploading files:", error);
@@ -194,31 +142,6 @@ export async function DELETE(
     // Delete from Cloudinary
     await cloudinary.uploader.destroy(publicId);
     console.log(`[ImageUpload] Successfully deleted image: ${publicId}`);
-
-    // Update the stored order
-    const imagesDataPath = path.join(
-      process.cwd(),
-      "data",
-      `images-${eventNo}.json`
-    );
-    let existingImages: any[] = [];
-
-    try {
-      const existingImagesStr = await fs.readFile(imagesDataPath, "utf-8");
-      existingImages = JSON.parse(existingImagesStr);
-
-      // Remove the deleted image from the stored order
-      const updatedImages = existingImages.filter(
-        (img) => img.public_id !== publicId
-      );
-      await fs.writeFile(
-        imagesDataPath,
-        JSON.stringify(updatedImages, null, 2)
-      );
-    } catch (error) {
-      console.error("[ImageUpload] Error updating stored order:", error);
-      // Continue since the image was deleted from Cloudinary
-    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

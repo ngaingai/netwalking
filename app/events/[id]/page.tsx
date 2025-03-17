@@ -72,7 +72,14 @@ export default async function EventPage({ params }: EventPageProps) {
           )}
 
           <div className="prose prose-gray max-w-none">
-            <p>{event.description}</p>
+            {event.description
+              .split("\n")
+              .filter((line) => line.trim() !== "")
+              .map((line, index) => (
+                <p key={index} className="mb-4">
+                  {line}
+                </p>
+              ))}
           </div>
 
           {/* Event Gallery - only show for past events */}

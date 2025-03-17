@@ -98,7 +98,7 @@ export async function getEventImages(
           ? parseInt(orderTag.split("_")[1])
           : Number.MAX_SAFE_INTEGER;
 
-        return {
+      return {
           public_id: resource.public_id,
           secure_url: resource.secure_url,
           order: order.toString(),

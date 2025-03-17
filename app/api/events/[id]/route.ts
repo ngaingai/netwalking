@@ -10,9 +10,7 @@ export async function PUT(
   try {
     const { id } = await context.params;
     const updatedEvent = (await request.json()) as Partial<Event>;
-    const eventIndex = eventsData.events.findIndex(
-      (event: Event) => event.id === id
-    );
+    const eventIndex = eventsData.events.findIndex((event) => event.id === id);
 
     if (eventIndex === -1) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
@@ -37,12 +35,12 @@ export async function PUT(
 }
 
 export async function GET(
-  request: Request,
+  _: Request,
   context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await context.params;
-    const event = eventsData.events.find((e: Event) => e.id === id);
+    const event = eventsData.events.find((e) => e.id === id);
 
     if (!event) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });

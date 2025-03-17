@@ -16,13 +16,17 @@ export interface Event {
   title: string;
   date: string;
   time: string;
-  location: string;
   course: string;
+  meetingPoint: string;
+  maplink: string;
+  meetuplink: string;
+  linkedinlink: string;
   description: string;
+  attendees: number;
+  status: "past" | "upcoming";
   stravaLink?: string;
   komootLink?: string;
   images?: CloudinaryImage[];
-  status: "past" | "upcoming";
 }
 
 export interface CloudinaryImage {

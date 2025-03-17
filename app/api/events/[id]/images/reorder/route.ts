@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
+import { promises as fs } from "fs";
+import path from "path";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -25,9 +27,44 @@ export async function POST(
     // Log the reorder request
     console.log(`Reordering ${images.length} images for event ${eventNo}`);
 
-    // In a production app, you would store the order in a database
-    // For now, we'll just return success since Cloudinary doesn't support reordering
-    return NextResponse.json({ success: true });
+    // Read the current images data
+    const imagesDataPath = path.join(
+      process.cwd(),
+      "data",
+      `images-${eventNo}.json`
+    );
+
+    try {
+      // Create the file if it doesn't exist
+      await fs.access(imagesDataPath).catch(async () => {
+        await fs.writeFile(imagesDataPath, JSON.stringify([]));
+      });
+
+      // Read existing images
+      const existingImagesStr = await fs.readFile(imagesDataPath, "utf-8");
+      const existingImages = JSON.parse(existingImagesStr);
+
+      // Create a map of existing images for quick lookup
+      const imageMap = new Map(
+        existingImages.map((img: any) => [img.public_id, img])
+      );
+
+      // Create new ordered array using the provided order
+      const orderedImages = images
+        .map((publicId: string) => imageMap.get(publicId))
+        .filter(Boolean);
+
+      // Save the new order
+      await fs.writeFile(
+        imagesDataPath,
+        JSON.stringify(orderedImages, null, 2)
+      );
+
+      return NextResponse.json({ success: true });
+    } catch (error) {
+      console.error("Error accessing/writing images data:", error);
+      throw error;
+    }
   } catch (error) {
     console.error("Error reordering images:", error);
     return NextResponse.json(

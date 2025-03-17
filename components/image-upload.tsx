@@ -13,6 +13,7 @@ import {
   DraggableProvided,
   DraggableStateSnapshot,
 } from "@hello-pangea/dnd";
+import { Button } from "@/components/ui/button";
 
 interface ImageUploadProps {
   eventId: string;
@@ -47,19 +48,13 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
     }
   };
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target as HTMLInputElement;
-    const files = input.files;
-    if (!files || files.length === 0) return;
+  const handleUpload = async (files: FileList | null) => {
+    if (!files) return;
 
     setIsUploading(true);
-    setError(null);
-
-    try {
+    const uploadPromises = Array.from(files).map(async (file) => {
       const formData = new FormData();
-      Array.from(files).forEach((file) => {
-        formData.append("files", file);
-      });
+      formData.append("file", file);
 
       const response = await fetch(`/api/events/${eventId}/images`, {
         method: "POST",
@@ -67,16 +62,21 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to upload images");
+        throw new Error("Failed to upload image");
       }
 
-      const data = (await response.json()) as { images: CloudinaryImage[] };
-      const newImages = [...images, ...data.images];
-      setImages(newImages);
-      onUpdate?.();
+      return response.json();
+    });
+
+    try {
+      await Promise.all(uploadPromises);
+      toast.success("Images uploaded successfully");
+      if (onUpdate) {
+        onUpdate();
+      }
     } catch (error) {
       console.error("Error uploading images:", error);
-      setError("Failed to upload images");
+      toast.error("Failed to upload images");
     } finally {
       setIsUploading(false);
     }
@@ -147,22 +147,24 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-medium">Event Images</h3>
         <div className="relative">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleUpload}
-            className="hidden"
-            id="image-upload"
-            disabled={isUploading}
-            multiple
-          />
-          <label
-            htmlFor="image-upload"
-            className="flex cursor-pointer items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-          >
-            <Upload className="h-4 w-4" />
-            {isUploading ? "Uploading..." : "Upload Images"}
-          </label>
+          <div className="flex items-center gap-4">
+            <Button
+              variant="outline"
+              onClick={() => document.getElementById("image-upload")?.click()}
+              disabled={isUploading}
+            >
+              {isUploading ? "Uploading..." : "Upload Images"}
+            </Button>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleUpload(e.target.files)}
+              className="hidden"
+              id="image-upload"
+              disabled={isUploading}
+              multiple
+            />
+          </div>
         </div>
       </div>
 

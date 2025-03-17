@@ -49,6 +49,15 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
     setShowEditDialog(true);
   };
 
+  const handleEditClose = () => {
+    setShowEditDialog(false);
+    // Refresh both event data and images when closing edit dialog
+    if (onEventUpdated) {
+      onEventUpdated();
+    }
+    fetchEventImage();
+  };
+
   return (
     <>
       <Card>
@@ -91,7 +100,14 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
           {isEditing ? (
             <EditEvent
               event={event}
-              onClose={() => setIsEditing(false)}
+              onClose={() => {
+                setIsEditing(false);
+                // Refresh both event data and images when closing inline edit
+                if (onEventUpdated) {
+                  onEventUpdated();
+                }
+                fetchEventImage();
+              }}
               onUpdate={onEventUpdated}
             />
           ) : isExpanded ? (
@@ -199,7 +215,12 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
                 <Label>Images</Label>
                 <ImageUpload
                   eventId={event.no.toString()}
-                  onUpdate={fetchEventImage}
+                  onUpdate={() => {
+                    fetchEventImage();
+                    if (onEventUpdated) {
+                      onEventUpdated();
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -210,7 +231,7 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
       {showEditDialog && (
         <EditEvent
           event={event}
-          onClose={() => setShowEditDialog(false)}
+          onClose={handleEditClose}
           onUpdate={onEventUpdated}
         />
       )}

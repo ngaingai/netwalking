@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { Event } from "@/lib/events";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pencil, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import { EditEvent } from "./edit-event";
+import { Label } from "@/components/ui/label";
+import ImageUpload from "@/components/image-upload";
 
 interface EventCardProps {
   event: Event;
@@ -19,24 +21,27 @@ export function EventCard({ event }: EventCardProps) {
     null
   );
 
-  useEffect(() => {
-    const fetchEventImage = async () => {
-      try {
-        const response = await fetch(`/api/events/${event.no}/images`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch images");
-        }
-        const images = await response.json();
-        if (images && images.length > 0) {
-          setCoverImage(images[0]);
-        }
-      } catch (error) {
-        console.error("Error fetching event image:", error);
+  const fetchEventImage = useCallback(async () => {
+    try {
+      const response = await fetch(`/api/events/${event.no}/images`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch images");
       }
-    };
-
-    fetchEventImage();
+      const images = await response.json();
+      if (images && images.length > 0) {
+        setCoverImage(images[0]);
+      } else {
+        setCoverImage(null);
+      }
+    } catch (error) {
+      console.error("Error fetching event image:", error);
+      setCoverImage(null);
+    }
   }, [event.no]);
+
+  useEffect(() => {
+    fetchEventImage();
+  }, [fetchEventImage]);
 
   return (
     <Card>
@@ -183,6 +188,13 @@ export function EventCard({ event }: EventCardProps) {
             <p>
               <strong>Attendees:</strong> {event.attendees}
             </p>
+            <div className="space-y-2">
+              <Label>Images</Label>
+              <ImageUpload
+                eventId={event.no.toString()}
+                onUpdate={fetchEventImage}
+              />
+            </div>
           </div>
         ) : null}
       </CardContent>

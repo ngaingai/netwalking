@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import bcryptjs from "bcryptjs";
 import { ADMIN_PASSWORD_HASH } from "@/config";
 import { addSession } from "@/lib/sessions";

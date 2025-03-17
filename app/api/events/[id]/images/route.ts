@@ -5,6 +5,18 @@ interface DeleteRequest {
   publicId: string;
 }
 
+interface CloudinaryResource {
+  public_id: string;
+  secure_url: string;
+  tags?: string[];
+}
+
+interface OrderedImage {
+  public_id: string;
+  secure_url: string;
+  order: string | null;
+}
+
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
 
 cloudinary.config({
@@ -24,13 +36,37 @@ export async function GET(
 
     const result = await cloudinary.search
       .expression(`folder:events/${eventNo}/*`)
-      .sort_by("created_at", "asc")
+      .with_field("tags")
+      .max_results(500)
       .execute();
 
-    const images = result.resources.map((resource: any) => ({
-      public_id: resource.public_id,
-      secure_url: resource.secure_url,
-    }));
+    const images = result.resources
+      .map(
+        (resource: CloudinaryResource): OrderedImage => ({
+          public_id: resource.public_id,
+          secure_url: resource.secure_url,
+          order: resource.tags
+            ? resource.tags
+                .find((tag: string) => tag.startsWith("order_"))
+                ?.split("_")[1] ?? null
+            : null,
+        })
+      )
+      .sort((a: OrderedImage, b: OrderedImage) => {
+        // If both have order tags, sort by order
+        if (a.order !== null && b.order !== null) {
+          return parseInt(a.order) - parseInt(b.order);
+        }
+        // If only one has order, put the one without order at the end
+        if (a.order === null) return 1;
+        if (b.order === null) return -1;
+        // If neither has order, maintain original order
+        return 0;
+      })
+      .map(({ public_id, secure_url }: OrderedImage) => ({
+        public_id,
+        secure_url,
+      }));
 
     console.log(
       `[ImageUpload] Found ${images.length} images for event ${eventNo}`

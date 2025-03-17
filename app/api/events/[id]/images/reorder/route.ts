@@ -27,20 +27,29 @@ export async function POST(
       );
     }
 
-    // Since Cloudinary doesn't support reordering directly,
-    // we'll just verify that all images exist
-    const result = await cloudinary.search
-      .expression(`folder:events/${eventNo}/*`)
-      .execute();
+    // Update each image with its order as a tag
+    const updatePromises = images.map(
+      async (publicId: string, index: number) => {
+        try {
+          await cloudinary.uploader.add_tag(`order_${index}`, [publicId]);
+          return true;
+        } catch (error) {
+          console.error(
+            `[ImageUpload] Error updating order for ${publicId}:`,
+            error
+          );
+          return false;
+        }
+      }
+    );
 
-    const existingIds = new Set(result.resources.map((r: any) => r.public_id));
-    const allImagesExist = images.every((id: string) => existingIds.has(id));
+    const results = await Promise.all(updatePromises);
+    const allSucceeded = results.every((result) => result === true);
 
-    if (!allImagesExist) {
-      console.log("[ImageUpload] Some images in the order don't exist");
+    if (!allSucceeded) {
       return NextResponse.json(
-        { error: "Some images don't exist" },
-        { status: 400 }
+        { error: "Failed to update some image orders" },
+        { status: 500 }
       );
     }
 

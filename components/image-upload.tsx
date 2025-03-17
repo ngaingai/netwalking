@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Trash2, Upload, GripVertical } from "lucide-react";
+import { Trash2, GripVertical } from "lucide-react";
 import { toast } from "sonner";
 import {
   DragDropContext,

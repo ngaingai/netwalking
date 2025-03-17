@@ -40,8 +40,9 @@ export async function EventsList({ events }: EventsListProps) {
                 <Image
                   src={event.coverImage}
                   alt={event.title}
-                  fill
-                  className="object-cover"
+                  width={600}
+                  height={338}
+                  className="object-cover w-full h-full"
                 />
               ) : (
                 <div className="flex h-full items-center justify-center bg-muted">

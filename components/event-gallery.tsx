@@ -30,40 +30,40 @@ export function EventGallery({ eventId, images }: EventGalleryProps) {
   }
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full space-y-4">
       {/* Main Image */}
-      <div className="relative w-full h-[700px] rounded-lg overflow-hidden">
+      <div className="relative aspect-[16/9] w-full rounded-lg overflow-hidden">
         <Image
           src={images[currentIndex].secure_url}
           alt={`Event image ${currentIndex + 1}`}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+          width={1200}
+          height={675}
+          className="object-cover w-full h-full"
           priority
         />
 
         {/* Navigation Arrows */}
         <button
           onClick={previousImage}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
         <button
           onClick={nextImage}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
         >
           <ChevronRight className="w-6 h-6" />
         </button>
 
         {/* Image Counter */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
           {currentIndex + 1} / {images.length}
         </div>
       </div>
 
       {/* Thumbnail Grid */}
-      <div className="grid grid-cols-5 gap-2 mt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
         {images.map((image, index) => (
           <button
             key={image.public_id}
@@ -75,9 +75,9 @@ export function EventGallery({ eventId, images }: EventGalleryProps) {
             <Image
               src={image.secure_url}
               alt={`Thumbnail ${index + 1}`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 20vw, 15vw"
+              width={300}
+              height={225}
+              className="object-cover w-full h-full"
             />
           </button>
         ))}

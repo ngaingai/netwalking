@@ -43,7 +43,7 @@ export default async function EventPage({ params }: EventPageProps) {
   const coverImage = images[0];
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <div className="container mx-auto min-h-screen px-4 py-8">
       <div className="mb-8">
         <Button
           variant="ghost"
@@ -61,13 +61,14 @@ export default async function EventPage({ params }: EventPageProps) {
       </div>
 
       <div className="grid gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-8">
           {!isPastEvent && coverImage && (
-            <div className="relative mb-8 aspect-video w-full overflow-hidden rounded-lg">
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg">
               <Image
                 src={coverImage.secure_url}
                 alt={event.title}
-                fill
+                width={1200}
+                height={675}
                 className="object-cover"
                 priority
               />
@@ -79,13 +80,16 @@ export default async function EventPage({ params }: EventPageProps) {
           </div>
 
           {/* Event Gallery */}
-          <div className="mb-8">
-            <EventGallery eventId={event.no} images={images} />
-          </div>
+          {images.length > 0 && (
+            <div className="pt-4">
+              <h2 className="mb-4 text-2xl font-bold">Event Gallery</h2>
+              <EventGallery eventId={event.no} images={images} />
+            </div>
+          )}
         </div>
 
-        <div>
-          <div className="sticky top-8 space-y-6">
+        <div className="lg:relative">
+          <div className="space-y-6 lg:sticky lg:top-8">
             <Card>
               <CardHeader>
                 <CardTitle>Event Details</CardTitle>
@@ -161,6 +165,6 @@ export default async function EventPage({ params }: EventPageProps) {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

@@ -29,10 +29,6 @@ export interface CloudinaryImage {
   secure_url: string;
 }
 
-export function getEventImagePath(eventNo: string): string {
-  return `/images/events/${eventNo}.jpg`;
-}
-
 export async function getEvents(): Promise<Event[]> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
   const response = await fetch(`${baseUrl}/api/events`);

@@ -12,7 +12,7 @@ import {
   DroppableProvided,
   DraggableProvided,
   DraggableStateSnapshot,
-} from "react-beautiful-dnd";
+} from "@hello-pangea/dnd";
 
 interface ImageUploadProps {
   eventId: string;

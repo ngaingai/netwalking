@@ -223,7 +223,7 @@ export function EditEvent({ event, onClose }: EditEventProps) {
 
           <div className="space-y-2">
             <Label>Images</Label>
-            <ImageUpload eventId={event.no} />
+            <ImageUpload eventId={event.no.toString()} />
           </div>
         </CardContent>
         <CardFooter className="justify-between">

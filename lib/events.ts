@@ -42,7 +42,7 @@ interface CloudinaryResource {
 interface OrderedImage {
   public_id: string;
   secure_url: string;
-  order: string | null;
+  order: string;
 }
 
 export async function getEvents(): Promise<Event[]> {
@@ -83,39 +83,38 @@ export async function getEventImages(
       .max_results(500)
       .execute();
 
-    const images = result.resources
-      .map(
-        (resource: CloudinaryResource): OrderedImage => ({
+    // First, extract all images with their order information
+    const orderedImages = result.resources
+      .map((resource: CloudinaryResource): OrderedImage => {
+        // Find the most recent order tag (if any)
+        const orderTag = resource.tags
+          ?.filter((tag: string) => tag.startsWith("order_"))
+          .sort(
+            (a, b) => parseInt(b.split("_")[1]) - parseInt(a.split("_")[1])
+          )[0];
+
+        // Extract the order number or use a large number for unordered images
+        const order = orderTag
+          ? parseInt(orderTag.split("_")[1])
+          : Number.MAX_SAFE_INTEGER;
+
+        return {
           public_id: resource.public_id,
           secure_url: resource.secure_url,
-          order: resource.tags
-            ? resource.tags
-                .filter((tag: string) => tag.startsWith("order_"))
-                .sort(
-                  (a, b) =>
-                    parseInt(b.split("_")[1]) - parseInt(a.split("_")[1])
-                )[0]
-                ?.split("_")[1] ?? null
-            : null,
-        })
-      )
-      .sort((a: OrderedImage, b: OrderedImage) => {
-        // If both have order tags, sort by order
-        if (a.order !== null && b.order !== null) {
-          return parseInt(a.order) - parseInt(b.order);
-        }
-        // If only one has order, put the one without order at the end
-        if (a.order === null) return 1;
-        if (b.order === null) return -1;
-        // If neither has order, maintain original order
-        return 0;
+          order: order.toString(),
+        };
       })
-      .map(({ public_id, secure_url }: OrderedImage) => ({
-        public_id,
-        secure_url,
-      }));
+      .sort((a: OrderedImage, b: OrderedImage) => {
+        const orderA = parseInt(a.order);
+        const orderB = parseInt(b.order);
+        return orderA - orderB;
+      });
 
-    return images;
+    // Map back to CloudinaryImage format
+    return orderedImages.map(({ public_id, secure_url }: OrderedImage) => ({
+      public_id,
+      secure_url,
+    }));
   } catch (error) {
     console.error("Error fetching images from Cloudinary:", error);
     return [];

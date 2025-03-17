@@ -11,10 +11,16 @@ export async function PUT(
 ) {
   try {
     const { id } = await context.params;
+    console.log("Updating event with ID:", id);
+
     const updatedEvent = (await request.json()) as Partial<Event>;
+    console.log("Received updated event data:", updatedEvent);
+
     const eventIndex = eventsData.events.findIndex((event) => event.id === id);
+    console.log("Found event at index:", eventIndex);
 
     if (eventIndex === -1) {
+      console.log("Event not found with ID:", id);
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
     }
 
@@ -25,6 +31,7 @@ export async function PUT(
       id: eventsData.events[eventIndex].id,
       no: eventsData.events[eventIndex].no,
     };
+    console.log("Merged event data:", mergedEvent);
 
     // Update the event in the array
     const updatedEvents = [...eventsData.events];
@@ -32,10 +39,18 @@ export async function PUT(
 
     // Write the updated data back to the file
     const eventsFilePath = path.join(process.cwd(), "data", "events.json");
-    await fs.writeFile(
-      eventsFilePath,
-      JSON.stringify({ events: updatedEvents }, null, 2)
-    );
+    console.log("Writing to file:", eventsFilePath);
+
+    try {
+      await fs.writeFile(
+        eventsFilePath,
+        JSON.stringify({ events: updatedEvents }, null, 2)
+      );
+      console.log("Successfully wrote to file");
+    } catch (writeError) {
+      console.error("Error writing to file:", writeError);
+      throw writeError;
+    }
 
     return NextResponse.json(mergedEvent);
   } catch (error) {

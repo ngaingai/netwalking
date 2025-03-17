@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { promises as fs } from "fs";
+import path from "path";
 import type { Event } from "@/lib/events";
 import { getEventStatus } from "@/lib/events";
 import eventsData from "@/data/events.json";
@@ -16,13 +18,24 @@ export async function PUT(
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
     }
 
-    // Since we're using static data, we'll just return the merged event without persisting
+    // Merge the updated event data with existing data
     const mergedEvent = {
       ...eventsData.events[eventIndex],
       ...updatedEvent,
       id: eventsData.events[eventIndex].id,
       no: eventsData.events[eventIndex].no,
     };
+
+    // Update the event in the array
+    const updatedEvents = [...eventsData.events];
+    updatedEvents[eventIndex] = mergedEvent;
+
+    // Write the updated data back to the file
+    const eventsFilePath = path.join(process.cwd(), "data", "events.json");
+    await fs.writeFile(
+      eventsFilePath,
+      JSON.stringify({ events: updatedEvents }, null, 2)
+    );
 
     return NextResponse.json(mergedEvent);
   } catch (error) {

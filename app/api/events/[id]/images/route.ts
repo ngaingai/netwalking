@@ -14,7 +14,7 @@ cloudinary.config({
 });
 
 export async function GET(
-  request: Request,
+  _: Request,
   context: { params: Promise<{ id: string }> }
 ) {
   try {

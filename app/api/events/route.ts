@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import type { Event } from "@/lib/events";
 import { getEventStatus } from "@/lib/events";
 import eventsData from "@/data/events.json";
 
@@ -23,7 +22,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const newEvent = await request.json();
+    await request.json(); // Parse but don't store since we're not using it
 
     // Since we're using static data, just return success
     // In a real app, this would save to a database

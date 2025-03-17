@@ -53,6 +53,28 @@ export default function AdminPage() {
           </Button>
         </Link>
         <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+        <div className="ml-auto">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={async () => {
+              try {
+                const response = await fetch("/api/auth/logout", {
+                  method: "POST",
+                });
+                if (!response.ok) {
+                  throw new Error("Failed to logout");
+                }
+                router.push("/admin/login");
+              } catch (error) {
+                console.error("Logout error:", error);
+                toast.error("Failed to logout");
+              }
+            }}
+          >
+            Logout
+          </Button>
+        </div>
       </div>
 
       <div className="grid gap-8">

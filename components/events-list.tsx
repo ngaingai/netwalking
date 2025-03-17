@@ -18,16 +18,15 @@ interface EventsListProps {
 }
 
 export async function EventsList({ events }: EventsListProps) {
-  // Get images for all events in parallel
-  const eventsWithImages = await Promise.all(
-    events.map(async (event) => {
-      const images = await getEventImages(event.no);
-      return {
-        ...event,
-        coverImage: images[0]?.secure_url,
-      };
-    })
-  );
+  // Get images sequentially to avoid rate limits
+  const eventsWithImages = [];
+  for (const event of events) {
+    const images = await getEventImages(event.no);
+    eventsWithImages.push({
+      ...event,
+      coverImage: images[0]?.secure_url,
+    });
+  }
 
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

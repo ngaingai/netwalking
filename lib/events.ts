@@ -45,6 +45,13 @@ interface OrderedImage {
   order: string;
 }
 
+// Add a simple in-memory cache
+const imageCache = new Map<
+  string,
+  { images: CloudinaryImage[]; timestamp: number }
+>();
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+
 export async function getEvents(): Promise<Event[]> {
   // Update status based on current date
   return eventsData.events.map((event) => ({
@@ -76,6 +83,12 @@ export async function getUpcomingEvents(): Promise<Event[]> {
 export async function getEventImages(
   eventNo: string
 ): Promise<CloudinaryImage[]> {
+  // Check cache first
+  const cached = imageCache.get(eventNo);
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    return cached.images;
+  }
+
   try {
     const result = await cloudinary.search
       .expression(`folder:events/${eventNo}/*`)
@@ -98,7 +111,7 @@ export async function getEventImages(
           ? parseInt(orderTag.split("_")[1])
           : Number.MAX_SAFE_INTEGER;
 
-      return {
+        return {
           public_id: resource.public_id,
           secure_url: resource.secure_url,
           order: order.toString(),
@@ -111,10 +124,17 @@ export async function getEventImages(
       });
 
     // Map back to CloudinaryImage format
-    return orderedImages.map(({ public_id, secure_url }: OrderedImage) => ({
-      public_id,
-      secure_url,
-    }));
+    const images = orderedImages.map(
+      ({ public_id, secure_url }: OrderedImage) => ({
+        public_id,
+        secure_url,
+      })
+    );
+
+    // Cache the results
+    imageCache.set(eventNo, { images, timestamp: Date.now() });
+
+    return images;
   } catch (error) {
     console.error("Error fetching images from Cloudinary:", error);
     return [];

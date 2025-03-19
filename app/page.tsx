@@ -47,6 +47,31 @@ export default async function EventsPage() {
           </section>
         )}
 
+        {/* About Section */}
+        <section className="mb-12">
+          <Card className="bg-muted/50">
+            <CardContent className="p-8">
+              <div className="prose prose-gray max-w-none">
+                <p className="text-xl font-medium mb-4">
+                  Hi! I'm Alex! I'm an entrepreneur, but I'm also a dad👶👧
+                </p>
+                <p className="mb-4">
+                  I want to be home for dinner & tuck in my kids every night.
+                  <br />
+                  Typical after-work networking events aren't for me!
+                </p>
+                <p>
+                  So this is the afternoon, open-air version!🍃
+                  <br />
+                  Join us to meet other founders, freelancers, and parents.
+                  <br />
+                  Have a meaningful conversation & see the beauty of Tokyo!
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section>
           <h2 className="mb-6 text-2xl font-semibold">Past Events</h2>
           <Suspense fallback={<EventsPageSkeleton />}>

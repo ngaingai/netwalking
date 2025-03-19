@@ -21,21 +21,15 @@ export async function PUT(
 ) {
   try {
     const { id } = await context.params;
-    console.log("Updating event with ID:", id);
-
     const updatedEvent = (await request.json()) as Partial<Event>;
-    console.log("Received updated event data:", updatedEvent);
 
     // Read current data
     const eventsData = await getEventsData();
-    console.log("Current events data:", eventsData);
     const eventIndex = eventsData.events.findIndex(
       (event: Event) => event.id === id
     );
-    console.log("Found event at index:", eventIndex);
 
     if (eventIndex === -1) {
-      console.log("Event not found with ID:", id);
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
     }
 
@@ -46,39 +40,34 @@ export async function PUT(
       id: eventsData.events[eventIndex].id,
       no: eventsData.events[eventIndex].no,
     };
-    console.log("Merged event data:", mergedEvent);
 
     // Update the event in the array
     const updatedEvents = [...eventsData.events];
     updatedEvents[eventIndex] = mergedEvent;
 
-    // Only attempt to write to file in development environment
-    if (process.env.NODE_ENV === "development") {
-      const eventsFilePath = path.join(process.cwd(), "data", "events.json");
-      console.log("Writing to file:", eventsFilePath);
-      console.log("Writing updated events array:", updatedEvents);
+    if (process.env.NODE_ENV !== "production") {
+      // Write the updated events array back to the file
+      const eventsFilePath = path.join(process.cwd(), "data/events.json");
+      const fileContent = JSON.stringify({ events: updatedEvents }, null, 2);
+      await fs.writeFile(eventsFilePath, fileContent, "utf-8");
 
-      try {
-        const fileContent = JSON.stringify({ events: updatedEvents }, null, 2);
-        console.log("File content to write:", fileContent);
-        await fs.writeFile(eventsFilePath, fileContent);
-        console.log("Successfully wrote to file");
-
-        // Verify the write by reading back
-        const verifyData = await getEventsData();
-        console.log("Verified data after write:", verifyData);
-      } catch (writeError) {
-        console.error("Error writing to file:", writeError);
-        throw writeError; // In development, we want to know if writes fail
+      // Verify the data was written correctly
+      const verifyData = await fs.readFile(eventsFilePath, "utf-8");
+      const parsedData = JSON.parse(verifyData);
+      if (!parsedData.events[eventIndex]) {
+        throw new Error("Failed to verify event update");
       }
     } else {
-      console.log("Skipping file write in production environment");
-      // TODO: Implement proper database storage
+      // In production, we'll use a proper database
+      // TODO: Implement database storage for events
     }
 
     return NextResponse.json(mergedEvent);
   } catch (error) {
-    console.error("Error in PUT /api/events/[id]:", error);
+    // Log error for debugging in development
+    if (process.env.NODE_ENV !== "production") {
+      console.error("Error in PUT /api/events/[id]:", error);
+    }
     return NextResponse.json(
       { error: "Failed to update event" },
       { status: 500 }
@@ -107,7 +96,10 @@ export async function GET(
 
     return NextResponse.json(updatedEvent);
   } catch (error) {
-    console.error("Error in GET /api/events/[id]:", error);
+    // Log error for debugging in development
+    if (process.env.NODE_ENV !== "production") {
+      console.error("Error in GET /api/events/[id]:", error);
+    }
     return NextResponse.json(
       { error: "Failed to read event" },
       { status: 500 }

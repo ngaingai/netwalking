@@ -62,27 +62,20 @@ function getClientIp(request: NextRequest): string {
 async function checkAdminAuth(request: NextRequest): Promise<boolean> {
   const sessionCookie = request.cookies.get("admin_session");
   if (!sessionCookie?.value) {
-    console.log("[Auth] No session cookie found");
     return false;
   }
 
-  const isValid = await isValidSession(sessionCookie.value);
-  console.log(
-    `[Auth] Admin authentication ${isValid ? "successful" : "failed"}`
-  );
-  return isValid;
+  return await isValidSession(sessionCookie.value);
 }
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  console.log(`[Middleware] Processing request: ${pathname}`);
 
   // Handle API routes
   if (pathname.startsWith("/api/")) {
     const ip = getClientIp(request);
 
     if (!checkRateLimit(ip)) {
-      console.log(`[RateLimit] Exceeded for IP: ${ip}`);
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
 
@@ -94,11 +87,9 @@ export async function middleware(request: NextRequest) {
         (pathname.startsWith("/api/events/") && request.method === "PUT")
       ) {
         if (!(await checkAdminAuth(request))) {
-          console.log("[Auth] Unauthorized request attempt");
           return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
       } else if (!checkApiKey(request)) {
-        console.log("[Auth] Invalid API key");
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
     }
@@ -109,12 +100,10 @@ export async function middleware(request: NextRequest) {
   // Handle admin routes
   if (pathname.startsWith("/admin")) {
     if (pathname === "/admin/login") {
-      console.log("[Auth] Accessing login page");
       return NextResponse.next();
     }
 
     if (!(await checkAdminAuth(request))) {
-      console.log("[Auth] Redirecting to login");
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
 

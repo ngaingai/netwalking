@@ -23,13 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body className="min-h-screen bg-background font-sans antialiased">
-        <div className="relative">
-          <div className="absolute top-0 left-0 right-0 bg-yellow-500 text-black text-xs p-1 text-center">
+        <div className="flex flex-col min-h-screen">
+          <div className="bg-yellow-500 text-black text-xs p-1 text-center">
             Debug: Header should be below
           </div>
           <Header />
+          <main className="flex-1">{children}</main>
         </div>
-        <main className="relative flex min-h-screen flex-col">{children}</main>
         <Toaster />
       </body>
     </html>

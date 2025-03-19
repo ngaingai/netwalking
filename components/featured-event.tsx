@@ -27,14 +27,16 @@ export async function FeaturedEvent({ event }: FeaturedEventProps) {
       {/* Cover Image */}
       <div className="relative aspect-video w-full overflow-hidden">
         {coverImage ? (
-          <Image
-            src={coverImage.secure_url}
-            alt={event.title}
-            width={1200}
-            height={675}
-            className="object-cover w-full h-full transition-transform hover:scale-105"
-            priority
-          />
+          <Link href={`/events/${event.id}`}>
+            <Image
+              src={coverImage.secure_url}
+              alt={event.title}
+              width={1200}
+              height={675}
+              className="object-cover w-full h-full transition-transform hover:scale-105"
+              priority
+            />
+          </Link>
         ) : (
           <div className="flex h-full items-center justify-center bg-muted">
             <p className="text-sm text-muted-foreground">No image available</p>

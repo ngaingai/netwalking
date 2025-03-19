@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import { ADMIN_PASSWORD_HASH } from "@/config";
 import { addSession } from "@/lib/sessions";
 
 interface LoginRequest {

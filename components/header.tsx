@@ -16,7 +16,15 @@ export function Header() {
           <span className="font-bold">NetWalking</span>
         </Link>
         <span className="text-sm text-muted-foreground">
-          Produced by Glokyo
+          Produced by{" "}
+          <a
+            href="https://www.glokyo.jp/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Glokyo
+          </a>
         </span>
       </div>
     </header>

@@ -53,7 +53,18 @@ export default async function EventsPage() {
             <CardContent className="p-8">
               <div className="prose prose-gray max-w-none">
                 <p className="text-xl font-medium mb-4">
-                  Hi! I'm Alex! I'm an entrepreneur, but I'm also a dad👶👧
+                  Hi! I'm{" "}
+                  <a
+                    href="https://www.linkedin.com/in/alex-ngai/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    Alex
+                  </a>
+                  !
+                  <br />
+                  I'm an entrepreneur, but I'm also a dad👶👧
                 </p>
                 <p className="mb-4">
                   I want to be home for dinner & tuck in my kids every night.

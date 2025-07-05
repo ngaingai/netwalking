@@ -54,7 +54,7 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
     setIsUploading(true);
     const uploadPromises = Array.from(files).map(async (file) => {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("files", file);
 
       const response = await fetch(`/api/events/${eventId}/images`, {
         method: "POST",

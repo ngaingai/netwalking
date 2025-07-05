@@ -64,15 +64,29 @@ export default async function EventsPage() {
                   </a>
                   !
                   <br />
-                  I'm an entrepreneur, but I'm also a dad👶👧
                 </p>
                 <p className="mb-4">
-                  I want to be home for dinner & tuck in my kids every night.
+                  起業家ですが、同時にパパでもあります👶👧
+                  <br />
+                  毎晩子どもたちと一緒にごはんを食べて、寝かしつけたいんです。
+                  <br />
+                  I'm an entrepreneur, but I'm also a dad👶👧
+                  <br />I want to be home for dinner & tuck in my kids every
+                  night.
+                </p>
+                <p className="mb-4">
+                  だから、よくある夜のネットワーキングイベントはちょっと違う…。
+                  <br />
+                  そこで考えたのが、午後のオープンエア版！🍃
                   <br />
                   Typical after-work networking events aren't for me!
+                  <br />
+                  So this is the afternoon, open-air version!🍃
                 </p>
                 <p>
-                  So this is the afternoon, open-air version!🍃
+                  起業家、フリーランス、パパママ仲間たちと出会い、
+                  <br />
+                  東京の美しさを感じながら、深い会話を楽しみましょう！
                   <br />
                   Join us to meet other founders, freelancers, and parents.
                   <br />

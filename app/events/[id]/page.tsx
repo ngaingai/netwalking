@@ -211,11 +211,26 @@ export default async function EventPage({ params }: EventPageProps) {
                   </div>
                 )}
 
-                {isPastEvent && (
+                {isPastEvent && event.linkedinReportLink ? (
+                  <Button
+                    asChild
+                    className="w-full"
+                    style={{ backgroundColor: "#4cccc3", color: "#fff" }}
+                  >
+                    <Link
+                      href={event.linkedinReportLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      View Event Report
+                    </Link>
+                  </Button>
+                ) : isPastEvent ? (
                   <div className="rounded-md bg-muted p-3 text-center text-sm text-muted-foreground">
                     This event has already taken place
                   </div>
-                )}
+                ) : null}
               </CardContent>
             </Card>
 

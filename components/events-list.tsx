@@ -75,7 +75,6 @@ export async function EventsList({ events }: EventsListProps) {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm"
-                          onClick={(e) => e.stopPropagation()}
                         >
                           View on Map
                         </Link>

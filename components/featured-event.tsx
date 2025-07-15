@@ -59,7 +59,9 @@ export async function FeaturedEvent({ event }: FeaturedEventProps) {
       {/* Event Details */}
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <span className="text-muted-foreground font-mono">#{event.no}</span>
+          <span className="font-mono" style={{ color: "#4cccc3" }}>
+            #{event.no}
+          </span>
           <Link href={`/events/${event.id}`}>{event.title}</Link>
         </CardTitle>
         <CardDescription className="flex items-center gap-1">

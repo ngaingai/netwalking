@@ -19,7 +19,7 @@ export default async function EventsPage() {
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-center mb-8">
           <Image
-            src="/logo.png?v=2"
+            src="/images/NetWalking-Logo2.png"
             alt="NetWalking Logo"
             width={64}
             height={64}

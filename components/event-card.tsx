@@ -75,7 +75,9 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
                 <ChevronDown className="h-4 w-4" />
               )}
             </Button>
-            <CardTitle>Event #{event.no}</CardTitle>
+            <CardTitle>
+              Event <span style={{ color: "#4cccc3" }}>#{event.no}</span>
+            </CardTitle>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" size="icon" onClick={handleEdit}>

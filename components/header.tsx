@@ -7,13 +7,15 @@ export function Header() {
       <div className="container flex h-14 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Image
-            src="/logo.png?v=2"
+            src="/images/NetWalking-Logo2.png"
             alt="NetWalking Logo"
             width={32}
             height={32}
             className="h-8 w-8"
           />
-          <span className="font-bold">NetWalking</span>
+          <span className="font-bold">
+            <span style={{ color: "#4cccc3" }}>Net</span>Walking
+          </span>
         </Link>
         <span className="text-sm text-muted-foreground">
           Produced by{" "}

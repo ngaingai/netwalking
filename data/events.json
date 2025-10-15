@@ -1,6 +1,42 @@
 {
   "events": [
     {
+      "id": "netwalking-015",
+      "no": "015",
+      "title": "Meguro River Rd.2🍂",
+      "date": "2025-10-20",
+      "time": "12:00",
+      "course": "Meguro River",
+      "meetingPoint": "Meguro Station, 西口 West Exit",
+      "maplink": "https://maps.app.goo.gl/7wqLsZLx7Y8uv9Te9",
+      "meetuplink": "https://www.meetup.com/glokyo/events/311214585/?utm_version=v2",
+      "linkedinlink": "https://www.linkedin.com/events/glokyonetwalking-15-meguroriver7376831449196507137/",
+      "description": "🍂 NetWalking #15: Meguro River! 🍂\n📌 October 20th (Mon) @ 12 Noon\n📍 目黒駅 Meguro Station, 西口 West Exit\n🤝 Meet, Walk, Talk + Charity!\n\n日本語 OK!\nRain or shine!\n\nHi! I'm Alex!\n起業家ですが、同時にパパでもあります👶👧\n毎晩子どもたちと一緒にごはんを食べて、寝かしつけたいんです。\nI'm an entrepreneur, but I'm also a dad👶👧\nI want to be home for dinner & tuck in my kids every night.\n\nだから、よくある夜のネットワーキングイベントはちょっと違う…。\nそこで考えたのが、午後のオープンエア版！🍃\nTypical after-work networking events aren't for me!\nSo this is the afternoon, open-air version!🍃\n\n起業家、フリーランス、パパママ仲間たちと出会い、\n東京の美しさを感じながら、深い会話を楽しみましょう！\nJoin us to meet other founders, freelancers, and parents.\nHave a meaningful conversation & see the beauty of Tokyo!\n\nMeet at the 西口 West Exit,目黒駅 Meguro Station!\nhttps://maps.app.goo.gl/7wqLsZLx7Y8uv9Te9",
+      "attendees": 0,
+      "status": "upcoming",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
+    },
+    {
+      "id": "netwalking-014",
+      "no": "014",
+      "title": "Walking x Atelier Shinkai 🖼️",
+      "date": "2025-09-08",
+      "time": "12:00",
+      "course": "Atelier Shinkai",
+      "meetingPoint": "Keisei Hikifune Station, Exit A1",
+      "maplink": "https://maps.app.goo.gl/c3Z8ss5mN8xKGqEM8",
+      "meetuplink": "https://www.meetup.com/glokyo/events/310287186/?utm_version=v2",
+      "linkedinlink": "https://www.linkedin.com/events/netwalking-14-walkingxateliersh7361075471247167491/",
+      "description": "🖼️ NetWalking #14: Walking x Atelier Shinkai\n📌 September 8th (Mon) @ 12 Noon\n📍 京成曳舟駅 Keisei Hikifune Station, Exit A1\n🤝 Meet, Walk, Talk + Vision Board!\n\nMeet at Exit A1, 芝京成曳舟駅 Keisei Hikifune Station!\nhttps://maps.app.goo.gl/c3Z8ss5mN8xKGqEM8\nWe'll walk to アトリエ 新開 Atelier Shinkai together & try vision boarding!\n\n日本語 OK!\n\nThanks to the amazing Jennifer Shinkai,\nWe'll be collaborating & vision boarding!🖼️\n\nI'm all-in on events!\nIt's cool to explore what NetWalking can become✨\n\nLocated at the heart of a cozy 商店街,\nAtelier Shinkai is a gallery & community hub\n\nIt's too hot to walk 5K in Tokyo Summer,\nso when Jennifer reached out for a hybrid\nevent, it was a natural fit for NetWalking!🙌\n\nSo we'll meet at the station,\nWalk (and talk) to the atelier,\nDo some vision boarding, then walk back!",
+      "attendees": 0,
+      "status": "past",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": "https://www.linkedin.com/posts/alex-ngai_the-least-weve-ever-walked-the-least-weve-activity-7371026208257613825-TtgP?utm_source=share&utm_medium=member_desktop&rcm=ACoAACuyMrkBrPjQBIBKfL3ksdOAwnW6D5IuTRk"
+    },
+    {
       "id": "netwalking-013",
       "no": "013",
       "title": "芝公園 Shiba Park! 🗼",

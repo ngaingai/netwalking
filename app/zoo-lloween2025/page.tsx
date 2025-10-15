@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Metadata } from "next";
-import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react";
+import { MapPinIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

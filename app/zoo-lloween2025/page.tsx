@@ -28,6 +28,14 @@ export default function ZooLloween2025() {
             </div>
           </div>
           <CardContent className="space-y-6 p-6">
+            {/* Event Date */}
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-primary">
+                October 26th, 2025
+              </h2>
+              <p className="text-lg text-muted-foreground">2025年10月26日</p>
+            </div>
+
             {/* Event Description - English */}
             <div className="space-y-4">
               <p className="text-lg">

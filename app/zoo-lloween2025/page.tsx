@@ -35,8 +35,16 @@ export default function ZooLloween2025() {
                 other Halloween activities.
               </p>
               <p className="text-lg">
-                Then from <strong>13:00</strong>, we'll walk over to the
-                Nogeyama Zoo!
+                Then from <strong>13:00</strong>, we'll walk over to the{" "}
+                <a
+                  href="https://www.hama-midorinokyokai.or.jp/zoo/nogeyama/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline font-medium"
+                >
+                  Nogeyama Zoo
+                </a>
+                !
               </p>
             </div>
 
@@ -47,8 +55,16 @@ export default function ZooLloween2025() {
                 に集合して、トリック・オア・トリートやハロウィンのアクティビティを楽しみます！
               </p>
               <p className="text-lg">
-                そのあと <strong>13:00</strong>{" "}
-                からは、みんなで野毛山動物園まで歩いて行きましょう！
+                そのあと <strong>13:00</strong> からは、みんなで
+                <a
+                  href="https://www.hama-midorinokyokai.or.jp/zoo/nogeyama/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline font-medium"
+                >
+                  野毛山動物園
+                </a>
+                まで歩いて行きましょう！
               </p>
             </div>
           </CardContent>

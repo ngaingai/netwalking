@@ -30,7 +30,9 @@ export function EventCard({ event }: EventCardProps) {
               <ChevronDown className="h-4 w-4" />
             )}
           </Button>
-          <CardTitle>Event #{event.no}</CardTitle>
+          <CardTitle>
+            Event <span className="font-mono text-[#4cccc3]">#{event.no}</span>
+          </CardTitle>
         </div>
         <div className="flex gap-2">
           <Button

@@ -91,4 +91,10 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  a {
+    color: #4cccc3;
+  }
+  a:hover {
+    color: #3ab7a8;
+  }
 }

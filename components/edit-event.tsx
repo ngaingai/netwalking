@@ -105,7 +105,9 @@ export function EditEvent({ event, onClose }: EditEventProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Edit Event #{event.no}</CardTitle>
+        <CardTitle>
+          Edit Event <span className="font-mono text-[#4cccc3]">#{event.no}</span>
+        </CardTitle>
         <CardDescription>Update event details below</CardDescription>
       </CardHeader>
       <CardContent>

@@ -32,7 +32,7 @@ export function FeaturedEvent({ event }: FeaturedEventProps) {
       </div>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <span className="text-muted-foreground">#{event.no}</span>
+          <span className="font-mono text-[#4cccc3]">#{event.no}</span>
           {event.title}
         </CardTitle>
         <CardDescription>{event.course}</CardDescription>

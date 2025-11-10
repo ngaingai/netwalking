@@ -7,7 +7,7 @@ export function Header() {
       <div className="container flex h-14 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Image
-            src="/images/NetWalking-Logo2.png"
+            src="/images/NetWalking-Logo.jpg"
             alt="NetWalking Logo"
             width={32}
             height={32}

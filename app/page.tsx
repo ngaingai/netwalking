@@ -17,14 +17,21 @@ export default async function EventsPage() {
   return (
     <Suspense fallback={<EventsPageSkeleton />}>
       <main className="container mx-auto px-4 py-8">
-        <div className="flex justify-center mb-8">
+        <div className="flex flex-col items-center gap-4 mb-10 text-center">
           <Image
-            src="/images/NetWalking-Logo2.png"
+            src="/images/NetWalking-Logo.jpg"
             alt="NetWalking Logo"
             width={64}
             height={64}
             className="h-16 w-16"
           />
+          <h1 className="text-3xl font-bold md:text-4xl">
+            一歩ずつ、つながりを強く。
+            <br />
+            <span className="text-lg font-medium text-muted-foreground md:text-xl">
+              Building stronger relationships, step by step.
+            </span>
+          </h1>
         </div>
 
         {nextEvent ? (

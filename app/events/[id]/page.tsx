@@ -21,15 +21,15 @@ import { EventGallery } from "@/components/event-gallery";
 const SITE_URL = "https://netwalking.net";
 
 interface EventPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
 }: EventPageProps): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   const event = await getEvent(id);
 
   if (!event) {
@@ -86,7 +86,7 @@ export async function generateMetadata({
 }
 
 export default async function EventPage({ params }: EventPageProps) {
-  const { id } = params;
+  const { id } = await params;
   const event = await getEvent(id);
 
   if (!event) {

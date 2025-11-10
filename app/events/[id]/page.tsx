@@ -185,7 +185,7 @@ export default async function EventPage({ params }: EventPageProps) {
             <div className="pt-4">
               <h2 className="mb-4 text-2xl font-bold">Event Gallery</h2>
               <EventGallery images={images} />
-            </div>
+          </div>
           )}
         </div>
 

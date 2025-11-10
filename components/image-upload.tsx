@@ -5,14 +5,20 @@ import Image from "next/image";
 import { Trash2, Upload, GripVertical } from "lucide-react";
 import { toast } from "sonner";
 import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-  DroppableProvided,
-  DraggableProvided,
-  DraggableStateSnapshot,
-} from "@hello-pangea/dnd";
+  DndContext,
+  PointerSensor,
+  DragEndEvent,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  horizontalListSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface ImageUploadProps {
   eventId: string;
@@ -25,6 +31,69 @@ interface CloudinaryImage {
   secure_url: string;
 }
 
+function SortableImage({
+  image,
+  index,
+  handleDelete,
+}: {
+  image: CloudinaryImage;
+  index: number;
+  handleDelete: (publicId: string) => void;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: image.public_id });
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+        zIndex: isDragging ? 50 : undefined,
+      }}
+      className={`group relative h-64 w-64 flex-shrink-0 ${
+        isDragging ? "shadow-lg scale-105" : ""
+      }`}
+    >
+      <div className="relative h-full w-full overflow-hidden rounded-lg border border-border">
+        <Image
+          src={image.secure_url}
+          alt={`Event image ${index + 1}`}
+          fill
+          className="object-contain"
+          sizes="256px"
+          onError={() => toast.error("Failed to load image")}
+        />
+      </div>
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleDelete(image.public_id);
+        }}
+        className="absolute right-2 top-2 rounded-full bg-destructive/80 p-1.5 text-destructive-foreground opacity-0 transition-opacity group-hover:opacity-100"
+      >
+        <Trash2 className="h-4 w-4" />
+      </button>
+      <div
+        className="absolute inset-0 cursor-grab active:cursor-grabbing"
+        {...listeners}
+        {...attributes}
+      >
+        <div className="absolute left-2 top-2 rounded-full bg-background/80 p-1.5 text-foreground opacity-0 transition-opacity group-hover:opacity-100">
+          <GripVertical className="h-4 w-4" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ImageUpload({
   eventId,
   eventNo,
@@ -33,6 +102,14 @@ export default function ImageUpload({
   const [images, setImages] = useState<CloudinaryImage[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+  );
 
   useEffect(() => {
     fetchImages();
@@ -111,24 +188,26 @@ export default function ImageUpload({
     }
   };
 
-  const handleDragEnd = async (result: DropResult) => {
-    if (!result.destination) return;
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
 
-    const items = Array.from(images);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+    const oldIndex = images.findIndex((img) => img.public_id === active.id);
+    const newIndex = images.findIndex((img) => img.public_id === over.id);
 
-    setImages(items);
-    onImagesChange(items.map((img) => img.secure_url));
+    if (oldIndex === -1 || newIndex === -1) return;
 
-    // Update the order in the backend
+    const reorderedImages = arrayMove(images, oldIndex, newIndex);
+    setImages(reorderedImages);
+    onImagesChange(reorderedImages.map((img) => img.secure_url));
+
     try {
       const response = await fetch(`/api/events/${eventNo}/images/reorder`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ images: items.map((img) => img.public_id) }),
+        body: JSON.stringify({ images: reorderedImages.map((img) => img.public_id) }),
       });
 
       if (!response.ok) {
@@ -167,80 +246,27 @@ export default function ImageUpload({
       {error && <div className="text-red-500 text-sm">{error}</div>}
 
       {images.length > 0 ? (
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable
-            droppableId="images"
-            direction="horizontal"
-            isDropDisabled={false}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={images.map((image) => image.public_id)}
+            strategy={horizontalListSortingStrategy}
           >
-            {(provided: DroppableProvided) => (
-              <div
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                className="flex flex-wrap gap-4"
-              >
-                {images.map((image, index) => (
-                  <Draggable
-                    key={image.public_id}
-                    draggableId={image.public_id}
-                    index={index}
-                  >
-                    {(
-                      provided: DraggableProvided,
-                      snapshot: DraggableStateSnapshot
-                    ) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        className={`group relative h-64 w-64 flex-shrink-0 ${
-                          snapshot.isDragging ? "z-50 shadow-lg scale-105" : ""
-                        }`}
-                      >
-                        <div className="relative h-full w-full overflow-hidden rounded-lg border border-border">
-                          <Image
-                            src={image.secure_url}
-                            alt={`Event image ${index + 1}`}
-                            fill
-                            className="object-contain"
-                            sizes="256px"
-                            onError={() => {
-                              onImagesChange(
-                                images
-                                  .filter(
-                                    (img) => img.public_id !== image.public_id
-                                  )
-                                  .map((img) => img.secure_url)
-                              );
-                              toast.error("Failed to load image");
-                            }}
-                          />
-                        </div>
-                        <div
-                          {...provided.dragHandleProps}
-                          className="absolute inset-0 cursor-grab active:cursor-grabbing"
-                        >
-                          <div className="absolute left-2 top-2 rounded-full bg-background/80 p-1.5 text-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                            <GripVertical className="h-4 w-4" />
-                          </div>
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(image.public_id);
-                          }}
-                          className="absolute right-2 top-2 rounded-full bg-destructive/80 p-1.5 text-destructive-foreground opacity-0 transition-opacity group-hover:opacity-100"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+            <div className="flex flex-wrap gap-4">
+              {images.map((image, index) => (
+                <SortableImage
+                  key={image.public_id}
+                  image={image}
+                  index={index}
+                  handleDelete={handleDelete}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       ) : (
         <div className="rounded-lg border border-dashed p-8 text-center">
           <p className="text-sm text-muted-foreground">

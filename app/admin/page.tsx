@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getEvents } from "@/lib/events";
 import { AddEvent } from "@/components/add-event";
 import { EventCard } from "@/components/event-card";
 import { Button } from "@/components/ui/button";

@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
-import { getEvents } from "@/lib/events";
+import { getEventsFromFile } from "@/lib/events";
 
 const SITE_URL = "https://netwalking.net";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const events = await getEvents();
+  const events = await getEventsFromFile();
 
   const eventEntries = events.map((event) => ({
     url: `${SITE_URL}/events/${event.id}`,

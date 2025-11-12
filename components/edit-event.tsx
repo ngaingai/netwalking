@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
 
@@ -17,7 +17,6 @@ import {
 import { Label } from "@/components/ui/label";
 import { Event } from "@/lib/events";
 import ImageUpload from "./image-upload";
-import { getEventImages } from "@/app/actions/events";
 
 interface EditEventProps {
   event: Event;
@@ -43,12 +42,10 @@ export function EditEvent({ event, onClose }: EditEventProps) {
     description: event.description,
     attendees: event.attendees,
   });
-  const [images, setImages] = useState<string[]>([]);
-
-  // Load existing images
-  useEffect(() => {
-    getEventImages(event.id).then(setImages);
-  }, [event.id]);
+  // ImageUpload handles its own state, we just need a callback
+  const handleImagesChange = (_images: string[]) => {
+    // Images are managed by ImageUpload component
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -228,7 +225,7 @@ export function EditEvent({ event, onClose }: EditEventProps) {
           <ImageUpload
             eventId={event.id}
             eventNo={event.no}
-            onImagesChange={setImages}
+            onImagesChange={handleImagesChange}
           />
 
           <div className="flex gap-2">

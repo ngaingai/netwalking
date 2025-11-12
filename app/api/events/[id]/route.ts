@@ -27,10 +27,10 @@ async function writeEventsFile(data: { events: Event[] }): Promise<void> {
 
 export async function PUT(
   request: Request,
-  context: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = await params;
     const data = await readEventsFile();
     const updatedEvent = (await request.json()) as Partial<Event>;
     const eventIndex = data.events.findIndex((event: Event) => event.id === id);
@@ -60,11 +60,11 @@ export async function PUT(
 }
 
 export async function GET(
-  request: Request,
-  context: { params: Promise<{ id: string }> }
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = await params;
     const data = await readEventsFile();
     const event = data.events.find((e: Event) => e.id === id);
 

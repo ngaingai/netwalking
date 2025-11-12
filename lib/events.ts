@@ -15,9 +15,14 @@ export interface Event {
   title: string;
   date: string;
   time: string;
-  location: string;
+  meetingPoint: string;
+  maplink?: string;
   course: string;
   description: string;
+  meetuplink?: string;
+  linkedinlink?: string;
+  linkedinReportLink?: string;
+  attendees?: number;
   stravaLink?: string;
   komootLink?: string;
   images?: CloudinaryImage[];

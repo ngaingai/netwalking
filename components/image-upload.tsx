@@ -21,7 +21,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 
 interface ImageUploadProps {
-  eventId: string;
+  eventId?: string;
   eventNo: string;
   onImagesChange: (images: string[]) => void;
 }
@@ -95,7 +95,6 @@ function SortableImage({
 }
 
 export default function ImageUpload({
-  eventId,
   eventNo,
   onImagesChange,
 }: ImageUploadProps) {

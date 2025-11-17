@@ -104,6 +104,10 @@ export default async function EventsPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
         <div className="flex flex-col items-center gap-4 mb-10 text-center">
+          <h1 className="text-3xl font-bold md:text-4xl">
+            <span style={{ color: "#4cccc3" }}>Net</span>
+            <span className="text-muted-foreground">Walking</span>
+          </h1>
           <Image
             src="/images/NetWalking-Logo.jpg"
             alt="NetWalking Logo"
@@ -112,14 +116,14 @@ export default async function EventsPage() {
             className="w-60 h-auto"
             priority
           />
-          <h1 className="text-3xl font-bold md:text-4xl">
+          <h2 className="text-3xl font-bold md:text-4xl">
             <span className={accentClass}>一歩ずつ</span>、つながりを強く。
             <br />
             <span className="text-lg font-medium text-muted-foreground md:text-xl">
               Building stronger relationships,{" "}
               <span className={accentClass}>step by step</span>.
             </span>
-          </h1>
+          </h2>
           <p className="max-w-2xl text-base text-muted-foreground md:text-lg">
             Join bilingual networking walks across Tokyo and Yokohama. Meet
             founders, freelancers, and globally minded parents while exploring

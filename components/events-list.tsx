@@ -19,7 +19,7 @@ interface EventsListProps {
 
 export async function EventsList({ events }: EventsListProps) {
   // Get images sequentially to avoid rate limits
-  const eventsWithImages = [];
+  const eventsWithImages: Array<Event & { coverImage?: string }> = [];
   for (const event of events) {
     const images = await getEventImages(event.no);
     eventsWithImages.push({
@@ -57,7 +57,7 @@ export async function EventsList({ events }: EventsListProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <span className="font-mono text-[#4cccc3]">#{event.no}</span>
-              <Link href={`/events/${event.id}`}>{event.title}</Link>
+              <Link href={`/events/${event.id}`} className="text-muted-foreground hover:text-muted-foreground/80">{event.title}</Link>
             </CardTitle>
             <CardDescription>{event.course}</CardDescription>
           </CardHeader>

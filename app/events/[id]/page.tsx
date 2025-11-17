@@ -209,13 +209,7 @@ export default async function EventPage({ params }: EventPageProps) {
                   <MapPinIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                   <div>
                     <p className="font-medium">Meeting Point</p>
-<<<<<<< HEAD
                     <p className="text-muted-foreground">{event.meetingPoint}</p>
-=======
-                    <p className="text-muted-foreground">
-                      {event.meetingPoint}
-                    </p>
->>>>>>> origin/main
                     {event.maplink && (
                       <Button variant="link" asChild className="h-auto p-0">
                         <Link
@@ -253,10 +247,7 @@ export default async function EventPage({ params }: EventPageProps) {
 
                 <Separator />
 
-<<<<<<< HEAD
-=======
                 {/* Event Links */}
->>>>>>> origin/main
                 <div className="space-y-3">
                   {event.meetuplink && (
                     <div className="flex items-start gap-3">

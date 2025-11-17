@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -233,14 +234,15 @@ export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
               }}
             />
           </div>
-        </CardContent>
-        <CardFooter className="justify-between">
-          <Button type="button" variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button type="submit">Save Changes</Button>
-        </CardFooter>
-      </Card>
-    </form>
+
+          <CardFooter className="justify-between">
+            <Button type="button" variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button type="submit">Save Changes</Button>
+          </CardFooter>
+        </form>
+      </CardContent>
+    </Card>
   );
 }

@@ -65,14 +65,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body className="min-h-screen bg-background font-sans antialiased">
-<<<<<<< HEAD
         <script
           type="application/ld+json"
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-=======
->>>>>>> origin/main
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-1">{children}</main>

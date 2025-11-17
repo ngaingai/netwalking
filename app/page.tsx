@@ -99,19 +99,15 @@ export default async function EventsPage() {
   return (
     <Suspense fallback={<EventsPageSkeleton />}>
       <main className="container mx-auto px-4 py-8">
-<<<<<<< HEAD
         <script
           type="application/ld+json"
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
-=======
->>>>>>> origin/main
         <div className="flex flex-col items-center gap-4 mb-10 text-center">
           <Image
             src="/images/NetWalking-Logo.jpg"
             alt="NetWalking Logo"
-<<<<<<< HEAD
             width={320}
             height={213}
             className="w-60 h-auto"

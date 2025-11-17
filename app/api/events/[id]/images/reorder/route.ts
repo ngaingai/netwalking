@@ -14,13 +14,17 @@ export async function POST(
   try {
     const { id } = await params;
     const eventNo = id;
-    console.log(`[ImageUpload] Processing reorder for event: ${eventNo}`);
+    if (process.env.NODE_ENV !== "production") {
+      console.log(`[ImageUpload] Processing reorder for event: ${eventNo}`);
+    }
 
     const body = await request.json();
     const { images } = body;
 
     if (!images || !Array.isArray(images)) {
-      console.log("[ImageUpload] No images array provided for reordering");
+      if (process.env.NODE_ENV !== "production") {
+        console.log("[ImageUpload] No images array provided for reordering");
+      }
       return NextResponse.json(
         { error: "No images array provided" },
         { status: 400 }

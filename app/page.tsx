@@ -125,19 +125,6 @@ export default async function EventsPage() {
             founders, freelancers, and globally minded parents while exploring
             the city together.
           </p>
-=======
-            width={64}
-            height={64}
-            className="h-16 w-16"
-          />
-          <h1 className="text-3xl font-bold md:text-4xl">
-            一歩ずつ、つながりを強く。
-            <br />
-            <span className="text-lg font-medium text-muted-foreground md:text-xl">
-              Building stronger relationships, step by step.
-            </span>
-          </h1>
->>>>>>> origin/main
         </div>
 
         {nextEvent ? (

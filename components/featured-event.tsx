@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react";
->>>>>>> origin/main
 import Image from "next/image";
 import Link from "next/link";
 
@@ -62,15 +59,8 @@ export async function FeaturedEvent({ event }: FeaturedEventProps) {
       {/* Event Details */}
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-<<<<<<< HEAD
           <span className="font-mono text-[#4cccc3]">#{event.no}</span>
-          {event.title}
-=======
-          <span className="font-mono" style={{ color: "#4cccc3" }}>
-            #{event.no}
-          </span>
           <Link href={`/events/${event.id}`}>{event.title}</Link>
->>>>>>> origin/main
         </CardTitle>
         <CardDescription className="flex items-center gap-1">
           <MapPinIcon className="h-4 w-4" />

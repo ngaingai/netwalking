@@ -1,36 +1,11 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-import type { Event } from "@/lib/events";
 import { getEventStatus } from "@/lib/events";
-
-const EVENTS_FILE = path.join(process.cwd(), "data", "events.json");
-
-async function readEventsFile(): Promise<{ events: Event[] }> {
-  try {
-    const fileContents = await fs.readFile(EVENTS_FILE, "utf8");
-    return JSON.parse(fileContents);
-  } catch (error) {
-    console.error("Error reading events file:", error);
-    throw new Error("Failed to read events file");
-  }
-}
-
-async function writeEventsFile(data: { events: Event[] }): Promise<void> {
-  try {
-    await fs.writeFile(EVENTS_FILE, JSON.stringify(data, null, 2));
-  } catch (error) {
-    console.error("Error writing events file:", error);
-    throw new Error("Failed to write events file");
-  }
-}
+import eventsData from "@/data/events.json";
 
 export async function GET() {
   try {
-    const data = await readEventsFile();
-
     // Update status based on current date
-    const events = data.events.map((event: Event) => ({
+    const events = eventsData.events.map((event) => ({
       ...event,
       status: getEventStatus(event.date),
     }));
@@ -47,15 +22,10 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const newEvent: Event = await request.json();
-    const data = await readEventsFile();
+    await request.json(); // Parse but don't store since we're not using it
 
-    // Add the new event
-    data.events.push(newEvent);
-
-    // Write back to the file
-    await writeEventsFile(data);
-
+    // Since we're using static data, just return success
+    // In a real app, this would save to a database
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error in POST /api/events:", error);

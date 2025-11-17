@@ -15,7 +15,8 @@ export function Header() {
             priority
           />
           <span className="font-bold">
-            <span style={{ color: "#4cccc3" }}>Net</span>Walking
+            <span style={{ color: "#4cccc3" }}>Net</span>
+            <span className="text-muted-foreground">Walking</span>
           </span>
         </Link>
         <span className="text-sm text-muted-foreground">

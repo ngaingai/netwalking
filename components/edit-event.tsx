@@ -2,68 +2,61 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
   CardContent,
-  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Event } from "@/lib/events";
 import ImageUpload from "./image-upload";
 
 interface EditEventProps {
   event: Event;
   onClose: () => void;
+  onUpdate?: () => void;
 }
 
-interface ApiError {
-  error: string;
-}
-
-export function EditEvent({ event, onClose }: EditEventProps) {
+export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: event.title,
     date: event.date,
-    time: event.time || "12:00",
-    course: event.course,
+    time: event.time,
     meetingPoint: event.meetingPoint,
-    maplink: event.maplink,
-    meetuplink: event.meetuplink,
-    linkedinlink: event.linkedinlink,
+    course: event.course,
+    maplink: event.maplink || "",
+    meetuplink: event.meetuplink || "",
+    linkedinlink: event.linkedinlink || "",
+    linkedinReportLink: event.linkedinReportLink || "",
     description: event.description,
-    attendees: event.attendees,
+    stravaLink: event.stravaLink || "",
+    komootLink: event.komootLink || "",
   });
+<<<<<<< HEAD
   // ImageUpload handles its own state, we just need a callback
   const handleImagesChange = (_images: string[]) => {
     // Images are managed by ImageUpload component
   };
+=======
+>>>>>>> origin/main
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const target = e.target as unknown as {
-      name: string;
-      value: string;
-    };
-    const { name, value } = target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
 
     try {
       const response = await fetch(`/api/events/${event.id}`, {
@@ -75,31 +68,26 @@ export function EditEvent({ event, onClose }: EditEventProps) {
       });
 
       if (!response.ok) {
-        const error = (await response.json()) as ApiError;
-        throw new Error(error.error || "Failed to update event");
+        throw new Error("Failed to update event");
       }
 
-      toast({
-        title: "Success",
-        description: "Event updated successfully",
-      });
+      toast.success("Event updated successfully");
+
+      // Call onUpdate callback if provided
+      if (onUpdate) {
+        onUpdate();
+      }
 
       router.refresh();
       onClose();
     } catch (error) {
       console.error("Error updating event:", error);
-      toast({
-        title: "Error",
-        description:
-          error instanceof Error ? error.message : "Failed to update event",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
+      toast.error("Failed to update event");
     }
   };
 
   return (
+<<<<<<< HEAD
     <Card>
       <CardHeader>
         <CardTitle>
@@ -109,6 +97,14 @@ export function EditEvent({ event, onClose }: EditEventProps) {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
+=======
+    <form onSubmit={handleSubmit}>
+      <Card>
+        <CardHeader>
+          <CardTitle>Edit Event</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+>>>>>>> origin/main
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>
             <Input
@@ -120,7 +116,7 @@ export function EditEvent({ event, onClose }: EditEventProps) {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="date">Date</Label>
               <Input
@@ -146,22 +142,22 @@ export function EditEvent({ event, onClose }: EditEventProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="course">Course</Label>
+            <Label htmlFor="meetingPoint">Meeting Point</Label>
             <Input
-              id="course"
-              name="course"
-              value={formData.course}
+              id="meetingPoint"
+              name="meetingPoint"
+              value={formData.meetingPoint}
               onChange={handleChange}
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="meetingPoint">Meeting Point</Label>
+            <Label htmlFor="course">Course</Label>
             <Input
-              id="meetingPoint"
-              name="meetingPoint"
-              value={formData.meetingPoint}
+              id="course"
+              name="course"
+              value={formData.course}
               onChange={handleChange}
               required
             />
@@ -184,7 +180,6 @@ export function EditEvent({ event, onClose }: EditEventProps) {
               name="meetuplink"
               value={formData.meetuplink}
               onChange={handleChange}
-              required
             />
           </div>
 
@@ -198,6 +193,21 @@ export function EditEvent({ event, onClose }: EditEventProps) {
             />
           </div>
 
+          {event.status === "past" && (
+            <div className="space-y-2">
+              <Label htmlFor="linkedinReportLink">
+                LinkedIn Event Report Link
+              </Label>
+              <Input
+                id="linkedinReportLink"
+                name="linkedinReportLink"
+                value={formData.linkedinReportLink}
+                onChange={handleChange}
+                placeholder="Add the link to your LinkedIn post about this event"
+              />
+            </div>
+          )}
+
           <div className="space-y-2">
             <Label htmlFor="description">Description</Label>
             <Textarea
@@ -210,17 +220,16 @@ export function EditEvent({ event, onClose }: EditEventProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="attendees">Number of Attendees</Label>
+            <Label htmlFor="stravaLink">Strava Link (optional)</Label>
             <Input
-              id="attendees"
-              name="attendees"
-              type="number"
-              value={formData.attendees}
+              id="stravaLink"
+              name="stravaLink"
+              value={formData.stravaLink}
               onChange={handleChange}
-              min="0"
             />
           </div>
 
+<<<<<<< HEAD
           {/* Image Upload Section */}
           <ImageUpload
             eventId={event.id}
@@ -235,9 +244,30 @@ export function EditEvent({ event, onClose }: EditEventProps) {
             <Button type="button" variant="outline" onClick={onClose}>
               Cancel
             </Button>
+=======
+          <div className="space-y-2">
+            <Label htmlFor="komootLink">Komoot Link (optional)</Label>
+            <Input
+              id="komootLink"
+              name="komootLink"
+              value={formData.komootLink}
+              onChange={handleChange}
+            />
+>>>>>>> origin/main
           </div>
-        </form>
-      </CardContent>
-    </Card>
+
+          <div className="space-y-2">
+            <Label>Images</Label>
+            <ImageUpload eventId={event.no.toString()} />
+          </div>
+        </CardContent>
+        <CardFooter className="justify-between">
+          <Button type="button" variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button type="submit">Save Changes</Button>
+        </CardFooter>
+      </Card>
+    </form>
   );
 }

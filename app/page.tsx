@@ -7,6 +7,8 @@ import { EventsList } from "@/components/events-list";
 import { FeaturedEvent } from "@/components/featured-event";
 import { getUpcomingEvents, getPastEvents } from "@/lib/events";
 import { EventsPageSkeleton } from "@/components/events-page-skeleton";
+import { Metadata } from "next";
+import Image from "next/image";
 
 const accentClass = "text-[#4cccc3]";
 const Net = () => <span className={accentClass}>Net</span>;
@@ -97,15 +99,19 @@ export default async function EventsPage() {
   return (
     <Suspense fallback={<EventsPageSkeleton />}>
       <main className="container mx-auto px-4 py-8">
+<<<<<<< HEAD
         <script
           type="application/ld+json"
           suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
+=======
+>>>>>>> origin/main
         <div className="flex flex-col items-center gap-4 mb-10 text-center">
           <Image
             src="/images/NetWalking-Logo.jpg"
             alt="NetWalking Logo"
+<<<<<<< HEAD
             width={320}
             height={213}
             className="w-60 h-auto"
@@ -123,6 +129,19 @@ export default async function EventsPage() {
             founders, freelancers, and globally minded parents while exploring
             the city together.
           </p>
+=======
+            width={64}
+            height={64}
+            className="h-16 w-16"
+          />
+          <h1 className="text-3xl font-bold md:text-4xl">
+            一歩ずつ、つながりを強く。
+            <br />
+            <span className="text-lg font-medium text-muted-foreground md:text-xl">
+              Building stronger relationships, step by step.
+            </span>
+          </h1>
+>>>>>>> origin/main
         </div>
 
         {nextEvent ? (
@@ -157,10 +176,14 @@ export default async function EventsPage() {
         )}
 
         {/* About Section */}
+<<<<<<< HEAD
         <section className="mb-12" aria-labelledby="about-netwalking">
           <h2 id="about-netwalking" className="mb-6 text-2xl font-semibold">
             About <NetWalkingWord />
           </h2>
+=======
+        <section className="mb-12">
+>>>>>>> origin/main
           <Card className="bg-muted/50">
             <CardContent className="p-8">
               <div className="prose prose-gray max-w-none">
@@ -209,6 +232,7 @@ export default async function EventsPage() {
           </Card>
         </section>
 
+<<<<<<< HEAD
         <section className="mb-12" aria-labelledby="faq">
           <h2 id="faq" className="mb-6 text-2xl font-semibold">
             <NetWalkingWord /> FAQs
@@ -234,6 +258,10 @@ export default async function EventsPage() {
           >
             <span className={accentClass}>Past</span> Events
           </h2>
+=======
+        <section>
+          <h2 className="mb-6 text-2xl font-semibold">Past Events</h2>
+>>>>>>> origin/main
           <Suspense fallback={<EventsPageSkeleton />}>
             {pastEvents.length > 0 ? (
               <EventsList events={pastEvents} />
@@ -254,6 +282,7 @@ export default async function EventsPage() {
 }
 
 export const metadata: Metadata = {
+<<<<<<< HEAD
   title: "NetWalking | Community Walks & Networking in Tokyo",
   description:
     "Join NetWalking for bilingual, family-friendly networking walks across Tokyo. Meet founders, freelancers, and globally minded parents while exploring the city.",
@@ -288,5 +317,13 @@ export const metadata: Metadata = {
     description:
       "Bilingual networking walks that build stronger relationships across Tokyo, one step at a time.",
     images: ["https://netwalking.net/images/NetWalking-Logo.jpg"],
+=======
+  title: "NetWalking",
+  description: "Produced by Glokyo",
+  openGraph: {
+    title: "NetWalking",
+    description: "Produced by Glokyo",
+    type: "website",
+>>>>>>> origin/main
   },
 };

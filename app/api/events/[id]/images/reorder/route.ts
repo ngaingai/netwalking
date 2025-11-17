@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 
-interface ReorderRequest {
-  images: string[];
-}
-
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -18,48 +14,76 @@ export async function POST(
   try {
     const { id } = await params;
     const eventNo = id;
-    console.log(`[ImageReorder] Processing reorder for event: ${eventNo}`);
+    console.log(`[ImageUpload] Processing reorder for event: ${eventNo}`);
 
-    const body = (await request.json()) as ReorderRequest;
+    const body = await request.json();
     const { images } = body;
 
     if (!images || !Array.isArray(images)) {
-      console.log("[ImageReorder] Invalid images array provided");
+      console.log("[ImageUpload] No images array provided for reordering");
       return NextResponse.json(
-        { error: "Invalid images array provided" },
+        { error: "No images array provided" },
         { status: 400 }
       );
     }
 
-    // Verify all images exist in the event folder
-    for (const publicId of images) {
-      try {
-        const result = await cloudinary.api.resource(publicId);
-        if (!result.folder?.startsWith(`events/${eventNo}/`)) {
-          console.error(
-            `[ImageReorder] Image ${publicId} not found in event folder`
-          );
-          return NextResponse.json(
-            { error: `Image not found: ${publicId}` },
-            { status: 404 }
-          );
-        }
-      } catch (error) {
-        console.error(`[ImageReorder] Image not found: ${publicId}`);
-        return NextResponse.json(
-          { error: `Image not found: ${publicId}` },
-          { status: 404 }
-        );
-      }
-    }
+    // First, get all existing images and their tags
+    const result = await cloudinary.search
+      .expression(`folder:events/${eventNo}/*`)
+      .with_field("tags")
+      .max_results(500)
+      .execute();
 
-    // Note: Cloudinary doesn't support reordering in folders
-    // We'll maintain the order in our application state
-    console.log(`[ImageReorder] Successfully verified ${images.length} images`);
+    // Remove existing order tags from all images
+    const removePromises = result.resources.map(async (resource: any) => {
+      const orderTags =
+        resource.tags?.filter((tag: string) => tag.startsWith("order_")) || [];
+      if (orderTags.length > 0) {
+        try {
+          await cloudinary.uploader.remove_tag(orderTags, [resource.public_id]);
+          return true;
+        } catch (error) {
+          console.error(
+            `[ImageUpload] Error removing tags for ${resource.public_id}:`,
+            error
+          );
+          return false;
+        }
+      }
+      return true;
+    });
+
+    await Promise.all(removePromises);
+
+    // Update each image with its new order tag
+    const updatePromises = images.map(
+      async (publicId: string, index: number) => {
+        try {
+          await cloudinary.uploader.add_tag(`order_${index}`, [publicId]);
+          return true;
+        } catch (error) {
+          console.error(
+            `[ImageUpload] Error updating order for ${publicId}:`,
+            error
+          );
+          return false;
+        }
+      }
+    );
+
+    const results = await Promise.all(updatePromises);
+    const allSucceeded = results.every((result) => result === true);
+
+    if (!allSucceeded) {
+      return NextResponse.json(
+        { error: "Failed to update some image orders" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("[ImageReorder] Error reordering images:", error);
+    console.error("[ImageUpload] Error reordering images:", error);
     return NextResponse.json(
       { error: "Failed to reorder images" },
       { status: 500 }

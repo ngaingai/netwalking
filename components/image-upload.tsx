@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Trash2, GripVertical } from "lucide-react";
 import { toast } from "sonner";
 import {
-<<<<<<< HEAD
   DndContext,
   PointerSensor,
   DragEndEvent,
@@ -20,26 +19,13 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Button } from "@/components/ui/button";
 
 interface ImageUploadProps {
   eventId?: string;
   eventNo: string;
-  onImagesChange: (images: string[]) => void;
-=======
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-  DroppableProvided,
-  DraggableProvided,
-  DraggableStateSnapshot,
-} from "@hello-pangea/dnd";
-import { Button } from "@/components/ui/button";
-
-interface ImageUploadProps {
-  eventId: string;
+  onImagesChange?: (images: string[]) => void;
   onUpdate?: () => void;
->>>>>>> origin/main
 }
 
 interface CloudinaryImage {
@@ -47,7 +33,6 @@ interface CloudinaryImage {
   secure_url: string;
 }
 
-<<<<<<< HEAD
 function SortableImage({
   image,
   index,
@@ -113,11 +98,11 @@ function SortableImage({
 
 export default function ImageUpload({
   eventNo,
+  eventId,
   onImagesChange,
+  onUpdate,
 }: ImageUploadProps) {
-=======
-export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
->>>>>>> origin/main
+  const actualEventId = eventId || eventNo;
   const [images, setImages] = useState<CloudinaryImage[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -132,11 +117,11 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
 
   useEffect(() => {
     fetchImages();
-  }, [eventId]);
+  }, [actualEventId]);
 
   const fetchImages = async () => {
     try {
-      const response = await fetch(`/api/events/${eventId}/images`);
+      const response = await fetch(`/api/events/${actualEventId}/images`);
       if (!response.ok) {
         throw new Error("Failed to fetch images");
       }
@@ -156,7 +141,7 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
       const formData = new FormData();
       formData.append("files", file);
 
-      const response = await fetch(`/api/events/${eventId}/images`, {
+      const response = await fetch(`/api/events/${actualEventId}/images`, {
         method: "POST",
         body: formData,
       });
@@ -171,6 +156,7 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
     try {
       await Promise.all(uploadPromises);
       toast.success("Images uploaded successfully");
+      await fetchImages();
       if (onUpdate) {
         onUpdate();
       }
@@ -184,7 +170,7 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
 
   const handleDelete = async (publicId: string) => {
     try {
-      const response = await fetch(`/api/events/${eventId}/images`, {
+      const response = await fetch(`/api/events/${actualEventId}/images`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -198,7 +184,9 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
 
       const newImages = images.filter((img) => img.public_id !== publicId);
       setImages(newImages);
-      onUpdate?.();
+      if (onUpdate) {
+        onUpdate();
+      }
     } catch (error) {
       console.error("Error deleting image:", error);
       setError("Failed to delete image");
@@ -212,19 +200,16 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
     const oldIndex = images.findIndex((img) => img.public_id === active.id);
     const newIndex = images.findIndex((img) => img.public_id === over.id);
 
-<<<<<<< HEAD
     if (oldIndex === -1 || newIndex === -1) return;
 
     const reorderedImages = arrayMove(images, oldIndex, newIndex);
     setImages(reorderedImages);
-    onImagesChange(reorderedImages.map((img) => img.secure_url));
-=======
-    // Optimistically update the UI
-    setImages(items);
->>>>>>> origin/main
+    if (onImagesChange) {
+      onImagesChange(reorderedImages.map((img) => img.secure_url));
+    }
 
     try {
-      const response = await fetch(`/api/events/${eventId}/images/reorder`, {
+      const response = await fetch(`/api/events/${actualEventId}/images/reorder`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -240,7 +225,9 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
       if (!data.success) {
         throw new Error(data.error || "Failed to update image order");
       }
-      onUpdate?.();
+      if (onUpdate) {
+        onUpdate();
+      }
     } catch (error) {
       console.error("Error updating image order:", error);
       // Revert the optimistic update on error
@@ -287,7 +274,6 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
             items={images.map((image) => image.public_id)}
             strategy={horizontalListSortingStrategy}
           >
-<<<<<<< HEAD
             <div className="flex flex-wrap gap-4">
               {images.map((image, index) => (
                 <SortableImage
@@ -300,69 +286,6 @@ export default function ImageUpload({ eventId, onUpdate }: ImageUploadProps) {
             </div>
           </SortableContext>
         </DndContext>
-=======
-            {(provided: DroppableProvided) => (
-              <div
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                className="flex flex-wrap gap-4"
-              >
-                {images.map((image, index) => (
-                  <Draggable
-                    key={image.public_id}
-                    draggableId={image.public_id}
-                    index={index}
-                  >
-                    {(
-                      provided: DraggableProvided,
-                      snapshot: DraggableStateSnapshot
-                    ) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        className={`group relative h-64 w-64 flex-shrink-0 ${
-                          snapshot.isDragging ? "z-50 shadow-lg scale-105" : ""
-                        }`}
-                      >
-                        <div className="relative h-full w-full overflow-hidden rounded-lg border border-border">
-                          <Image
-                            src={image.secure_url}
-                            alt={`Event image ${index + 1}`}
-                            fill
-                            className="object-contain"
-                            sizes="256px"
-                            onError={() => {
-                              toast.error("Failed to load image");
-                            }}
-                          />
-                        </div>
-                        <div
-                          {...provided.dragHandleProps}
-                          className="absolute inset-0 cursor-grab active:cursor-grabbing"
-                        >
-                          <div className="absolute left-2 top-2 rounded-full bg-background/80 p-1.5 text-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                            <GripVertical className="h-4 w-4" />
-                          </div>
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(image.public_id);
-                          }}
-                          className="absolute right-2 top-2 rounded-full bg-destructive/80 p-1.5 text-destructive-foreground opacity-0 transition-opacity group-hover:opacity-100"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
->>>>>>> origin/main
       ) : (
         <div className="rounded-lg border border-dashed p-8 text-center">
           <p className="text-sm text-muted-foreground">

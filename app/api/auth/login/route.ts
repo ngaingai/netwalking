@@ -2,13 +2,6 @@ import { NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import { addSession } from "@/lib/sessions";
 
-<<<<<<< HEAD
-interface LoginRequest {
-  password: string;
-}
-
-=======
->>>>>>> origin/main
 export async function POST(request: Request) {
   try {
     const { password } = await request.json();

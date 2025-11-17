@@ -40,13 +40,6 @@ export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
     stravaLink: event.stravaLink || "",
     komootLink: event.komootLink || "",
   });
-<<<<<<< HEAD
-  // ImageUpload handles its own state, we just need a callback
-  const handleImagesChange = (_images: string[]) => {
-    // Images are managed by ImageUpload component
-  };
-=======
->>>>>>> origin/main
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -87,7 +80,6 @@ export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
   };
 
   return (
-<<<<<<< HEAD
     <Card>
       <CardHeader>
         <CardTitle>
@@ -97,14 +89,6 @@ export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
-=======
-    <form onSubmit={handleSubmit}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Edit Event</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
->>>>>>> origin/main
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>
             <Input
@@ -229,22 +213,6 @@ export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
             />
           </div>
 
-<<<<<<< HEAD
-          {/* Image Upload Section */}
-          <ImageUpload
-            eventId={event.id}
-            eventNo={event.no}
-            onImagesChange={handleImagesChange}
-          />
-
-          <div className="flex gap-2">
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Updating..." : "Update Event"}
-            </Button>
-            <Button type="button" variant="outline" onClick={onClose}>
-              Cancel
-            </Button>
-=======
           <div className="space-y-2">
             <Label htmlFor="komootLink">Komoot Link (optional)</Label>
             <Input
@@ -253,12 +221,17 @@ export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
               value={formData.komootLink}
               onChange={handleChange}
             />
->>>>>>> origin/main
           </div>
 
           <div className="space-y-2">
             <Label>Images</Label>
-            <ImageUpload eventId={event.no.toString()} />
+            <ImageUpload
+              eventId={event.id}
+              eventNo={event.no}
+              onUpdate={() => {
+                router.refresh();
+              }}
+            />
           </div>
         </CardContent>
         <CardFooter className="justify-between">

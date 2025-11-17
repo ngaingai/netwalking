@@ -14,15 +14,11 @@ function decodeCharCodes(codes: number[]) {
   return String.fromCharCode(...codes);
 }
 
-<<<<<<< HEAD
-export function ObfuscatedEmailLink({ className }: { className?: string }) {
-=======
 export function ObfuscatedEmailLink({
   className,
 }: {
   className?: string;
 }) {
->>>>>>> origin/main
   const [email, setEmail] = useState<string | null>(null);
 
   useEffect(() => {

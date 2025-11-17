@@ -5,10 +5,7 @@ import { ObfuscatedEmailLink } from "@/components/obfuscated-email-link";
 const linkedinUrl = "https://www.linkedin.com/company/netwalking";
 const xUrl = "https://x.com/_NetWalking";
 const skoolUrl = "https://www.skool.com/glokyo-4028";
-<<<<<<< HEAD
 const accentClass = "text-[#4cccc3]";
-=======
->>>>>>> origin/main
 
 function XLogo({ className }: { className?: string }) {
   return (
@@ -32,7 +29,6 @@ export function Footer() {
       <div className="container mx-auto px-4 py-10">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="space-y-2">
-<<<<<<< HEAD
             <p className="text-2xl font-semibold text-primary">
               <span className={accentClass}>Net</span>Walking
             </p>
@@ -40,13 +36,6 @@ export function Footer() {
               <span className={accentClass}>一歩ずつ</span>、つながりを強く。
               <br />
               Building stronger relationships, <span className={accentClass}>step by step</span>.
-=======
-            <p className="text-2xl font-semibold text-primary">NetWalking</p>
-            <p className="max-w-sm text-sm text-muted-foreground">
-              一歩ずつ、つながりを強く。
-              <br />
-              Building stronger relationships, step by step.
->>>>>>> origin/main
             </p>
           </div>
           <div className="flex flex-col gap-4 md:items-end">
@@ -84,11 +73,7 @@ export function Footer() {
               </Link>
             </nav>
             <p className="text-xs text-muted-foreground">
-<<<<<<< HEAD
               © {new Date().getFullYear()} <span className={accentClass}>Net</span>Walking. All rights reserved.
-=======
-              © {new Date().getFullYear()} NetWalking. All rights reserved.
->>>>>>> origin/main
             </p>
           </div>
         </div>

@@ -56,9 +56,7 @@ export async function EventsList({ events }: EventsListProps) {
           </div>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <span className="" style={{ color: "#4cccc3" }}>
-                #{event.no}
-              </span>
+              <span className="font-mono text-[#4cccc3]">#{event.no}</span>
               <Link href={`/events/${event.id}`}>{event.title}</Link>
             </CardTitle>
             <CardDescription>{event.course}</CardDescription>

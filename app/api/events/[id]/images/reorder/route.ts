@@ -9,10 +9,10 @@ cloudinary.config({
 
 export async function POST(
   request: Request,
-  context: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = await params;
     const eventNo = id;
     console.log(`[ImageUpload] Processing reorder for event: ${eventNo}`);
 

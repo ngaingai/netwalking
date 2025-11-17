@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -80,12 +81,15 @@ export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Edit Event</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          Edit Event <span className="font-mono text-[#4cccc3]">#{event.no}</span>
+        </CardTitle>
+        <CardDescription>Update event details below</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>
             <Input
@@ -222,16 +226,23 @@ export function EditEvent({ event, onClose, onUpdate }: EditEventProps) {
 
           <div className="space-y-2">
             <Label>Images</Label>
-            <ImageUpload eventId={event.no.toString()} />
+            <ImageUpload
+              eventId={event.id}
+              eventNo={event.no}
+              onUpdate={() => {
+                router.refresh();
+              }}
+            />
           </div>
-        </CardContent>
-        <CardFooter className="justify-between">
-          <Button type="button" variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button type="submit">Save Changes</Button>
-        </CardFooter>
-      </Card>
-    </form>
+
+          <CardFooter className="justify-between">
+            <Button type="button" variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button type="submit">Save Changes</Button>
+          </CardFooter>
+        </form>
+      </CardContent>
+    </Card>
   );
 }

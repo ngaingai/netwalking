@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
-import eventsData from "@/data/events.json";
+import { promises as fs } from "fs";
+import path from "path";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -7,6 +8,8 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+
+const EVENTS_FILE = path.join(process.cwd(), "data", "events.json");
 
 export interface Event {
   id: string;
@@ -52,31 +55,92 @@ const imageCache = new Map<
 >();
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 
-export async function getEvents(): Promise<Event[]> {
+// Read events directly from file system (for build time / server components)
+async function readEventsFile(): Promise<{ events: Event[] }> {
+  try {
+    const fileContents = await fs.readFile(EVENTS_FILE, "utf8");
+    return JSON.parse(fileContents);
+  } catch (error) {
+    console.error("Error reading events file:", error);
+    throw new Error("Failed to read events file");
+  }
+}
+
+// Get events from file system (for build time / static generation)
+export async function getEventsFromFile(): Promise<Event[]> {
+  const data = await readEventsFile();
   // Update status based on current date
-  return eventsData.events.map((event) => ({
+  return data.events.map((event: Event) => ({
     ...event,
     status: getEventStatus(event.date),
   }));
 }
 
-export async function getEvent(id: string): Promise<Event | null> {
-  const event = eventsData.events.find((e) => e.id === id);
-  if (!event) return null;
+// Get events via API (for client-side / runtime)
+export async function getEvents(): Promise<Event[]> {
+  // During build time, use file system directly
+  if (typeof window === "undefined" && process.env.NODE_ENV !== "development") {
+    return getEventsFromFile();
+  }
+  
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  try {
+    const response = await fetch(`${baseUrl}/api/events`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch events");
+    }
+    return response.json() as Promise<Event[]>;
+  } catch (error) {
+    // Fallback to file system if API fails (e.g., during build)
+    console.warn("API fetch failed, falling back to file system:", error);
+    return getEventsFromFile();
+  }
+}
 
-  return {
-    ...event,
-    status: getEventStatus(event.date),
-  };
+export async function getEvent(id: string): Promise<Event | null> {
+  // During build time, use file system directly
+  if (typeof window === "undefined") {
+    try {
+      const events = await getEventsFromFile();
+      const event = events.find((e) => e.id === id);
+      return event || null;
+    } catch (error) {
+      console.warn("File system read failed, falling back to API:", error);
+    }
+  }
+  
+  // Fallback to API for client-side / runtime
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  try {
+    const response = await fetch(`${baseUrl}/api/events/${id}`);
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null;
+      }
+      throw new Error("Failed to fetch event");
+    }
+    return response.json() as Promise<Event>;
+  } catch (error) {
+    // Final fallback to file system if API fails
+    console.warn("API fetch failed, falling back to file system:", error);
+    try {
+      const events = await getEventsFromFile();
+      return events.find((e) => e.id === id) || null;
+    } catch {
+      return null;
+    }
+  }
 }
 
 export async function getPastEvents(): Promise<Event[]> {
-  const events = await getEvents();
+  // Use file system for server components / build time
+  const events = await getEventsFromFile();
   return events.filter((event) => event.status === "past");
 }
 
 export async function getUpcomingEvents(): Promise<Event[]> {
-  const events = await getEvents();
+  // Use file system for server components / build time
+  const events = await getEventsFromFile();
   return events.filter((event) => event.status === "upcoming");
 }
 

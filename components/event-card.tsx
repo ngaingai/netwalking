@@ -76,7 +76,7 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
               )}
             </Button>
             <CardTitle>
-              Event <span style={{ color: "#4cccc3" }}>#{event.no}</span>
+              Event <span className="font-mono text-[#4cccc3]">#{event.no}</span>
             </CardTitle>
           </div>
           <div className="flex gap-2">
@@ -217,7 +217,8 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
               <div className="space-y-2">
                 <Label>Images</Label>
                 <ImageUpload
-                  eventId={event.no.toString()}
+                  eventId={event.id}
+                  eventNo={event.no}
                   onUpdate={() => {
                     fetchEventImage();
                     if (onEventUpdated) {

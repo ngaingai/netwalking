@@ -98,11 +98,12 @@ function SortableImage({
 
 export default function ImageUpload({
   eventNo,
-  eventId,
+  eventId: _eventId,
   onImagesChange,
   onUpdate,
 }: ImageUploadProps) {
-  const actualEventId = eventId || eventNo;
+  // Always use eventNo for API calls since the backend expects the event number
+  // (e.g., "016") to construct Cloudinary folder paths like folder:events/016/*
   const [images, setImages] = useState<CloudinaryImage[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -118,11 +119,11 @@ export default function ImageUpload({
   useEffect(() => {
     fetchImages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actualEventId]);
+  }, [eventNo]);
 
   const fetchImages = async () => {
     try {
-      const response = await fetch(`/api/events/${actualEventId}/images`);
+      const response = await fetch(`/api/events/${eventNo}/images`);
       if (!response.ok) {
         throw new Error("Failed to fetch images");
       }
@@ -142,7 +143,7 @@ export default function ImageUpload({
       const formData = new FormData();
       formData.append("files", file);
 
-      const response = await fetch(`/api/events/${actualEventId}/images`, {
+      const response = await fetch(`/api/events/${eventNo}/images`, {
         method: "POST",
         body: formData,
       });
@@ -171,7 +172,7 @@ export default function ImageUpload({
 
   const handleDelete = async (publicId: string) => {
     try {
-      const response = await fetch(`/api/events/${actualEventId}/images`, {
+      const response = await fetch(`/api/events/${eventNo}/images`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -210,7 +211,7 @@ export default function ImageUpload({
     }
 
     try {
-      const response = await fetch(`/api/events/${actualEventId}/images/reorder`, {
+      const response = await fetch(`/api/events/${eventNo}/images/reorder`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

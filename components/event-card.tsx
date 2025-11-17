@@ -217,7 +217,8 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
               <div className="space-y-2">
                 <Label>Images</Label>
                 <ImageUpload
-                  eventId={event.no.toString()}
+                  eventId={event.id}
+                  eventNo={event.no}
                   onUpdate={() => {
                     fetchEventImage();
                     if (onEventUpdated) {

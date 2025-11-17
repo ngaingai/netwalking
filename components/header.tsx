@@ -9,9 +9,10 @@ export function Header() {
           <Image
             src="/images/NetWalking-Logo.jpg"
             alt="NetWalking Logo"
-            width={32}
-            height={32}
-            className="h-8 w-8"
+            width={120}
+            height={80}
+            className="h-10 w-auto"
+            priority
           />
           <span className="font-bold">
             <span style={{ color: "#4cccc3" }}>Net</span>Walking

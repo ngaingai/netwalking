@@ -17,10 +17,10 @@ async function getEventsData(): Promise<EventsData> {
 
 export async function PUT(
   request: Request,
-  context: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = await params;
     const updatedEvent = (await request.json()) as Partial<Event>;
 
     // Read current data
@@ -76,11 +76,11 @@ export async function PUT(
 }
 
 export async function GET(
-  _: Request,
-  context: { params: Promise<{ id: string }> }
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = await params;
     const eventsData = await getEventsData();
     const event = eventsData.events.find((e: Event) => e.id === id);
 

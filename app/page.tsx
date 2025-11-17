@@ -12,7 +12,8 @@ const accentClass = "text-[#4cccc3]";
 const Net = () => <span className={accentClass}>Net</span>;
 const NetWalkingWord = () => (
   <span>
-    <Net />Walking
+    <Net />
+    Walking
   </span>
 );
 
@@ -115,7 +116,8 @@ export default async function EventsPage() {
             <span className={accentClass}>一歩ずつ</span>、つながりを強く。
             <br />
             <span className="text-lg font-medium text-muted-foreground md:text-xl">
-              Building stronger relationships, <span className={accentClass}>step by step</span>.
+              Building stronger relationships,{" "}
+              <span className={accentClass}>step by step</span>.
             </span>
           </h1>
           <p className="max-w-2xl text-base text-muted-foreground md:text-lg">
@@ -127,20 +129,14 @@ export default async function EventsPage() {
 
         {nextEvent ? (
           <section className="mb-12" aria-labelledby="upcoming-event">
-            <h2
-              id="upcoming-event"
-              className="mb-6 text-2xl font-semibold"
-            >
+            <h2 id="upcoming-event" className="mb-6 text-2xl font-semibold">
               <span className={accentClass}>Upcoming</span> Event
             </h2>
             <FeaturedEvent event={nextEvent} />
           </section>
         ) : (
           <section className="mb-12" aria-labelledby="upcoming-event">
-            <h2
-              id="upcoming-event"
-              className="mb-6 text-2xl font-semibold"
-            >
+            <h2 id="upcoming-event" className="mb-6 text-2xl font-semibold">
               <span className={accentClass}>Upcoming</span> Event
             </h2>
             <Card className="bg-muted/50">
@@ -228,10 +224,7 @@ export default async function EventsPage() {
         </section>
 
         <section aria-labelledby="past-events">
-          <h2
-            id="past-events"
-            className="mb-6 text-2xl font-semibold"
-          >
+          <h2 id="past-events" className="mb-6 text-2xl font-semibold">
             <span className={accentClass}>Past</span> Events
           </h2>
           <Suspense fallback={<EventsPageSkeleton />}>
@@ -276,9 +269,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://netwalking.net/images/NetWalking-Logo.jpg",
-        width: 1280,
-        height: 720,
-        alt: "NetWalking community walking together in Tokyo",
+        width: 1200,
+        height: 800,
+        alt: "NetWalking Logo",
       },
     ],
   },

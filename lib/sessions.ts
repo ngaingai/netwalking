@@ -13,9 +13,6 @@ const SESSION_CONFIG = {
   },
 } as const;
 
-// Debug logging
-console.log("Initializing sessions store");
-
 /**
  * Adds a new admin session
  * @param token - The session token to store
@@ -26,7 +23,6 @@ export async function addSession(token: string): Promise<void> {
     ...SESSION_CONFIG.options,
     maxAge: SESSION_CONFIG.maxAge,
   });
-  console.log(`[Session] Added new session: ${token}`);
 }
 
 /**
@@ -35,7 +31,6 @@ export async function addSession(token: string): Promise<void> {
 export async function removeSession(): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.delete(SESSION_CONFIG.name);
-  console.log("[Session] Removed current session");
 }
 
 /**
@@ -48,11 +43,9 @@ export async function isValidSession(token: string): Promise<boolean> {
   const sessionCookie = cookieStore.get(SESSION_CONFIG.name);
 
   if (!sessionCookie || sessionCookie.value !== token) {
-    console.log(`[Session] Invalid session: ${token}`);
     return false;
   }
 
-  console.log(`[Session] Valid session: ${token}`);
   return true;
 }
 

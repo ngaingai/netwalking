@@ -60,7 +60,7 @@ export async function FeaturedEvent({ event }: FeaturedEventProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <span className="font-mono text-[#4cccc3]">#{event.no}</span>
-          <Link href={`/events/${event.id}`}>{event.title}</Link>
+          <Link href={`/events/${event.id}`} className="text-muted-foreground hover:text-muted-foreground/80">{event.title}</Link>
         </CardTitle>
         <CardDescription className="flex items-center gap-1">
           <MapPinIcon className="h-4 w-4" />

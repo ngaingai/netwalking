@@ -30,7 +30,8 @@ export function Footer() {
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="space-y-2">
             <p className="text-2xl font-semibold text-primary">
-              <span className={accentClass}>Net</span>Walking
+              <span className={accentClass}>Net</span>
+              <span className="text-muted-foreground">Walking</span>
             </p>
             <p className="max-w-sm text-sm text-muted-foreground">
               <span className={accentClass}>一歩ずつ</span>、つながりを強く。
@@ -73,7 +74,8 @@ export function Footer() {
               </Link>
             </nav>
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} <span className={accentClass}>Net</span>Walking. All rights reserved.
+              © {new Date().getFullYear()} <span className={accentClass}>Net</span>
+              <span className="text-muted-foreground">Walking</span>. All rights reserved.
             </p>
           </div>
         </div>

@@ -117,6 +117,7 @@ export default function ImageUpload({
 
   useEffect(() => {
     fetchImages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [actualEventId]);
 
   const fetchImages = async () => {

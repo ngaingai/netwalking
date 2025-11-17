@@ -1,7 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { promises as fs } from "fs";
 import path from "path";
-import eventsData from "@/data/events.json";
 
 // Configure Cloudinary
 cloudinary.config({

@@ -138,14 +138,11 @@ export default async function EventPage({ params }: EventPageProps) {
 
   return (
     <div className="container mx-auto min-h-screen px-4 py-8">
-<<<<<<< HEAD
       <script
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
       />
-=======
->>>>>>> origin/main
       <div className="mb-8">
         <Button variant="ghost" asChild className="mb-4 pl-0 hover:bg-transparent">
           <Link href="/" className="flex items-center gap-2">
@@ -184,20 +181,12 @@ export default async function EventPage({ params }: EventPageProps) {
             ))}
           </div>
 
-<<<<<<< HEAD
-          {isPastEvent && images.length > 0 && (
-            <div className="pt-4">
-              <h2 className="mb-4 text-2xl font-bold">Event Gallery</h2>
-              <EventGallery eventId={event.id} images={images} />
-          </div>
-=======
           {/* Event Gallery - only show for past events */}
           {isPastEvent && images.length > 0 && (
             <div className="pt-4">
               <h2 className="mb-4 text-2xl font-bold">Event Gallery</h2>
               <EventGallery images={images} />
             </div>
->>>>>>> origin/main
           )}
         </div>
 

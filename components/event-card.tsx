@@ -60,65 +60,6 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
   };
 
   return (
-<<<<<<< HEAD
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            {isExpanded ? (
-              <ChevronUp className="h-4 w-4" />
-            ) : (
-              <ChevronDown className="h-4 w-4" />
-            )}
-          </Button>
-          <CardTitle>
-            Event <span className="font-mono text-[#4cccc3]">#{event.no}</span>
-          </CardTitle>
-        </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setIsEditing(true)}
-          >
-            <Pencil className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="icon">
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent>
-        {isEditing ? (
-          <EditEvent event={event} onClose={() => setIsEditing(false)} />
-        ) : isExpanded ? (
-          <div className="space-y-2">
-            <p>
-              <strong>Title:</strong> {event.title}
-            </p>
-            <p>
-              <strong>Date:</strong> {event.date}
-            </p>
-            <p>
-              <strong>Time:</strong> {event.time}
-            </p>
-            <p>
-              <strong>Course:</strong> {event.course}
-            </p>
-            <p>
-              <strong>Meeting Point:</strong> {event.meetingPoint}
-            </p>
-            <p>
-              <strong>Status:</strong> {event.status}
-            </p>
-            <p>
-              <strong>Attendees:</strong> {event.attendees}
-            </p>
-=======
     <>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
@@ -135,9 +76,8 @@ export function EventCard({ event, onEventUpdated }: EventCardProps) {
               )}
             </Button>
             <CardTitle>
-              Event <span style={{ color: "#4cccc3" }}>#{event.no}</span>
+              Event <span className="font-mono text-[#4cccc3]">#{event.no}</span>
             </CardTitle>
->>>>>>> origin/main
           </div>
           <div className="flex gap-2">
             <Button variant="outline" size="icon" onClick={handleEdit}>

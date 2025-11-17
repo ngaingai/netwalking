@@ -6,10 +6,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CloudinaryImage } from "@/lib/events";
 
 interface EventGalleryProps {
-<<<<<<< HEAD
-  eventId?: string;
-=======
->>>>>>> origin/main
   images: CloudinaryImage[];
 }
 

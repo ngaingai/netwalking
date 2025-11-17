@@ -45,24 +45,6 @@ export async function EventsList({ events }: EventsListProps) {
                   height={338}
                   className="object-cover w-full h-full"
                 />
-<<<<<<< HEAD
-              ) : (
-                <div className="flex h-full items-center justify-center bg-muted">
-                  <p className="text-sm text-muted-foreground">
-                    No image available
-                  </p>
-                </div>
-              )}
-            </div>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="font-mono text-[#4cccc3]">#{event.no}</span>
-                {event.title}
-              </CardTitle>
-              <CardDescription>{event.course}</CardDescription>
-            </CardHeader>
-            <CardContent>
-=======
               </Link>
             ) : (
               <div className="flex h-full items-center justify-center bg-muted">
@@ -74,16 +56,13 @@ export async function EventsList({ events }: EventsListProps) {
           </div>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <span className="" style={{ color: "#4cccc3" }}>
-                #{event.no}
-              </span>
+              <span className="font-mono text-[#4cccc3]">#{event.no}</span>
               <Link href={`/events/${event.id}`}>{event.title}</Link>
             </CardTitle>
             <CardDescription>{event.course}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
->>>>>>> origin/main
               <p className="text-sm text-muted-foreground">
                 {formatDate(event.date)}
               </p>

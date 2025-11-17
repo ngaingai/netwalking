@@ -113,7 +113,7 @@ export default function ImageUpload({
       activationConstraint: {
         distance: 5,
       },
-    }),
+    })
   );
 
   useEffect(() => {
@@ -216,7 +216,9 @@ export default function ImageUpload({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ images: reorderedImages.map((img) => img.public_id) }),
+        body: JSON.stringify({
+          images: reorderedImages.map((img) => img.public_id),
+        }),
       });
 
       if (!response.ok) {

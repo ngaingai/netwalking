@@ -35,7 +35,7 @@ export function ObfuscatedEmailLink({
   if (!email) {
     return (
       <span className={combinedClassName}>
-        <Mail className="h-4 w-4 animate-pulse" />
+        <Mail className="h-4 w-4 animate-pulse" style={{ color: "#4cccc3" }} />
         <span>Loading…</span>
       </span>
     );
@@ -43,7 +43,7 @@ export function ObfuscatedEmailLink({
 
   return (
     <Link href={`mailto:${email}`} className={combinedClassName}>
-      <Mail className="h-4 w-4" />
+      <Mail className="h-4 w-4" style={{ color: "#4cccc3" }} />
       <span>{email}</span>
     </Link>
   );

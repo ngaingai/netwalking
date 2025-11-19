@@ -1,19 +1,24 @@
 import Link from "next/link";
+import Image from "next/image";
+import type React from "react";
 import { Linkedin, Users } from "lucide-react";
+import { SiMeetup } from "react-icons/si";
 import { ObfuscatedEmailLink } from "@/components/obfuscated-email-link";
 
 const linkedinUrl = "https://www.linkedin.com/company/netwalking";
 const xUrl = "https://x.com/_NetWalking";
 const skoolUrl = "https://www.skool.com/glokyo-4028";
+const meetupUrl = "https://www.meetup.com/netwalking/";
 const accentClass = "text-[#4cccc3]";
 
-function XLogo({ className }: { className?: string }) {
+function XLogo({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       aria-hidden="true"
       className={className}
+      style={style}
     >
       <path
         fill="currentColor"
@@ -22,6 +27,7 @@ function XLogo({ className }: { className?: string }) {
     </svg>
   );
 }
+
 
 export function Footer() {
   return (
@@ -33,34 +39,50 @@ export function Footer() {
               <span className={accentClass}>Net</span>
               <span className="text-muted-foreground">Walking</span>
             </p>
+            <Image
+              src="/images/NetWalking-Logo.jpg"
+              alt="NetWalking Logo"
+              width={175}
+              height={117}
+              className="w-[175px] h-auto"
+            />
             <p className="max-w-sm text-sm text-muted-foreground">
               <span className={accentClass}>一歩ずつ</span>、つながりを強く。
               <br />
               Building stronger relationships, <span className={accentClass}>step by step</span>.
             </p>
           </div>
-          <div className="flex flex-col gap-4 md:items-end">
+          <div className="flex flex-col gap-4">
             <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
               Stay Connected
             </p>
-            <nav className="flex flex-col gap-3 text-sm md:items-end">
+            <nav className="flex flex-col gap-3 text-sm">
               <Link
                 href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-muted-foreground transition hover:text-primary"
               >
-                <Linkedin className="h-4 w-4" />
+                <Linkedin className="h-4 w-4" style={{ color: "#4cccc3" }} />
                 <span>LinkedIn</span>
               </Link>
               <ObfuscatedEmailLink />
+              <Link
+                href={meetupUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-muted-foreground transition hover:text-primary"
+              >
+                <SiMeetup className="h-4 w-4" style={{ color: "#4cccc3" }} />
+                <span>Meetup</span>
+              </Link>
               <Link
                 href={xUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-muted-foreground transition hover:text-primary"
               >
-                <XLogo className="h-4 w-4" />
+                <XLogo className="h-4 w-4" style={{ color: "#4cccc3" }} />
                 <span>Follow on X</span>
               </Link>
               <Link
@@ -69,7 +91,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-muted-foreground transition hover:text-primary"
               >
-                <Users className="h-4 w-4" />
+                <Users className="h-4 w-4" style={{ color: "#4cccc3" }} />
                 <span>Skool Community</span>
               </Link>
             </nav>

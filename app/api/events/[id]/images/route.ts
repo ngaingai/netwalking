@@ -37,7 +37,7 @@ export async function GET(
 ) {
   const { id } = await params;
   const eventNo = id;
-  
+
   try {
     if (process.env.NODE_ENV !== "production") {
       console.log(`[ImageUpload] Getting images for event: ${eventNo}`);
@@ -48,7 +48,8 @@ export async function GET(
     if (cached) {
       return NextResponse.json(cached, {
         headers: {
-          "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+          "Cache-Control":
+            "public, s-maxage=3600, stale-while-revalidate=86400",
         },
       });
     }
@@ -102,7 +103,7 @@ export async function GET(
     });
   } catch (error: any) {
     console.error("[ImageUpload] Error getting images:", error);
-    
+
     // If rate limited, try to return stale cache
     if (error?.http_code === 420 || error?.message?.includes("Rate Limit")) {
       const staleCache = getStaleCache(eventNo);
@@ -125,7 +126,7 @@ export async function GET(
         { status: 429 }
       );
     }
-    
+
     return NextResponse.json(
       { error: "Failed to get images" },
       { status: 500 }
@@ -200,10 +201,10 @@ export async function POST(
     });
 
     const newImages = await Promise.all(uploadPromises);
-    
+
     // Invalidate cache so new images appear immediately
     invalidateCache(eventNo);
-    
+
     if (process.env.NODE_ENV !== "production") {
       console.log(
         `[ImageUpload] Successfully uploaded ${newImages.length} images`
@@ -245,10 +246,10 @@ export async function DELETE(
 
     // Delete from Cloudinary
     await cloudinary.uploader.destroy(publicId);
-    
+
     // Invalidate cache so deleted image disappears immediately
     invalidateCache(eventNo);
-    
+
     if (process.env.NODE_ENV !== "production") {
       console.log(`[ImageUpload] Successfully deleted image: ${publicId}`);
     }

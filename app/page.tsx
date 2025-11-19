@@ -148,10 +148,13 @@ export default async function EventsPage() {
               <span className={accentClass}>step by step</span>.
             </span>
           </h2>
-          <p className="max-w-2xl text-base text-muted-foreground md:text-lg">
-            Join bilingual networking walks across Tokyo and Yokohama. Meet
-            founders, freelancers, and globally minded parents while exploring
-            the city together.
+          <p className="max-w-2xl text-base italic font-light text-muted-foreground md:text-lg">
+            5K walks with Tokyo's most{" "}
+            <span style={{ color: "#4cccc3" }}>awesome</span> people. Monthly,
+            12-2pm. Free!
+            <br />
+            東京の"<span style={{ color: "#4cccc3" }}>最高</span>
+            の仲間たち"と歩く 5kmのお散歩。毎月開催、12〜14時。参加無料！
           </p>
         </div>
 

@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
+import {
+  getCachedImages,
+  setCachedImages,
+  invalidateCache,
+  getStaleCache,
+} from "@/lib/image-cache";
 
 interface DeleteRequest {
   publicId: string;
@@ -29,11 +35,22 @@ export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
+  const eventNo = id;
+  
   try {
-    const { id } = await params;
-    const eventNo = id;
     if (process.env.NODE_ENV !== "production") {
       console.log(`[ImageUpload] Getting images for event: ${eventNo}`);
+    }
+
+    // Check cache first
+    const cached = getCachedImages(eventNo);
+    if (cached) {
+      return NextResponse.json(cached, {
+        headers: {
+          "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+        },
+      });
     }
 
     const result = await cloudinary.search
@@ -70,14 +87,45 @@ export async function GET(
         secure_url,
       }));
 
+    // Cache the results
+    setCachedImages(eventNo, images);
+
     if (process.env.NODE_ENV !== "production") {
       console.log(
         `[ImageUpload] Found ${images.length} images for event ${eventNo}`
       );
     }
-    return NextResponse.json(images);
-  } catch (error) {
+    return NextResponse.json(images, {
+      headers: {
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    });
+  } catch (error: any) {
     console.error("[ImageUpload] Error getting images:", error);
+    
+    // If rate limited, try to return stale cache
+    if (error?.http_code === 420 || error?.message?.includes("Rate Limit")) {
+      const staleCache = getStaleCache(eventNo);
+      if (staleCache) {
+        console.warn(
+          `[ImageUpload] Rate limited for event ${eventNo}, returning stale cache`
+        );
+        return NextResponse.json(staleCache, {
+          headers: {
+            "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+            "X-Cache-Status": "stale",
+          },
+        });
+      }
+      return NextResponse.json(
+        {
+          error: "Rate limit exceeded. Please try again later.",
+          message: error.message,
+        },
+        { status: 429 }
+      );
+    }
+    
     return NextResponse.json(
       { error: "Failed to get images" },
       { status: 500 }
@@ -152,6 +200,10 @@ export async function POST(
     });
 
     const newImages = await Promise.all(uploadPromises);
+    
+    // Invalidate cache so new images appear immediately
+    invalidateCache(eventNo);
+    
     if (process.env.NODE_ENV !== "production") {
       console.log(
         `[ImageUpload] Successfully uploaded ${newImages.length} images`
@@ -193,6 +245,10 @@ export async function DELETE(
 
     // Delete from Cloudinary
     await cloudinary.uploader.destroy(publicId);
+    
+    // Invalidate cache so deleted image disappears immediately
+    invalidateCache(eventNo);
+    
     if (process.env.NODE_ENV !== "production") {
       console.log(`[ImageUpload] Successfully deleted image: ${publicId}`);
     }

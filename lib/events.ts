@@ -1,6 +1,12 @@
 import { v2 as cloudinary } from "cloudinary";
 import { promises as fs } from "fs";
 import path from "path";
+import {
+  getCachedImages,
+  setCachedImages,
+  invalidateCache,
+  getStaleCache,
+} from "./image-cache";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -47,13 +53,6 @@ interface OrderedImage {
   secure_url: string;
   order: string;
 }
-
-// Add a simple in-memory cache
-const imageCache = new Map<
-  string,
-  { images: CloudinaryImage[]; timestamp: number }
->();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 
 // Read events directly from file system (for build time / server components)
 async function readEventsFile(): Promise<{ events: Event[] }> {
@@ -148,9 +147,9 @@ export async function getEventImages(
   eventNo: string
 ): Promise<CloudinaryImage[]> {
   // Check cache first
-  const cached = imageCache.get(eventNo);
-  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-    return cached.images;
+  const cached = getCachedImages(eventNo);
+  if (cached) {
+    return cached;
   }
 
   try {
@@ -196,14 +195,29 @@ export async function getEventImages(
     );
 
     // Cache the results
-    imageCache.set(eventNo, { images, timestamp: Date.now() });
+    setCachedImages(eventNo, images);
 
     return images;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching images from Cloudinary:", error);
+    
+    // If rate limited, try to return stale cache
+    if (error?.http_code === 420 || error?.message?.includes("Rate Limit")) {
+      const staleCache = getStaleCache(eventNo);
+      if (staleCache) {
+        console.warn(
+          `Rate limited for event ${eventNo}, returning stale cache`
+        );
+        return staleCache;
+      }
+    }
+    
     return [];
   }
 }
+
+// Export cache invalidation for use in API routes
+export { invalidateCache };
 
 // Helper function to determine event status
 export function getEventStatus(date: string): "past" | "upcoming" {

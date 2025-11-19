@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
+import { invalidateCache } from "@/lib/image-cache";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -84,6 +85,9 @@ export async function POST(
         { status: 500 }
       );
     }
+
+    // Invalidate cache so reordered images appear in new order immediately
+    invalidateCache(eventNo);
 
     return NextResponse.json({ success: true });
   } catch (error) {

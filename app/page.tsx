@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { EventsList } from "@/components/events-list";
 import { FeaturedEvent } from "@/components/featured-event";
+import { FaqAccordion } from "@/components/faq-accordion";
 import { getUpcomingEvents, getPastEvents } from "@/lib/events";
 import { EventsPageSkeleton } from "@/components/events-page-skeleton";
 
@@ -29,15 +30,22 @@ const faqItems: FaqItem[] = [
     question: "What is NetWalking?",
     questionDisplay: (
       <>
-        What is <NetWalkingWord />?
+        What is <NetWalkingWord />? <span style={{ color: "#4cccc3" }}>→</span>{" "}
+        <NetWalkingWord /> って何？
       </>
     ),
     answer:
-      "NetWalking is a networking movement designed for walk-and-talk conversations with founders, freelancers, and parents across Tokyo.",
+      "NetWalking is a movement. Literally! It's a walking-based alternative to traditional networking events. We blend connection, conversation, and community step-by-step. Join founders, freelancers, and parents for a mid-afternoon stroll in Tokyo's beautiful outdoors!",
     answerDisplay: (
       <>
-        <NetWalkingWord /> is a networking movement designed for walk-and-talk
-        conversations with founders, freelancers, and parents across Tokyo.
+        <NetWalkingWord /> is a movement. Literally! It's a walking-based
+        alternative to traditional networking events. We blend connection,
+        conversation, and community step-by-step. Join founders, freelancers,
+        and parents for a mid-afternoon stroll in Tokyo's beautiful outdoors!
+        <br />
+        <br />
+        <NetWalkingWord />{" "}
+        は「ムーブメント」そのものです。文字通り、歩きながらつながる、新しいスタイルのネットワーキング。一歩ずつ、会話・つながり・コミュニニティを育てていくイベントです。東京の美しい屋外を、創業者、フリーランス、パパママたちと一緒にゆったり歩きませんか？午後のひとときを、みんなで楽しく共有しましょう！
       </>
     ),
   },
@@ -45,15 +53,24 @@ const faqItems: FaqItem[] = [
     question: "Who can join NetWalking?",
     questionDisplay: (
       <>
-        Who can join <NetWalkingWord />?
+        Who can join <NetWalkingWord />?{" "}
+        <span style={{ color: "#4cccc3" }}>→</span> 誰が参加できるの？
       </>
     ),
     answer:
-      "Everyone is welcome! Most of the NetWalking community speaks both Japanese and English, so newcomers can jump right in.",
+      "Everyone is welcome! The NetWalking community is as diverse as it gets. From babies to seniors, Japan to all over the world, CEO's to first-time visitors. Most of the regulars speak both Japanese and English so jump in and make new connections!",
     answerDisplay: (
       <>
-        Everyone is welcome! Most of the <NetWalkingWord /> community speaks
-        both Japanese and English, so newcomers can jump right in.
+        Everyone is welcome! The <NetWalkingWord /> community is as diverse as
+        it gets. From babies to seniors, Japan to all over the world, CEO's to
+        first-time visitors. Most of the regulars speak both Japanese and
+        English so jump in and make new connections!
+        <br />
+        <br />
+        誰でも大歓迎です！
+        <NetWalkingWord />{" "}
+        のコミュニティは、とにかく多様性にあふれています。赤ちゃんからシニアの方まで、日本の方も、世界中から来た方も、CEO
+        もいれば、初めて日本に来たばかりの人もいます。常連さんの多くは日本語と英語の両方を話すので、気軽に会話に入って、新しいつながりを作ってくださいね！
       </>
     ),
   },
@@ -61,15 +78,22 @@ const faqItems: FaqItem[] = [
     question: "How much does NetWalking cost?",
     questionDisplay: (
       <>
-        How much does <NetWalkingWord /> cost?
+        How much does <NetWalkingWord /> cost?{" "}
+        <span style={{ color: "#4cccc3" }}>→</span> 参加費はいくら？
       </>
     ),
     answer:
-      "NetWalking will always be free. Participation is optional, but we donate ¥100 to charity for every kilometer walked.",
+      "NetWalking will always be free. It's a walk in the park, after all! We encourage our paricipants to donate ¥100 to charity for every kilometer walked, but this is completely optional!",
     answerDisplay: (
       <>
-        <NetWalkingWord /> will always be free. Participation is optional, but
-        we donate ¥100 to charity for every kilometer walked.
+        <NetWalkingWord /> will always be free. It's a walk in the park, after
+        all! We encourage our paricipants to donate ¥100 to charity for every
+        kilometer walked, but this is completely optional!
+        <br />
+        <br />
+        <NetWalkingWord />{" "}
+        は、これからもずっと無料です。だって、ただのみんなで歩くイベントですから！参加者のみなさんには、歩いた1kmごとに100円をチャリティーに寄付していただく
+        "任意の仕組み" をご案内していますが、もちろん強制ではありません。
       </>
     ),
   },
@@ -213,18 +237,7 @@ export default async function EventsPage() {
           <h2 id="faq" className="mb-6 text-2xl font-semibold">
             <NetWalkingWord /> FAQs
           </h2>
-          <div className="space-y-6">
-            {faqItems.map((item) => (
-              <Card key={item.question} className="bg-muted/30">
-                <CardContent className="p-6">
-                  <h3 className="mb-2 text-xl font-semibold">
-                    {item.questionDisplay}
-                  </h3>
-                  <p className="text-muted-foreground">{item.answerDisplay}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <FaqAccordion items={faqItems} />
         </section>
 
         <section aria-labelledby="past-events">

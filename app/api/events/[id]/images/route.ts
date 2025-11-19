@@ -35,9 +35,10 @@ export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
+  const eventNo = id;
+  
   try {
-    const { id } = await params;
-    const eventNo = id;
     if (process.env.NODE_ENV !== "production") {
       console.log(`[ImageUpload] Getting images for event: ${eventNo}`);
     }

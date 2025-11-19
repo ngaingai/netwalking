@@ -75,10 +75,10 @@ const faqItems: FaqItem[] = [
     ),
   },
   {
-    question: "How much does NetWalking cost?",
+    question: "How much is NetWalking?",
     questionDisplay: (
       <>
-        How much does <NetWalkingWord /> cost?{" "}
+        How much is <NetWalkingWord /> ?{" "}
         <span style={{ color: "#4cccc3" }}>→</span> 参加費はいくら？
       </>
     ),

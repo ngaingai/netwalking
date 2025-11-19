@@ -37,7 +37,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                 aria-expanded={isOpen}
                 aria-controls={`faq-content-${index}`}
               >
-                <h3 className="text-xl font-semibold text-left">
+                <h3 className="text-base md:text-xl font-medium md:font-semibold text-left">
                   {item.questionDisplay}
                 </h3>
                 {isOpen ? (

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type React from "react";
-import { Linkedin, Users } from "lucide-react";
+import { Linkedin, Users, Instagram } from "lucide-react";
 import { SiMeetup } from "react-icons/si";
 import { ObfuscatedEmailLink } from "@/components/obfuscated-email-link";
 
@@ -9,6 +9,7 @@ const linkedinUrl = "https://www.linkedin.com/company/netwalking";
 const xUrl = "https://x.com/_NetWalking";
 const skoolUrl = "https://www.skool.com/glokyo-4028";
 const meetupUrl = "https://www.meetup.com/netwalking/";
+const instagramUrl = "https://www.instagram.com/_netwalking";
 const accentClass = "text-[#4cccc3]";
 
 function XLogo({ className, style }: { className?: string; style?: React.CSSProperties }) {
@@ -33,7 +34,8 @@ export function Footer() {
   return (
     <footer className="border-t bg-muted/30">
       <div className="container mx-auto px-4 py-10">
-        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-8 md:grid md:grid-cols-3 md:gap-8">
+          {/* Column 1: Logo and Tagline */}
           <div className="space-y-2">
             <p className="text-2xl font-semibold text-primary">
               <span className={accentClass}>Net</span>
@@ -52,6 +54,26 @@ export function Footer() {
               Building stronger relationships, <span className={accentClass}>step by step</span>.
             </p>
           </div>
+          
+          {/* Column 2: Blurb (Middle) */}
+          <div className="max-w-sm space-y-2 text-sm text-muted-foreground">
+            <p>
+              <span className={accentClass}>Net</span>
+              <span className="text-muted-foreground">Walking</span>
+              は、東京で毎月集まって歩くコミュニティです。
+              <br />
+              つながり、会話、ちょっとした冒険を一緒に。
+              <br />
+              いつでも自由に参加できます。
+            </p>
+            <p>
+              <span className={accentClass}>Net</span>
+              <span className="text-muted-foreground">Walking</span>
+              {" "}is a monthly walk in Tokyo. We're a community that connects, converses, and explores the city together. Always friendly, always free!
+            </p>
+          </div>
+          
+          {/* Column 3: Social Links */}
           <div className="flex flex-col gap-4">
             <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
               Stay Connected
@@ -75,6 +97,15 @@ export function Footer() {
               >
                 <SiMeetup className="h-4 w-4" style={{ color: "#4cccc3" }} />
                 <span>Meetup</span>
+              </Link>
+              <Link
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-muted-foreground transition hover:text-primary"
+              >
+                <Instagram className="h-4 w-4" style={{ color: "#4cccc3" }} />
+                <span>Instagram</span>
               </Link>
               <Link
                 href={xUrl}

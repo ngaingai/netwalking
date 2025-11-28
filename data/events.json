@@ -1,6 +1,24 @@
 {
   "events": [
     {
+      "id": "netwalking-017",
+      "no": "017",
+      "title": "忘年Walk! 🎉",
+      "date": "2025-12-17",
+      "time": "12:00",
+      "course": "Hibiya Area",
+      "meetingPoint": "Hibiya Station, 1-13-1-saki Yuraku-cho, Chiyoda-ku, Tokyo",
+      "maplink": "https://maps.app.goo.gl/KSYQEzT4RiKvABZk9",
+      "meetuplink": "https://www.meetup.com/netwalking/events/312203659/",
+      "linkedinlink": "https://www.linkedin.com/events/netwalking-17-%E5%BF%98%E5%B9%B4walk7399988187751702529/",
+      "description": "🎉 NetWalking #17: 忘年Walk! 🎉\n📌 December 17th (Wed) @ 12 Noon\n📍 日比谷駅 Hibiya Station, 1-13-1-saki Yuraku-cho, Chiyoda-ku, Tokyo\n🤝 Meet, Walk, Talk + Charity!\n\n日本語 OK!\nRain or shine!\n\nHi! I'm Alex!\n起業家ですが、同時にパパでもあります👶👧\n毎晩子どもたちと一緒にごはんを食べて、寝かしつけたいんです。\nI'm an entrepreneur, but I'm also a dad👶👧\nI want to be home for dinner & tuck in my kids every night.\n\nだから、よくある夜のネットワーキングイベントはちょっと違う…。\nそこで考えたのが、午後のオープンエア版！🍃\nTypical after-work networking events aren't for me!\nSo this is the afternoon, open-air version!🍃\n\n起業家、フリーランス、パパママ仲間たちと出会い、\n東京の美しさを感じながら、深い会話を楽しみましょう！\nJoin us to meet other founders, freelancers, and parents.\nHave a meaningful conversation & see the beauty of Tokyo!\n\nMeet at 日比谷駅 Hibiya Station!\n1-13-1-saki Yuraku-cho, Chiyoda-ku, Tokyo",
+      "attendees": 0,
+      "status": "upcoming",
+      "stravaLink": "",
+      "komootLink": "",
+      "linkedinReportLink": ""
+    },
+    {
       "id": "netwalking-016",
       "no": "016",
       "title": "Komazawa Park🍂",
@@ -16,7 +34,7 @@
       "status": "upcoming",
       "stravaLink": "",
       "komootLink": "",
-      "linkedinReportLink": ""
+      "linkedinReportLink": "https://www.linkedin.com/feed/update/urn:li:activity:7399604507443150849"
     },
     {
       "id": "netwalking-015",

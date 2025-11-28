@@ -38,6 +38,7 @@ export default function RootLayout({
     sameAs: [
       "https://www.linkedin.com/company/netwalking",
       "https://x.com/_NetWalking",
+      "https://www.instagram.com/_netwalking",
       "https://www.skool.com/glokyo-4028",
     ],
     contactPoint: [

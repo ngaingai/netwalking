@@ -144,12 +144,17 @@ export async function getUpcomingEvents(): Promise<Event[]> {
 }
 
 export async function getEventImages(
-  eventNo: string
+  eventNo: string,
+  forceRefresh: boolean = false
 ): Promise<CloudinaryImage[]> {
-  // Check cache first
-  const cached = getCachedImages(eventNo);
-  if (cached) {
-    return cached;
+  // Check cache first (unless forcing refresh)
+  if (!forceRefresh) {
+    const cached = getCachedImages(eventNo);
+    // Only return cached data if it's not empty (empty cache might be stale)
+    if (cached && cached.length > 0) {
+      return cached;
+    }
+    // If cache is empty, continue to fetch fresh data
   }
 
   try {
@@ -194,17 +199,21 @@ export async function getEventImages(
       })
     );
 
-    // Cache the results
+    // Cache the results (even if empty, to avoid repeated failed requests)
     setCachedImages(eventNo, images);
+
+    if (process.env.NODE_ENV !== "production" && images.length === 0) {
+      console.warn(`No images found for event ${eventNo} in Cloudinary folder events/${eventNo}/`);
+    }
 
     return images;
   } catch (error: any) {
-    console.error("Error fetching images from Cloudinary:", error);
+    console.error(`Error fetching images from Cloudinary for event ${eventNo}:`, error);
     
     // If rate limited, try to return stale cache
     if (error?.http_code === 420 || error?.message?.includes("Rate Limit")) {
       const staleCache = getStaleCache(eventNo);
-      if (staleCache) {
+      if (staleCache && staleCache.length > 0) {
         console.warn(
           `Rate limited for event ${eventNo}, returning stale cache`
         );
@@ -212,6 +221,7 @@ export async function getEventImages(
       }
     }
     
+    // Return empty array on error (component will show "no image available")
     return [];
   }
 }

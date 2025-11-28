@@ -18,9 +18,14 @@ interface FeaturedEventProps {
 }
 
 export async function FeaturedEvent({ event }: FeaturedEventProps) {
-  const images = await getEventImages(event.no);
+  // Force refresh for featured events to ensure we get the latest images
+  const images = await getEventImages(event.no, true);
   const coverImage = images[0];
   const isPastEvent = new Date(event.date) < new Date();
+  
+  if (process.env.NODE_ENV !== "production" && images.length === 0) {
+    console.warn(`[FeaturedEvent] No images found for event #${event.no} (${event.title})`);
+  }
 
   return (
     <Card className="overflow-hidden">

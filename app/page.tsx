@@ -267,7 +267,7 @@ export default async function EventsPage() {
 }
 
 export const metadata: Metadata = {
-  title: "NetWalking | Community Walks & Networking in Tokyo",
+  title: "NetWalking | Tokyo's Walking Community for Meaningful Connections",
   description:
     "Join NetWalking for bilingual, family-friendly networking walks across Tokyo. Meet founders, freelancers, and globally minded parents while exploring the city.",
   alternates: {
@@ -281,7 +281,7 @@ export const metadata: Metadata = {
     "Glokyo events",
   ],
   openGraph: {
-    title: "NetWalking | Community Walks & Networking in Tokyo",
+    title: "NetWalking | Tokyo's Walking Community for Meaningful Connections",
     description:
       "Discover NetWalking's upcoming bilingual walks across Tokyo. Build authentic relationships while exploring the city together.",
     type: "website",
@@ -297,7 +297,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NetWalking | Community Walks & Networking in Tokyo",
+    title: "NetWalking | Tokyo's Walking Community for Meaningful Connections",
     description:
       "Bilingual networking walks that build stronger relationships across Tokyo, one step at a time.",
     images: ["https://netwalking.net/images/NetWalking-Logo.jpg"],

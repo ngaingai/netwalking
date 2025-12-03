@@ -17,8 +17,11 @@ import { Separator } from "@/components/ui/separator";
 import { getEvent, getEventImages } from "@/lib/events";
 import { formatDate } from "@/lib/utils";
 import { EventGallery } from "@/components/event-gallery";
+import { HubSpotForm } from "@/components/hubspot-form";
 
 const SITE_URL = "https://netwalking.net";
+const accentClass = "text-[#4cccc3]";
+const Net = () => <span className={accentClass}>Net</span>;
 
 interface EventPageProps {
   params: Promise<{
@@ -326,6 +329,24 @@ export default async function EventPage({ params }: EventPageProps) {
                     This event has already taken place
                   </div>
                 ) : null}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <Net />Walkingに登録する
+                  <br />
+                  Register for <Net />Walking!
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <HubSpotForm
+                  portalId="244495034"
+                  formId="40586442-1dc6-48e8-bbe2-10b5a0d4e38f"
+                  region="na2"
+                  className="w-full"
+                />
               </CardContent>
             </Card>
 

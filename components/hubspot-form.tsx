@@ -101,13 +101,15 @@ export function HubSpotForm({
 
     // Handler function for script error
     const handleScriptError = () => {
-      console.error("Failed to load HubSpot forms script");
+      console.error(
+        "Failed to load HubSpot forms script from https://js.hsforms.net/forms/v2.js"
+      );
     };
 
     if (!script) {
       script = document.createElement("script");
       script.id = scriptId;
-      script.src = "//js.hsforms.net/forms/v2.js";
+      script.src = "https://js.hsforms.net/forms/v2.js";
       script.charset = "utf-8";
       script.type = "text/javascript";
       script.async = true;

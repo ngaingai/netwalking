@@ -24,13 +24,13 @@ interface HubSpotFormProps {
 
 /**
  * HubSpot Form Component for Next.js
- * 
+ *
  * Uses HubSpot's standard forms API for reliable rendering.
- * 
+ *
  * Usage:
- * <HubSpotForm 
- *   portalId="244495034" 
- *   formId="ae198bf0-8ccb-4c53-b539-e1e066b9fecb" 
+ * <HubSpotForm
+ *   portalId="244495034"
+ *   formId="ae198bf0-8ccb-4c53-b539-e1e066b9fecb"
  *   region="na2"
  * />
  */
@@ -50,7 +50,7 @@ export function HubSpotForm({
     }
 
     const container = formRef.current;
-    
+
     // Ensure container has an ID
     if (!container.id) {
       container.id = containerId;
@@ -92,6 +92,18 @@ export function HubSpotForm({
     const scriptId = "hs-forms-script";
     let script = document.getElementById(scriptId) as HTMLScriptElement;
 
+    // Handler function for script load
+    const handleScriptLoad = () => {
+      if (window.hbspt && window.hbspt.forms) {
+        createForm();
+      }
+    };
+
+    // Handler function for script error
+    const handleScriptError = () => {
+      console.error("Failed to load HubSpot forms script");
+    };
+
     if (!script) {
       script = document.createElement("script");
       script.id = scriptId;
@@ -100,35 +112,28 @@ export function HubSpotForm({
       script.type = "text/javascript";
       script.async = true;
 
-      script.onload = () => {
-        if (window.hbspt && window.hbspt.forms) {
-          createForm();
-        }
-      };
-
-      script.onerror = () => {
-        console.error("Failed to load HubSpot forms script");
-      };
+      // Use addEventListener to allow multiple handlers
+      script.addEventListener("load", handleScriptLoad);
+      script.addEventListener("error", handleScriptError);
 
       document.head.appendChild(script);
     } else {
-      // Script exists, wait for it to load if not already loaded
-      if (script.complete || script.readyState === "complete") {
+      // Script exists, check if it's already loaded by checking window.hbspt
+      if (window.hbspt && window.hbspt.forms) {
         // Script already loaded
-        if (window.hbspt && window.hbspt.forms) {
-          createForm();
-        }
+        createForm();
       } else {
-        script.onload = () => {
-          if (window.hbspt && window.hbspt.forms) {
-            createForm();
-          }
-        };
+        // Script is still loading, use addEventListener to allow multiple handlers
+        script.addEventListener("load", handleScriptLoad);
       }
     }
 
     return () => {
-      // Cleanup: clear form container
+      // Cleanup: remove event listeners and clear form container
+      if (script) {
+        script.removeEventListener("load", handleScriptLoad);
+        script.removeEventListener("error", handleScriptError);
+      }
       if (container) {
         container.innerHTML = "";
       }
@@ -136,13 +141,7 @@ export function HubSpotForm({
     };
   }, [portalId, formId, region, containerId]);
 
-  return (
-    <div
-      ref={formRef}
-      id={containerId}
-      className={className || ""}
-    />
-  );
+  return <div ref={formRef} id={containerId} className={className || ""} />;
 }
 
 // Extend Window interface for TypeScript
@@ -161,4 +160,3 @@ declare global {
     };
   }
 }
-

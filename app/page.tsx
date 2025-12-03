@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { EventsList } from "@/components/events-list";
 import { FeaturedEvent } from "@/components/featured-event";
 import { FaqAccordion } from "@/components/faq-accordion";
+import { HubSpotForm } from "@/components/hubspot-form";
 import { getUpcomingEvents, getPastEvents } from "@/lib/events";
 import { EventsPageSkeleton } from "@/components/events-page-skeleton";
 
@@ -241,6 +242,24 @@ export default async function EventsPage() {
             <NetWalkingWord /> FAQs
           </h2>
           <FaqAccordion items={faqItems} />
+        </section>
+
+        <section className="mb-12" aria-labelledby="contact">
+          <h2 id="contact" className="mb-6 text-2xl font-semibold">
+            <span className={accentClass}>Join</span> Us! 参加する！
+          </h2>
+          <Card className="bg-muted/50">
+            <CardContent className="p-8">
+              <div className="max-w-2xl mx-auto">
+                <HubSpotForm
+                  portalId="244495034"
+                  formId="ae198bf0-8ccb-4c53-b539-e1e066b9fecb"
+                  region="na2"
+                  className="w-full"
+                />
+              </div>
+            </CardContent>
+          </Card>
         </section>
 
         <section aria-labelledby="past-events">

@@ -45,7 +45,9 @@ export function HubSpotForm({
   const containerId = `hs-form-container-${formId}`;
 
   useEffect(() => {
-    if (!formRef.current || formCreatedRef.current) return;
+    if (!formRef.current || formCreatedRef.current) {
+      return undefined;
+    }
 
     const container = formRef.current;
     
@@ -77,7 +79,13 @@ export function HubSpotForm({
     // Check if HubSpot script is already loaded
     if (window.hbspt && window.hbspt.forms) {
       createForm();
-      return;
+      return () => {
+        // Cleanup: clear form container
+        if (container) {
+          container.innerHTML = "";
+        }
+        formCreatedRef.current = false;
+      };
     }
 
     // Load HubSpot forms script

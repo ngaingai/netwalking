@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type React from "react";
-import { Linkedin, Users, Instagram } from "lucide-react";
+import { Linkedin, Users, Instagram, Facebook } from "lucide-react";
 import { SiMeetup } from "react-icons/si";
 import { ObfuscatedEmailLink } from "@/components/obfuscated-email-link";
 
@@ -11,6 +11,7 @@ const skoolUrl = "https://www.skool.com/glokyo-4028";
 const meetupUrl = "https://www.meetup.com/netwalking/";
 const instagramUrl = "https://www.instagram.com/_netwalking";
 const lineUrl = "https://lin.ee/nB41KHn";
+const facebookUrl = "https://www.facebook.com/NetWalking.official/";
 const accentClass = "text-[#4cccc3]";
 
 function XLogo({ className, style }: { className?: string; style?: React.CSSProperties }) {
@@ -114,6 +115,15 @@ export function Footer() {
               >
                 <Instagram className="h-4 w-4" style={{ color: "#4cccc3" }} />
                 <span>Instagram</span>
+              </Link>
+              <Link
+                href={facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-muted-foreground transition hover:text-primary"
+              >
+                <Facebook className="h-4 w-4" style={{ color: "#4cccc3" }} />
+                <span>Facebook</span>
               </Link>
               <Link
                 href={meetupUrl}

@@ -68,7 +68,7 @@ async function checkAdminAuth(request: NextRequest): Promise<boolean> {
   return await isValidSession(sessionCookie.value);
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Handle API routes
@@ -116,3 +116,4 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/api/:path*", "/admin/:path*"],
 };
+

@@ -1,7 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["res.cloudinary.com", "netwalking.net", "www.netwalking.net"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "netwalking.net",
+      },
+      {
+        protocol: "https",
+        hostname: "www.netwalking.net",
+      },
+    ],
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -12,6 +25,7 @@ const nextConfig = {
     }
     return config;
   },
+  turbopack: {},
   async headers() {
     return [
       {

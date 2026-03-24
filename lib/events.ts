@@ -21,6 +21,7 @@ export interface Event {
   komootLink: string;
   attendees: number;
   coverImage: string;
+  photos: string[];
   status: "past" | "upcoming";
   description: string;
   descriptionJp: string;
@@ -44,6 +45,7 @@ interface EventFrontmatter {
   komootLink?: string;
   attendees?: number;
   coverImage?: string;
+  photos?: string;
   descriptionJp?: string;
 }
 
@@ -65,6 +67,17 @@ function parseEventFile(filePath: string): Event {
       ? frontmatter.date.toISOString().split("T")[0]
       : String(frontmatter.date);
 
+  // Scan for post-walk photos in /public/events/netwalking-[no]/
+  const photosDir = path.join(process.cwd(), "public", "events", `netwalking-${frontmatter.no}`);
+  let photos: string[] = [];
+  if (fs.existsSync(photosDir)) {
+    photos = fs
+      .readdirSync(photosDir)
+      .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
+      .sort()
+      .map((f) => `/events/netwalking-${frontmatter.no}/${f}`);
+  }
+
   return {
     slug,
     no: frontmatter.no,
@@ -82,6 +95,7 @@ function parseEventFile(filePath: string): Event {
     komootLink: frontmatter.komootLink || "",
     attendees: frontmatter.attendees || 0,
     coverImage: frontmatter.coverImage || `/events/netwalking-${frontmatter.no}.jpg`,
+    photos,
     status: getEventStatus(dateStr),
     description: content.trim(),
     descriptionJp: frontmatter.descriptionJp || "",

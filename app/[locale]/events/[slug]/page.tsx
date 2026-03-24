@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, MapPin, ArrowLeft } from "lucide-react";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
 import { getEventBySlug, getAllEvents } from "@/lib/events";
 import { LineCta } from "@/components/line-cta";
+import { PhotoCarousel } from "@/components/photo-carousel";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
+import fs from "fs";
+import path from "path";
 
 export async function generateStaticParams() {
   const events = getAllEvents();
@@ -32,6 +36,11 @@ export async function generateMetadata({
   };
 }
 
+function coverImageExists(eventNo: string): boolean {
+  const coverPath = path.join(process.cwd(), "public", "events", `netwalking-${eventNo}.jpg`);
+  return fs.existsSync(coverPath);
+}
+
 export default async function EventDetailPage({
   params,
 }: {
@@ -45,12 +54,13 @@ export default async function EventDetailPage({
 
   const dict = await getDictionary(locale as Locale);
   const backHref = locale === "ja" ? "/events" : "/en/events";
+  const hasCover = coverImageExists(event.no);
 
   const eventJsonLd = {
     "@context": "https://schema.org",
     "@type": "Event",
     name: `NetWalking #${event.no}: ${event.title}`,
-    startDate: `${event.date}T${event.time.replace("-", ":").split("-")[0]}:00+09:00`,
+    startDate: `${event.date}T${event.time.split("-")[0]}:00+09:00`,
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus:
       event.status === "upcoming"
@@ -90,8 +100,21 @@ export default async function EventDetailPage({
       </Link>
 
       <div className="mx-auto max-w-3xl">
-        {/* Cover image placeholder */}
-        <div className="mb-8 aspect-[2/1] overflow-hidden rounded-2xl bg-muted" />
+        {/* Cover image */}
+        {hasCover ? (
+          <div className="mb-8 aspect-[2/1] relative overflow-hidden rounded-2xl">
+            <Image
+              src={event.coverImage}
+              alt={`NetWalking #${event.no}: ${event.title}`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+              priority
+            />
+          </div>
+        ) : (
+          <div className="mb-8 aspect-[2/1] overflow-hidden rounded-2xl bg-muted" />
+        )}
 
         <p className="mb-2 text-sm font-medium uppercase tracking-wide text-[#4cccc3]">
           #{event.no}
@@ -106,7 +129,6 @@ export default async function EventDetailPage({
           </p>
           <p className="flex items-center gap-2">
             <Clock className="h-4 w-4 text-[#4cccc3]" />
-            <span className="font-medium">{dict.nextWalk.date.split("&")[0].trim()}:</span>{" "}
             {event.time}
           </p>
           <p className="flex items-center gap-2">
@@ -132,15 +154,26 @@ export default async function EventDetailPage({
           </div>
         )}
 
+        {/* Post-walk write-up */}
         {event.description && (
-          <div className="prose prose-gray max-w-none whitespace-pre-line">
+          <div className="prose prose-gray max-w-none whitespace-pre-line mb-10">
             {event.description}
+          </div>
+        )}
+
+        {/* Post-walk photos */}
+        {event.photos.length > 0 && (
+          <div className="mb-10">
+            <PhotoCarousel
+              photos={event.photos}
+              alt={`NetWalking #${event.no}: ${event.title}`}
+            />
           </div>
         )}
 
         {/* External links */}
         {(event.meetupLink || event.linkedinLink || event.linkedinReportLink) && (
-          <div className="mt-8 flex flex-wrap gap-3 text-sm">
+          <div className="flex flex-wrap gap-3 text-sm">
             {event.meetupLink && (
               <a href={event.meetupLink} target="_blank" rel="noopener noreferrer" className="rounded-md border px-3 py-1.5 text-muted-foreground hover:text-foreground transition-colors">
                 Meetup

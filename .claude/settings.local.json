@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(mkdir -p /Users/yom-alex/Code/netwalking/app/[locale])",
+      "Bash(mkdir -p /Users/yom-alex/Code/netwalking/app/[locale]/events/[slug])",
+      "Bash(npm uninstall:*)",
+      "Bash(npm run:*)",
+      "Bash(kill 29806)",
+      "Bash(lsof -ti:3000)",
+      "Bash(xargs kill:*)",
+      "Bash(grep -r import.*config /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --include=*.js --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(grep -r \"button\\\\|card\" /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --include=*.js --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(head -20 /Users/yom-alex/Code/netwalking/content/events/*.md)",
+      "Bash(grep -r .json /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(grep -r \"from.*lib/utils\\\\|import.*cn\" /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(grep -r \"Button\\\\|Card\" /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(ls -la /Users/yom-alex/Code/netwalking/next.config*)"
+    ]
+  }
+}

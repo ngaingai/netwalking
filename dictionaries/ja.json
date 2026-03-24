@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "NetWalking | 東京のウォーキングコミュニティ",
+    "description": "NetWalkingは、東京で毎月開催されるバイリンガルのウォーキングコミュニティです。起業家、フリーランス、パパママ仲間と、歩きながらつながりましょう。",
+    "ogDescription": "東京で毎月開催。歩きながら、つながりを深めるウォーキングイベント。"
+  },
+  "hero": {
+    "tagline": "一歩ずつ、つながりを強く。",
+    "subtitle": "東京の最高の仲間たちと歩く5kmのお散歩。毎月開催、12〜14時。参加無料！",
+    "cta": "LINEで参加する"
+  },
+  "whatThisIs": {
+    "heading": "NetWalkingとは",
+    "pitch": "東京で毎月開催されるウォーキングコミュニティです。起業家、フリーランス、パパママ仲間たちが集まり、5kmを歩きながら会話を楽しみます。午後12時スタート、参加無料、日本語・英語どちらもOK。",
+    "dadAngle": "起業家ですが、パパでもあります。毎晩子どもたちと一緒にごはんを食べたい。だから、よくある夜のネットワーキングじゃなくて、午後のオープンエア版を作りました。"
+  },
+  "socialProof": {
+    "heading": "コミュニティ",
+    "walkCount": "回以上の開催実績",
+    "seeAll": "過去のイベントを見る"
+  },
+  "howItWorks": {
+    "heading": "参加の流れ",
+    "step1Title": "集合場所に来る",
+    "step1Desc": "最初の20〜30分は待ち時間。遅れても大丈夫です。",
+    "step2Title": "歩いて話す",
+    "step2Desc": "約2時間、5kmほどのウォーキング。自然な会話を楽しみましょう。",
+    "step3Title": "自己紹介と連絡先交換",
+    "step3Desc": "途中で自己紹介タイム（名前、日本にいる期間、呼び方）。最後に連絡先を交換します。"
+  },
+  "nextWalk": {
+    "heading": "次回のウォーク",
+    "date": "日時",
+    "location": "場所",
+    "meetingPoint": "集合場所",
+    "map": "地図を見る",
+    "cta": "LINEで参加する"
+  },
+  "footer": {
+    "producedBy": "Produced by",
+    "stayConnected": "つながる",
+    "onlineCommunity": "オンラインコミュニティ",
+    "blurb": "NetWalkingは、東京で毎月集まって歩くコミュニティです。つながり、会話、ちょっとした冒険を一緒に。いつでも自由に参加できます。",
+    "copyright": "All rights reserved."
+  },
+  "events": {
+    "heading": "過去のイベント",
+    "noEvents": "まだイベントがありません。"
+  },
+  "common": {
+    "languageToggle": "EN",
+    "free": "無料",
+    "backToHome": "トップに戻る"
+  }
+}

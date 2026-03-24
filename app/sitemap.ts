@@ -1,22 +1,39 @@
 import type { MetadataRoute } from "next";
-import { getEventsFromFile } from "@/lib/events";
+import { getAllEvents } from "@/lib/events";
 
 const SITE_URL = "https://netwalking.net";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const events = await getEventsFromFile();
+export default function sitemap(): MetadataRoute.Sitemap {
+  const events = getAllEvents();
 
-  const eventEntries = events.map((event) => ({
-    url: `${SITE_URL}/events/${event.id}`,
-    lastModified: new Date(event.date),
-  }));
+  const eventEntries = events.flatMap((event) => [
+    {
+      url: `${SITE_URL}/events/${event.slug}`,
+      lastModified: new Date(event.date),
+    },
+    {
+      url: `${SITE_URL}/en/events/${event.slug}`,
+      lastModified: new Date(event.date),
+    },
+  ]);
 
   return [
     {
       url: SITE_URL,
       lastModified: new Date(),
     },
+    {
+      url: `${SITE_URL}/en`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${SITE_URL}/events`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${SITE_URL}/en/events`,
+      lastModified: new Date(),
+    },
     ...eventEntries,
   ];
 }
-

@@ -38,9 +38,12 @@ interface FooterDict {
     blurb: string;
     copyright: string;
   };
+  playbook: {
+    footerLink: string;
+  };
 }
 
-export function Footer({ dict }: { locale: Locale; dict: FooterDict }) {
+export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
   const t = dict.footer;
   const iconColor = { color: "#4cccc3" };
 
@@ -66,7 +69,7 @@ export function Footer({ dict }: { locale: Locale; dict: FooterDict }) {
             </p>
           </div>
 
-          {/* Column 2: Produced by */}
+          {/* Column 2: Produced by + Playbook */}
           <div className="flex flex-col justify-center space-y-3">
             <p className="text-sm text-muted-foreground">
               {t.producedBy}{" "}
@@ -79,6 +82,12 @@ export function Footer({ dict }: { locale: Locale; dict: FooterDict }) {
                 Glokyo
               </a>
             </p>
+            <Link
+              href={locale === "ja" ? "/playbook" : "/en/playbook"}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {dict.playbook.footerLink} &rarr;
+            </Link>
           </div>
 
           {/* Column 3: Social Links */}

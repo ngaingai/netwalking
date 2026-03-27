@@ -47,6 +47,10 @@
     "heading": "Past Events",
     "noEvents": "No past events to display."
   },
+  "playbook": {
+    "title": "How to Run a NetWalk",
+    "footerLink": "Start your own"
+  },
   "common": {
     "languageToggle": "JP",
     "free": "Free",

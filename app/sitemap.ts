@@ -34,6 +34,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/en/events`,
       lastModified: new Date(),
     },
+    {
+      url: `${SITE_URL}/playbook`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${SITE_URL}/en/playbook`,
+      lastModified: new Date(),
+    },
     ...eventEntries,
   ];
 }

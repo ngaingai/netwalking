@@ -47,6 +47,10 @@
     "heading": "過去のイベント",
     "noEvents": "まだイベントがありません。"
   },
+  "playbook": {
+    "title": "NetWalkの始め方",
+    "footerLink": "自分で始める"
+  },
   "common": {
     "languageToggle": "EN",
     "free": "無料",

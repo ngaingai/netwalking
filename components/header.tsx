@@ -23,18 +23,13 @@ export function Header({ locale }: { locale: Locale }) {
             <span className="text-muted-foreground">Walking</span>
           </span>
         </Link>
-        <div className="flex items-center gap-4">
-          <span className="hidden sm:inline text-sm text-muted-foreground">
-            Produced by{" "}
-            <a
-              href="https://www.glokyo.jp/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline"
-            >
-              Glokyo
-            </a>
-          </span>
+        <div className="flex items-center gap-3">
+          <Link
+            href={locale === "ja" ? "/playbook" : "/en/playbook"}
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#4cccc3]/30 bg-[#4cccc3]/10 px-3 py-1.5 text-xs font-medium text-[#4cccc3] transition-colors hover:bg-[#4cccc3]/20"
+          >
+            {locale === "ja" ? "自分で始める" : "Start your own"} &rarr;
+          </Link>
           <LanguageToggle locale={locale} />
         </div>
       </div>

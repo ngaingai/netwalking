@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Linkedin, Users, Instagram, Facebook } from "lucide-react";
 import { SiMeetup } from "react-icons/si";
+import { BrandedText } from "@/components/branded-text";
 import type { Locale } from "@/lib/i18n";
 
 const socialLinks = {
@@ -52,7 +53,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
       <div className="container mx-auto px-4 py-10">
         <div className="flex flex-col gap-8 md:grid md:grid-cols-3 md:gap-8">
           {/* Column 1: Logo and Tagline */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <p className="text-2xl font-semibold">
               <span className="text-[#4cccc3]">Net</span>
               <span className="text-muted-foreground">Walking</span>
@@ -64,13 +65,22 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
               height={117}
               className="w-[175px] h-auto"
             />
-            <p className="max-w-sm text-sm text-muted-foreground">
-              {t.blurb}
-            </p>
+            {locale === "ja" ? (
+              <p className="text-sm text-muted-foreground">
+                <span className="text-[#4cccc3]">一歩ずつ</span>、つながりを強く。
+              </p>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Building stronger relationships, <span className="text-[#4cccc3]">step by step</span>.
+              </p>
+            )}
           </div>
 
-          {/* Column 2: Produced by + Playbook */}
-          <div className="flex flex-col justify-center space-y-3">
+          {/* Column 2: Description + Links */}
+          <div className="flex flex-col space-y-5">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              <BrandedText text={t.blurb} />
+            </p>
             <p className="text-sm text-muted-foreground">
               {t.producedBy}{" "}
               <a
@@ -84,7 +94,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
             </p>
             <Link
               href={locale === "ja" ? "/playbook" : "/en/playbook"}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-full border border-[#4cccc3]/30 bg-[#4cccc3]/10 px-4 py-2 text-sm font-medium text-[#4cccc3] transition-colors hover:bg-[#4cccc3]/20 w-fit"
             >
               {dict.playbook.footerLink} &rarr;
             </Link>
@@ -118,7 +128,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
               </Link>
               <Link href={socialLinks.x} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
                 <XLogo className="h-4 w-4" style={iconColor} />
-                <span>X</span>
+                <span>Follow on X</span>
               </Link>
               <Link href={socialLinks.skool} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
                 <Users className="h-4 w-4" style={iconColor} />
@@ -126,7 +136,9 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
               </Link>
             </nav>
             <p className="text-xs text-muted-foreground">
-              &copy; {new Date().getFullYear()} NetWalking. {t.copyright}
+              &copy; {new Date().getFullYear()}{" "}
+              <span className="text-[#4cccc3]">Net</span>
+              <span>Walking</span>. {t.copyright}
             </p>
           </div>
         </div>

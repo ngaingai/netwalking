@@ -1,4 +1,4 @@
-# NetWalkの始め方
+# NetWalkingの始め方
 *誰でも始められるガイド。*
 *Alex Ngai作、東京。2026年3月*
 

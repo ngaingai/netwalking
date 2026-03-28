@@ -108,5 +108,13 @@ function markdownToHtml(md: string): string {
     })
     .join("\n");
 
+  // Brand treatment: prefix in teal, suffix in regular text color
+  html = html
+    .replace(/NetWalking/g, '<span class="text-[#4cccc3]">Net</span>Walking')
+    .replace(/NiteWalking/g, '<span class="text-[#4cccc3]">Nite</span>Walking')
+    .replace(/NetRunning/g, '<span class="text-[#4cccc3]">Net</span>Running')
+    .replace(/NetChilling/g, '<span class="text-[#4cccc3]">Net</span>Chilling')
+    .replace(/Alex Ngai/g, '<a href="https://www.linkedin.com/in/alex-ngai/" target="_blank" rel="noopener noreferrer" class="text-[#4cccc3] hover:underline">Alex Ngai</a>');
+
   return html;
 }

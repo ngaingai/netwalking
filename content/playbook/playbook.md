@@ -1,4 +1,4 @@
-# How to Run a NetWalk
+# NetWalking: How To Run Your Own
 *A guide for anyone who wants to start one.*
 *Created by Alex Ngai, Tokyo. March 2026.*
 

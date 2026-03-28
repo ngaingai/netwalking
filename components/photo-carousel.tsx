@@ -13,13 +13,13 @@ export function PhotoCarousel({ photos, alt }: { photos: string[]; alt: string }
   const next = () => setCurrent((c) => (c === photos.length - 1 ? 0 : c + 1));
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-muted">
+    <div className="relative overflow-hidden rounded-2xl bg-muted/60">
       <div className="aspect-[3/2] relative">
         <Image
           src={photos[current]}
           alt={`${alt} — photo ${current + 1}`}
           fill
-          className="object-cover"
+          className="object-contain"
           sizes="(max-width: 768px) 100vw, 768px"
         />
       </div>

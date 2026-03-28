@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Clock, MapPin, ArrowLeft } from "lucide-react";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
 import { getEventBySlug, getAllEvents } from "@/lib/events";
 import { LineCta } from "@/components/line-cta";
 import { PhotoCarousel } from "@/components/photo-carousel";
+import { BrandedText } from "@/components/branded-text";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import fs from "fs";
@@ -100,20 +100,23 @@ export default async function EventDetailPage({
       </Link>
 
       <div className="mx-auto max-w-3xl">
-        {/* Cover image */}
+        {/* Photo carousel (cover + post-walk photos) */}
         {hasCover ? (
-          <div className="mb-8 aspect-[2/1] relative overflow-hidden rounded-2xl">
-            <Image
-              src={event.coverImage}
+          <div className="mb-8">
+            <PhotoCarousel
+              photos={[event.coverImage, ...event.photos]}
               alt={`NetWalking #${event.no}: ${event.title}`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 768px"
-              priority
+            />
+          </div>
+        ) : event.photos.length > 0 ? (
+          <div className="mb-8">
+            <PhotoCarousel
+              photos={event.photos}
+              alt={`NetWalking #${event.no}: ${event.title}`}
             />
           </div>
         ) : (
-          <div className="mb-8 aspect-[2/1] overflow-hidden rounded-2xl bg-muted" />
+          <div className="mb-8 aspect-[3/2] overflow-hidden rounded-2xl bg-muted/40 border border-border/30" />
         )}
 
         <p className="mb-2 text-sm font-medium uppercase tracking-wide text-[#4cccc3]">
@@ -157,19 +160,10 @@ export default async function EventDetailPage({
         {/* Post-walk write-up */}
         {event.description && (
           <div className="prose prose-gray max-w-none whitespace-pre-line mb-10">
-            {event.description}
+            <BrandedText text={event.description} />
           </div>
         )}
 
-        {/* Post-walk photos */}
-        {event.photos.length > 0 && (
-          <div className="mb-10">
-            <PhotoCarousel
-              photos={event.photos}
-              alt={`NetWalking #${event.no}: ${event.title}`}
-            />
-          </div>
-        )}
 
         {/* External links */}
         {(event.meetupLink || event.linkedinLink || event.linkedinReportLink) && (

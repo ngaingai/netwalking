@@ -1,10 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { Calendar, MapPin } from "lucide-react";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
 import { getPastEvents } from "@/lib/events";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
+import fs from "fs";
+import path from "path";
 
 export async function generateMetadata({
   params,
@@ -46,8 +49,16 @@ export default async function EventsArchivePage({
               href={`${eventPrefix}/events/${event.slug}`}
               className="group overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
             >
-              <div className="aspect-[3/2] bg-muted">
-                {/* Cover image placeholder, replaced when real images are available */}
+              <div className="aspect-[3/2] relative bg-muted/40 border-b border-border/30 overflow-hidden">
+                {fs.existsSync(path.join(process.cwd(), "public", "events", `netwalking-${event.no}.jpg`)) && (
+                  <Image
+                    src={event.coverImage}
+                    alt={`NetWalking #${event.no}: ${event.title}`}
+                    fill
+                    className="object-cover transition-transform group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                )}
               </div>
               <div className="p-4">
                 <p className="mb-1 text-xs font-medium uppercase tracking-wide text-[#4cccc3]">

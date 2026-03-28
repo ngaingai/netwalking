@@ -4,6 +4,7 @@ import { MapPin, Calendar, Clock } from "lucide-react";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
 import { getAllEvents, getLatestUpcomingEvent } from "@/lib/events";
 import { LineCta } from "@/components/line-cta";
+import { BrandedText } from "@/components/branded-text";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 
@@ -68,9 +69,9 @@ export default async function HomePage({
       {/* Section 2: What This Is */}
       <section className="bg-muted/30 px-4 py-16">
         <div className="container mx-auto max-w-2xl">
-          <h2 className="mb-6 text-2xl font-semibold">{dict.whatThisIs.heading}</h2>
+          <h2 className="mb-6 text-2xl font-semibold"><BrandedText text={dict.whatThisIs.heading} /></h2>
           <p className="mb-4 text-base leading-relaxed text-muted-foreground">
-            {dict.whatThisIs.pitch}
+            <BrandedText text={dict.whatThisIs.pitch} />
           </p>
           <p className="text-base leading-relaxed text-muted-foreground">
             {dict.whatThisIs.dadAngle}
@@ -87,14 +88,21 @@ export default async function HomePage({
               <p className="text-muted-foreground">{dict.socialProof.walkCount}</p>
             </div>
 
-            {/* Photo placeholders */}
+            {/* Community photos from recent walks */}
             <div className="flex gap-3">
-              {[1, 2, 3, 4].map((i) => (
+              {[19, 18, 17, 16].map((n) => (
                 <div
-                  key={i}
-                  className="h-20 w-20 rounded-lg bg-muted md:h-24 md:w-24"
-                  aria-hidden="true"
-                />
+                  key={n}
+                  className="relative h-20 w-20 overflow-hidden rounded-xl md:h-24 md:w-24"
+                >
+                  <Image
+                    src={`/events/netwalking-${String(n).padStart(3, "0")}.jpg`}
+                    alt={`NetWalking #${n}`}
+                    fill
+                    className="object-cover"
+                    sizes="96px"
+                  />
+                </div>
               ))}
             </div>
 
@@ -140,7 +148,7 @@ export default async function HomePage({
               {dict.nextWalk.heading}
             </h2>
             <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-              <div className="aspect-[2/1] bg-muted" />
+              <div className="aspect-[2/1] bg-muted/40" />
               <div className="flex flex-col gap-4 p-6">
                 <h3 className="text-xl font-semibold">{upcomingEvent.title}</h3>
                 <div className="flex flex-col gap-2 text-sm text-muted-foreground">

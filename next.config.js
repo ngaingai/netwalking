@@ -1,35 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-      },
-      {
-        protocol: "https",
-        hostname: "netwalking.net",
-      },
-      {
-        protocol: "https",
-        hostname: "www.netwalking.net",
-      },
-    ],
-  },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-      };
-    }
-    return config;
-  },
   turbopack: {},
   async headers() {
     return [
       {
-        // Apply security headers to all routes
         source: "/:path*",
         headers: [
           {
@@ -56,15 +30,15 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.hsforms.net https://*.hsforms.net https://*.hsforms.com https://www.google.com https://google.com https://www.gstatic.com https://recaptcha.net", // HubSpot forms + reCAPTCHA Enterprise
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.hsforms.net https://*.hsforms.com", // HubSpot form styles
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
-              "img-src 'self' data: blob: https://res.cloudinary.com https://netwalking.net https://www.netwalking.net https://*.hsforms.net https://*.hsforms.com https://www.google.com https://google.com https://www.gstatic.com https://recaptcha.net", // reCAPTCHA images
-              "connect-src 'self' https://api.cloudinary.com https://res.cloudinary.com https://*.cloudinary.com https://*.hsforms.net https://*.hsforms.com https://*.hubspot.com https://*.s3.amazonaws.com https://www.google.com https://google.com https://www.gstatic.com https://recaptcha.net", // HubSpot API calls + reCAPTCHA Enterprise
-              "frame-src 'self' https://*.hsforms.net https://*.hsforms.com https://*.hubspot.com https://www.google.com https://google.com https://recaptcha.net", // HubSpot form iframes + reCAPTCHA Enterprise
+              "img-src 'self' data: blob: https://netwalking.net https://www.netwalking.net",
+              "connect-src 'self'",
+              "frame-src 'self'",
               "object-src 'none'",
               "base-uri 'self'",
-              "form-action 'self' https://*.hsforms.net https://*.hsforms.com https://*.hubspot.com", // HubSpot form submissions
+              "form-action 'self'",
               "frame-ancestors 'self'",
               "upgrade-insecure-requests",
             ].join("; "),

@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "NetWalking | Tokyo's Walking Community for Meaningful Connections",
+    "description": "Join NetWalking for bilingual, family-friendly networking walks across Tokyo. Meet founders, freelancers, and globally minded parents while exploring the city.",
+    "ogDescription": "Discover NetWalking's bilingual walks across Tokyo. Build authentic relationships while exploring the city together."
+  },
+  "hero": {
+    "tagline": "Building stronger relationships, step by step.",
+    "subtitle": "5K walks with Tokyo's most awesome people. Monthly, 12-2pm. Free!",
+    "cta": "Join on LINE"
+  },
+  "whatThisIs": {
+    "heading": "What This Is",
+    "pitch": "A monthly walking community in Tokyo. Founders, freelancers, and parents walk 5km together, have real conversations, and make lasting connections. Starts at noon, always free, bilingual.",
+    "dadAngle": "I'm an entrepreneur, but I'm also a dad. I want to be home for dinner and tuck in my kids every night. So instead of typical after-work networking, I made the afternoon, open-air version."
+  },
+  "socialProof": {
+    "heading": "Community",
+    "walkCount": "walks and counting",
+    "seeAll": "See all past walks"
+  },
+  "howItWorks": {
+    "heading": "How It Works",
+    "step1Title": "Show up at the meeting point",
+    "step1Desc": "We wait 20-30 minutes at the start, so no stress if you're a bit late.",
+    "step2Title": "Walk and talk",
+    "step2Desc": "About two hours, roughly 5km. Just walk, talk, and enjoy the city.",
+    "step3Title": "Introductions and contact exchange",
+    "step3Desc": "Partway through we do quick intros: name, time in Japan, when people should call you. At the end, exchange contacts."
+  },
+  "nextWalk": {
+    "heading": "Next Walk",
+    "date": "Date & Time",
+    "location": "Location",
+    "meetingPoint": "Meeting Point",
+    "map": "View map",
+    "cta": "Join on LINE"
+  },
+  "footer": {
+    "producedBy": "Produced by",
+    "stayConnected": "Stay Connected",
+    "onlineCommunity": "Online Community",
+    "blurb": "NetWalking is a monthly walk in Tokyo. We're a community that connects, converses, and explores the city together. Always friendly, always free!",
+    "copyright": "All rights reserved."
+  },
+  "events": {
+    "heading": "Past Events",
+    "noEvents": "No past events to display."
+  },
+  "playbook": {
+    "title": "NetWalking: How To Run Your Own",
+    "footerLink": "Start your own"
+  },
+  "common": {
+    "languageToggle": "JP",
+    "free": "Free",
+    "backToHome": "Back to Home"
+  }
+}

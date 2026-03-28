@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(mkdir -p /Users/yom-alex/Code/netwalking/app/[locale])",
+      "Bash(mkdir -p /Users/yom-alex/Code/netwalking/app/[locale]/events/[slug])",
+      "Bash(npm uninstall:*)",
+      "Bash(npm run:*)",
+      "Bash(kill 29806)",
+      "Bash(lsof -ti:3000)",
+      "Bash(xargs kill:*)",
+      "Bash(grep -r import.*config /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --include=*.js --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(grep -r \"button\\\\|card\" /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --include=*.js --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(head -20 /Users/yom-alex/Code/netwalking/content/events/*.md)",
+      "Bash(grep -r .json /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(grep -r \"from.*lib/utils\\\\|import.*cn\" /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(grep -r \"Button\\\\|Card\" /Users/yom-alex/Code/netwalking --include=*.ts --include=*.tsx --exclude-dir=node_modules --exclude-dir=.next)",
+      "Bash(ls -la /Users/yom-alex/Code/netwalking/next.config*)",
+      "Bash(curl -sL -o 01.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742198036/events/004/gie8ph3nqvpsxjt8n4ja.jpg\")",
+      "Bash(curl -sL -o 02.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742198039/events/004/c9h0jrwz6nk1n9crmds4.jpg\")",
+      "Bash(curl -sL -o 03.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742198043/events/004/ntcj06bh5yiqt1scxhsx.jpg\")",
+      "Bash(curl -sL -o 04.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742198047/events/004/xis1yxzzqo7ysui90ade.jpg\")",
+      "Bash(curl -sL -o 05.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742198050/events/004/byhzgpcjogjlmso8gcfq.jpg\")",
+      "Bash(curl -sL -o 01.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195474/events/005/ovlh3vro1matjfylrw9f.jpg\")",
+      "Bash(curl -sL -o 02.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195478/events/005/tstty39tvjmzog6daps9.jpg\")",
+      "Bash(curl -sL -o 03.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195484/events/005/vrpzf0wdeuws57b9nkzb.jpg\")",
+      "Bash(curl -sL -o 04.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195492/events/005/hmvixll5sdc2d5kv8shn.jpg\")",
+      "Bash(curl -sL -o 05.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195498/events/005/jp8cp8bpfmgm77pqu787.jpg\")"
+    ]
+  }
+}

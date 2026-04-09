@@ -47,6 +47,8 @@
 - [x] Real event cover images for `/public/events/netwalking-XXX.jpg`
 - [x] Post-walk photo galleries in `/public/events/netwalking-XXX/` directories
 - [ ] Post-walk write-ups for past events (backfill from LinkedIn posts → markdown bodies)
+- [ ] Gather data for all past NetWalking variants (NiteWalking, NetRunning, NetChilling) — dates, locations, write-ups, photos
+- [ ] Gather attendee names from past walks (LinkedIn posts → attendance log in cowork repo)
 - [ ] Optional: attendee quote for social proof section
 - [ ] Verify LINE link `https://lin.ee/nB41KHn` is still active before launch
 

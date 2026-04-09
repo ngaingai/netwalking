@@ -50,10 +50,10 @@ export default async function EventsArchivePage({
               className="group overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
             >
               <div className="aspect-[3/2] relative bg-muted/40 border-b border-border/30 overflow-hidden">
-                {fs.existsSync(path.join(process.cwd(), "public", "events", `netwalking-${event.no}.jpg`)) && (
+                {fs.existsSync(path.join(process.cwd(), "public", "events", `${event.slug}.jpg`)) && (
                   <Image
                     src={event.coverImage}
-                    alt={`NetWalking #${event.no}: ${event.title}`}
+                    alt={`${event.series} #${event.no}: ${event.title}`}
                     fill
                     className="object-cover transition-transform group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -62,7 +62,7 @@ export default async function EventsArchivePage({
               </div>
               <div className="p-4">
                 <p className="mb-1 text-xs font-medium uppercase tracking-wide text-[#4cccc3]">
-                  #{event.no}
+                  {event.series} #{event.no}
                 </p>
                 <h2 className="mb-2 text-lg font-semibold group-hover:text-[#4cccc3] transition-colors">
                   {event.title}

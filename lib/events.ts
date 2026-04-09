@@ -7,6 +7,7 @@ const EVENTS_DIR = path.join(process.cwd(), "content", "events");
 export interface Event {
   slug: string;
   no: string;
+  series: string;
   title: string;
   date: string;
   time: string;
@@ -29,6 +30,7 @@ export interface Event {
 
 interface EventFrontmatter {
   no: string;
+  series?: string;
   title: string;
   titleJp?: string;
   date: string | Date;
@@ -67,20 +69,21 @@ function parseEventFile(filePath: string): Event {
       ? frontmatter.date.toISOString().split("T")[0]
       : String(frontmatter.date);
 
-  // Scan for post-walk photos in /public/events/netwalking-[no]/
-  const photosDir = path.join(process.cwd(), "public", "events", `netwalking-${frontmatter.no}`);
+  // Scan for post-walk photos in /public/events/[slug]/
+  const photosDir = path.join(process.cwd(), "public", "events", slug);
   let photos: string[] = [];
   if (fs.existsSync(photosDir)) {
     photos = fs
       .readdirSync(photosDir)
       .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
       .sort()
-      .map((f) => `/events/netwalking-${frontmatter.no}/${f}`);
+      .map((f) => `/events/${slug}/${f}`);
   }
 
   return {
     slug,
     no: frontmatter.no,
+    series: frontmatter.series || "NetWalking",
     title: frontmatter.title,
     date: dateStr,
     time: frontmatter.time || "12:00",
@@ -94,7 +97,7 @@ function parseEventFile(filePath: string): Event {
     stravaLink: frontmatter.stravaLink || "",
     komootLink: frontmatter.komootLink || "",
     attendees: frontmatter.attendees || 0,
-    coverImage: frontmatter.coverImage || `/events/netwalking-${frontmatter.no}.jpg`,
+    coverImage: frontmatter.coverImage || `/events/${slug}.jpg`,
     photos,
     status: getEventStatus(dateStr),
     description: content.trim(),

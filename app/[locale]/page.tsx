@@ -150,7 +150,12 @@ export default async function HomePage({
             <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
               <div className="aspect-[2/1] bg-muted/40" />
               <div className="flex flex-col gap-4 p-6">
-                <h3 className="text-xl font-semibold">{upcomingEvent.title}</h3>
+                <div>
+                  <p className="mb-1 text-xs font-medium uppercase tracking-wide text-[#4cccc3]">
+                    {upcomingEvent.series} #{upcomingEvent.no}
+                  </p>
+                  <h3 className="text-xl font-semibold">{upcomingEvent.title}</h3>
+                </div>
                 <div className="flex flex-col gap-2 text-sm text-muted-foreground">
                   <p className="flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-[#4cccc3]" />

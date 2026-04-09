@@ -14,7 +14,7 @@ linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/nitewalking-002.jpg"
+coverImage: "/events/nitewalking-002.png"
 ---
 
 🌇 NiteWalking #2: Chinatown × ten4 Cafe Collaboration!

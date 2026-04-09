@@ -36,8 +36,8 @@ export async function generateMetadata({
   };
 }
 
-function coverImageExists(slug: string): boolean {
-  const coverPath = path.join(process.cwd(), "public", "events", `${slug}.jpg`);
+function coverImageExists(coverImage: string): boolean {
+  const coverPath = path.join(process.cwd(), "public", coverImage.replace(/^\//, ""));
   return fs.existsSync(coverPath);
 }
 
@@ -54,7 +54,7 @@ export default async function EventDetailPage({
 
   const dict = await getDictionary(locale as Locale);
   const backHref = locale === "ja" ? "/events" : "/en/events";
-  const hasCover = coverImageExists(event.slug);
+  const hasCover = coverImageExists(event.coverImage);
 
   const eventJsonLd = {
     "@context": "https://schema.org",

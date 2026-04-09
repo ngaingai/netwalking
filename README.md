@@ -25,6 +25,8 @@ app/
       page.tsx            # Past events archive
       [slug]/
         page.tsx          # Individual event detail
+    playbook/
+      page.tsx            # "How to Run a NetWalk" guide
 components/
   header.tsx              # Logo, Glokyo credit, language toggle
   footer.tsx              # Social links, Skool, copyright
@@ -33,11 +35,15 @@ components/
   photo-carousel.tsx      # Post-walk photo carousel
 content/
   events/                 # One .md file per event (frontmatter + write-up)
+  playbook/
+    playbook.md           # English playbook
+    playbook_jp.md        # Japanese playbook
 dictionaries/
   ja.json                 # Japanese UI strings
   en.json                 # English UI strings
 lib/
   events.ts               # Markdown parsing, event queries, photo scanning
+  playbook.ts             # Playbook content loader
   i18n.ts                 # Locale config, dictionary loader
 middleware.ts             # Browser language detection, locale rewriting
 public/
@@ -158,4 +164,17 @@ Generates static HTML for all locale + event combinations. Currently 42 pages.
 3. **Social Proof Strip** — Walk count, photo placeholders, archive link
 4. **How It Works** — 3 steps for first-timers
 5. **Next Walk** — Conditional, only renders when an upcoming event exists
-6. **Footer** — Glokyo credit, social links, Skool community link
+6. **Footer** — Glokyo credit, social links, Skool community link, playbook link
+
+## Pages
+
+| Route | Purpose |
+| --- | --- |
+| `/`, `/en` | Home — hero, pitch, social proof, how it works, next walk, footer |
+| `/events`, `/en/events` | Archive of all past walks |
+| `/events/[slug]`, `/en/events/[slug]` | Individual event with write-up + photos |
+| `/playbook`, `/en/playbook` | "How to Run a NetWalk" — open guide for anyone starting their own |
+
+## Tracker
+
+See [todo.md](todo.md) for what's done and what's next.

@@ -50,7 +50,7 @@ export default async function EventsArchivePage({
               className="group overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
             >
               <div className="aspect-[3/2] relative bg-muted/40 border-b border-border/30 overflow-hidden">
-                {fs.existsSync(path.join(process.cwd(), "public", "events", `${event.slug}.jpg`)) && (
+                {fs.existsSync(path.join(process.cwd(), "public", event.coverImage.replace(/^\//, ""))) && (
                   <Image
                     src={event.coverImage}
                     alt={`${event.series} #${event.no}: ${event.title}`}

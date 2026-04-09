@@ -31,13 +31,13 @@ export async function generateMetadata({
   if (!event) return {};
 
   return {
-    title: `#${event.no} ${event.title}`,
-    description: `NetWalking #${event.no}: ${event.title} — ${event.course}`,
+    title: `${event.series} #${event.no} ${event.title}`,
+    description: `${event.series} #${event.no}: ${event.title} — ${event.course}`,
   };
 }
 
-function coverImageExists(eventNo: string): boolean {
-  const coverPath = path.join(process.cwd(), "public", "events", `netwalking-${eventNo}.jpg`);
+function coverImageExists(slug: string): boolean {
+  const coverPath = path.join(process.cwd(), "public", "events", `${slug}.jpg`);
   return fs.existsSync(coverPath);
 }
 
@@ -54,12 +54,12 @@ export default async function EventDetailPage({
 
   const dict = await getDictionary(locale as Locale);
   const backHref = locale === "ja" ? "/events" : "/en/events";
-  const hasCover = coverImageExists(event.no);
+  const hasCover = coverImageExists(event.slug);
 
   const eventJsonLd = {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: `NetWalking #${event.no}: ${event.title}`,
+    name: `${event.series} #${event.no}: ${event.title}`,
     startDate: `${event.date}T${event.time.split("-")[0]}:00+09:00`,
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus:
@@ -105,14 +105,14 @@ export default async function EventDetailPage({
           <div className="mb-8">
             <PhotoCarousel
               photos={[event.coverImage, ...event.photos]}
-              alt={`NetWalking #${event.no}: ${event.title}`}
+              alt={`${event.series} #${event.no}: ${event.title}`}
             />
           </div>
         ) : event.photos.length > 0 ? (
           <div className="mb-8">
             <PhotoCarousel
               photos={event.photos}
-              alt={`NetWalking #${event.no}: ${event.title}`}
+              alt={`${event.series} #${event.no}: ${event.title}`}
             />
           </div>
         ) : (
@@ -120,7 +120,7 @@ export default async function EventDetailPage({
         )}
 
         <p className="mb-2 text-sm font-medium uppercase tracking-wide text-[#4cccc3]">
-          #{event.no}
+          {event.series} #{event.no}
         </p>
         <h1 className="mb-6 text-3xl font-bold">{event.title}</h1>
 

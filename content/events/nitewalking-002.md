@@ -15,6 +15,8 @@ stravaLink: ""
 komootLink: ""
 attendees: 0
 coverImage: "/events/nitewalking-002.png"
+teaser: "NiteWalking returns! We'll meet at the Chinatown gate, walk & talk around the area, then end at ten4 Art Cafe for drinks, food, and more conversation. ten4 cafe is run by Eling, my friend of over 20 years, can't wait for this collaboration! 🍻"
+teaserJp: "NiteWalkingが帰ってきます！中華街の門に集合して、エリアを歩きながら話しましょう。最後はten4 Art Cafeで、ドリンクとごはんとさらに会話を。ten4 cafeを運営しているのは、20年以上の友人のElingです。このコラボが本当に楽しみです！🍻"
 ---
 
 🌇 NiteWalking #2: Chinatown × ten4 Cafe Collaboration!

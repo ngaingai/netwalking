@@ -53,7 +53,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
       <div className="container mx-auto px-4 py-10">
         <div className="flex flex-col gap-8 md:grid md:grid-cols-3 md:gap-8">
           {/* Column 1: Logo and Tagline */}
-          <div className="space-y-3">
+          <div className="flex flex-col items-center space-y-3 text-center md:items-start md:text-left">
             <p className="text-2xl font-semibold">
               <span className="text-[#4cccc3]">Net</span>
               <span className="text-muted-foreground">Walking</span>
@@ -77,7 +77,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
           </div>
 
           {/* Column 2: Description + Links */}
-          <div className="flex flex-col space-y-5">
+          <div className="flex flex-col items-center space-y-5 text-center md:items-start md:text-left">
             <p className="text-sm leading-relaxed text-muted-foreground">
               <BrandedText text={t.blurb} />
             </p>
@@ -101,11 +101,11 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
           </div>
 
           {/* Column 3: Social Links */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-center gap-4 text-center md:items-start md:text-left">
             <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
               {t.stayConnected}
             </p>
-            <nav className="flex flex-col gap-2 text-sm" aria-label="Social links">
+            <nav className="flex flex-col items-center gap-2 text-sm md:items-start" aria-label="Social links">
               <Link href={socialLinks.line} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
                 <LineLogo className="h-4 w-4" style={iconColor} />
                 <span>LINE</span>

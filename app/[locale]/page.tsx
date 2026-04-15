@@ -50,23 +50,72 @@ export default async function HomePage({
           {dict.hero.subtitle}
         </p>
         <LineCta label={dict.hero.cta} size="large" />
-
-        {upcomingEvent && (
-          <div className="mt-4 flex flex-col items-center gap-1 rounded-xl border bg-card px-6 py-4 text-sm text-muted-foreground shadow-sm">
-            <p className="font-medium text-foreground">{upcomingEvent.title}</p>
-            <p className="flex items-center gap-1.5">
-              <Calendar className="h-3.5 w-3.5" />
-              {format(new Date(upcomingEvent.date), "MMMM d, yyyy")} @ {upcomingEvent.time}
-            </p>
-            <p className="flex items-center gap-1.5">
-              <MapPin className="h-3.5 w-3.5" />
-              {upcomingEvent.course}
-            </p>
-          </div>
-        )}
       </section>
 
-      {/* Section 2: What This Is */}
+      {/* Section 2: Next Walk (conditional, shown right after hero) */}
+      {upcomingEvent && (
+        <section className="px-4 pb-16">
+          <div className="container mx-auto max-w-2xl">
+            <h2 className="mb-8 text-center text-2xl font-semibold">
+              {dict.nextWalk.heading}
+            </h2>
+            <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
+              <div className="aspect-[2/1] relative bg-muted/40">
+                <Image
+                  src={upcomingEvent.coverImage}
+                  alt={`${upcomingEvent.series} #${upcomingEvent.no}: ${upcomingEvent.title}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 672px"
+                  priority
+                />
+              </div>
+              <div className="flex flex-col gap-4 p-6">
+                <div>
+                  <p className="mb-1 text-xs font-medium uppercase tracking-wide text-[#4cccc3]">
+                    {upcomingEvent.series} #{upcomingEvent.no}
+                  </p>
+                  <h3 className="text-xl font-semibold">{upcomingEvent.title}</h3>
+                </div>
+                {(locale === "ja" ? upcomingEvent.teaserJp : upcomingEvent.teaser) && (
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    <BrandedText text={locale === "ja" ? upcomingEvent.teaserJp : upcomingEvent.teaser} />
+                  </p>
+                )}
+                <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+                  <p className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-[#4cccc3]" />
+                    {format(new Date(upcomingEvent.date), "MMMM d, yyyy")}
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-[#4cccc3]" />
+                    {upcomingEvent.time}
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-[#4cccc3]" />
+                    {upcomingEvent.meetingPoint}
+                  </p>
+                  {upcomingEvent.mapLink && (
+                    <a
+                      href={upcomingEvent.mapLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#4cccc3] hover:underline"
+                    >
+                      {dict.nextWalk.map} &rarr;
+                    </a>
+                  )}
+                </div>
+                <div className="flex justify-center pt-2">
+                  <LineCta label={dict.nextWalk.cta} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Section 3: What This Is */}
       <section className="bg-muted/30 px-4 py-16">
         <div className="container mx-auto max-w-2xl">
           <h2 className="mb-6 text-2xl font-semibold"><BrandedText text={dict.whatThisIs.heading} /></h2>
@@ -140,54 +189,6 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* Section 5: Next Walk (conditional) */}
-      {upcomingEvent && (
-        <section className="px-4 py-16">
-          <div className="container mx-auto max-w-2xl">
-            <h2 className="mb-8 text-center text-2xl font-semibold">
-              {dict.nextWalk.heading}
-            </h2>
-            <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-              <div className="aspect-[2/1] bg-muted/40" />
-              <div className="flex flex-col gap-4 p-6">
-                <div>
-                  <p className="mb-1 text-xs font-medium uppercase tracking-wide text-[#4cccc3]">
-                    {upcomingEvent.series} #{upcomingEvent.no}
-                  </p>
-                  <h3 className="text-xl font-semibold">{upcomingEvent.title}</h3>
-                </div>
-                <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-                  <p className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-[#4cccc3]" />
-                    {format(new Date(upcomingEvent.date), "MMMM d, yyyy")}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-[#4cccc3]" />
-                    {upcomingEvent.time}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-[#4cccc3]" />
-                    {upcomingEvent.meetingPoint}
-                  </p>
-                  {upcomingEvent.mapLink && (
-                    <a
-                      href={upcomingEvent.mapLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#4cccc3] hover:underline"
-                    >
-                      {dict.nextWalk.map} &rarr;
-                    </a>
-                  )}
-                </div>
-                <div className="pt-2">
-                  <LineCta label={dict.nextWalk.cta} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
     </div>
   );
 }

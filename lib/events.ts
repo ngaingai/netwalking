@@ -26,6 +26,8 @@ export interface Event {
   status: "past" | "upcoming";
   description: string;
   descriptionJp: string;
+  teaser: string;
+  teaserJp: string;
 }
 
 interface EventFrontmatter {
@@ -49,6 +51,8 @@ interface EventFrontmatter {
   coverImage?: string;
   photos?: string;
   descriptionJp?: string;
+  teaser?: string;
+  teaserJp?: string;
 }
 
 function getEventStatus(date: string): "past" | "upcoming" {
@@ -102,6 +106,8 @@ function parseEventFile(filePath: string): Event {
     status: getEventStatus(dateStr),
     description: content.trim(),
     descriptionJp: frontmatter.descriptionJp || "",
+    teaser: frontmatter.teaser || "",
+    teaserJp: frontmatter.teaserJp || "",
   };
 }
 

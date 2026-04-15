@@ -15,7 +15,7 @@ function getLocaleFromHeaders(request: NextRequest): string {
   return defaultLocale;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Skip static files and Next.js internals
@@ -33,7 +33,9 @@ export function middleware(request: NextRequest) {
   );
 
   if (pathnameHasLocale) {
-    return NextResponse.next();
+    const res = NextResponse.next();
+    res.headers.set("Vary", "Cookie, Accept-Language");
+    return res;
   }
 
   // Determine locale from cookie or headers
@@ -48,13 +50,18 @@ export function middleware(request: NextRequest) {
   if (locale === defaultLocale) {
     const url = request.nextUrl.clone();
     url.pathname = `/ja${pathname}`;
-    return NextResponse.rewrite(url);
+    const res = NextResponse.rewrite(url);
+    res.headers.set("Vary", "Cookie, Accept-Language");
+    return res;
   }
 
   // For non-default locale, redirect to locale-prefixed URL
   const url = request.nextUrl.clone();
   url.pathname = `/${locale}${pathname}`;
-  return NextResponse.redirect(url);
+  const res = NextResponse.redirect(url);
+  res.headers.set("Vary", "Cookie, Accept-Language");
+  res.headers.set("Cache-Control", "no-store");
+  return res;
 }
 
 export const config = {

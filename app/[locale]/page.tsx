@@ -93,7 +93,9 @@ export default async function HomePage({
                   </p>
                   <p className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-[#4cccc3]" />
-                    {upcomingEvent.meetingPoint}
+                    {locale === "ja" && upcomingEvent.meetingPointJp
+                      ? upcomingEvent.meetingPointJp
+                      : upcomingEvent.meetingPoint}
                   </p>
                   {upcomingEvent.mapLink && (
                     <a

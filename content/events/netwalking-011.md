@@ -1,7 +1,7 @@
 ---
 no: "011"
 title: "Yokohama Bay Walk!🎡"
-date: "2024-05-07"
+date: "2025-05-07"
 time: "11:00"
 course: "Yokohama Bay"
 meetingPoint: "Minato-Mirai Station, Exit 4"

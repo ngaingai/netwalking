@@ -25,7 +25,13 @@
       "Bash(curl -sL -o 02.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195478/events/005/tstty39tvjmzog6daps9.jpg\")",
       "Bash(curl -sL -o 03.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195484/events/005/vrpzf0wdeuws57b9nkzb.jpg\")",
       "Bash(curl -sL -o 04.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195492/events/005/hmvixll5sdc2d5kv8shn.jpg\")",
-      "Bash(curl -sL -o 05.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195498/events/005/jp8cp8bpfmgm77pqu787.jpg\")"
+      "Bash(curl -sL -o 05.jpg \"https://res.cloudinary.com/domixw22q/image/upload/v1742195498/events/005/jp8cp8bpfmgm77pqu787.jpg\")",
+      "Bash(curl -sI \"https://www.netwalking.net/events/nitewalking-002.png\")",
+      "Bash(npm ls:*)",
+      "Bash(npm view:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)"
     ]
   }
 }

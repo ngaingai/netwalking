@@ -38,16 +38,17 @@ export default async function HomePage({
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
           {locale === "ja" ? (
             <>
-              <span className="text-brand-teal">一歩ずつ</span>、つながりを強く。
+              <span className="text-brand-teal">一歩ずつ</span>、<br />つながりを強く。
             </>
           ) : (
             <>
-              Building stronger relationships,{" "}
+              Building stronger relationships,
+              <br />
               <span className="text-brand-teal">step by step</span>.
             </>
           )}
         </h1>
-        <p className="max-w-xl text-lg text-muted-foreground">
+        <p className="max-w-xl text-lg text-muted-foreground whitespace-pre-line">
           {dict.hero.subtitle}
         </p>
         <LineCta label={dict.hero.cta} size="large" />

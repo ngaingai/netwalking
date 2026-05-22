@@ -16,6 +16,10 @@ const config: Config = {
     },
     extend: {
       colors: {
+        brand: {
+          teal: "#4cccc3",
+          "teal-dark": "#3ab7a8",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

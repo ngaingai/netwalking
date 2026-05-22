@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, Clock, MapPin, ArrowLeft } from "lucide-react";
-import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
+import { getDictionary, isValidLocale, localized, type Locale } from "@/lib/i18n";
 import { getEventBySlug, getAllEvents } from "@/lib/events";
 import { LineCta } from "@/components/line-cta";
 import { PhotoCarousel } from "@/components/photo-carousel";
 import { BrandedText } from "@/components/branded-text";
+import { ExternalLinkButton } from "@/components/external-link-button";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import fs from "fs";
@@ -119,32 +120,32 @@ export default async function EventDetailPage({
           <div className="mb-8 aspect-[3/2] overflow-hidden rounded-2xl bg-muted/40 border border-border/30" />
         )}
 
-        <p className="mb-2 text-sm font-medium uppercase tracking-wide text-[#4cccc3]">
+        <p className="mb-2 text-sm font-medium uppercase tracking-wide text-brand-teal">
           {event.series} #{event.no}
         </p>
         <h1 className="mb-6 text-3xl font-bold">{event.title}</h1>
 
         <div className="mb-8 flex flex-col gap-3 rounded-xl border bg-card p-5 text-sm">
           <p className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-[#4cccc3]" />
+            <Calendar className="h-4 w-4 text-brand-teal" />
             <span className="font-medium">{dict.nextWalk.date}:</span>{" "}
             {format(new Date(event.date), "MMMM d, yyyy")}
           </p>
           <p className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-[#4cccc3]" />
+            <Clock className="h-4 w-4 text-brand-teal" />
             {event.time}
           </p>
           <p className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-[#4cccc3]" />
+            <MapPin className="h-4 w-4 text-brand-teal" />
             <span className="font-medium">{dict.nextWalk.meetingPoint}:</span>{" "}
-            {event.meetingPoint}
+            {localized(event, "meetingPoint", locale as Locale)}
           </p>
           {event.mapLink && (
             <a
               href={event.mapLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#4cccc3] hover:underline"
+              className="text-brand-teal hover:underline"
             >
               {dict.nextWalk.map} &rarr;
             </a>
@@ -168,21 +169,9 @@ export default async function EventDetailPage({
         {/* External links */}
         {(event.meetupLink || event.linkedinLink || event.linkedinReportLink) && (
           <div className="flex flex-wrap gap-3 text-sm">
-            {event.meetupLink && (
-              <a href={event.meetupLink} target="_blank" rel="noopener noreferrer" className="rounded-md border px-3 py-1.5 text-muted-foreground hover:text-foreground transition-colors">
-                Meetup
-              </a>
-            )}
-            {event.linkedinLink && (
-              <a href={event.linkedinLink} target="_blank" rel="noopener noreferrer" className="rounded-md border px-3 py-1.5 text-muted-foreground hover:text-foreground transition-colors">
-                LinkedIn Event
-              </a>
-            )}
-            {event.linkedinReportLink && (
-              <a href={event.linkedinReportLink} target="_blank" rel="noopener noreferrer" className="rounded-md border px-3 py-1.5 text-muted-foreground hover:text-foreground transition-colors">
-                LinkedIn Report
-              </a>
-            )}
+            {event.meetupLink && <ExternalLinkButton href={event.meetupLink}>Meetup</ExternalLinkButton>}
+            {event.linkedinLink && <ExternalLinkButton href={event.linkedinLink}>LinkedIn Event</ExternalLinkButton>}
+            {event.linkedinReportLink && <ExternalLinkButton href={event.linkedinReportLink}>LinkedIn Report</ExternalLinkButton>}
           </div>
         )}
       </div>

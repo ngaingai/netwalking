@@ -15,3 +15,17 @@ const dictionaries = {
 export async function getDictionary(locale: Locale) {
   return dictionaries[locale]();
 }
+
+export function localized<T extends object>(
+  obj: T,
+  field: keyof T & string,
+  locale: Locale,
+): string {
+  const record = obj as Record<string, unknown>;
+  if (locale === "ja") {
+    const jpValue = record[`${field}Jp`];
+    if (typeof jpValue === "string" && jpValue) return jpValue;
+  }
+  const value = record[field];
+  return typeof value === "string" ? value : "";
+}

@@ -61,10 +61,10 @@ export default async function EventsArchivePage({
                 )}
               </div>
               <div className="p-4">
-                <p className="mb-1 text-xs font-medium uppercase tracking-wide text-[#4cccc3]">
+                <p className="mb-1 text-xs font-medium uppercase tracking-wide text-brand-teal">
                   {event.series} #{event.no}
                 </p>
-                <h2 className="mb-2 text-lg font-semibold group-hover:text-[#4cccc3] transition-colors">
+                <h2 className="mb-2 text-lg font-semibold group-hover:text-brand-teal transition-colors">
                   {event.title}
                 </h2>
                 <div className="flex flex-col gap-1 text-sm text-muted-foreground">

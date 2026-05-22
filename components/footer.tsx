@@ -46,7 +46,6 @@ interface FooterDict {
 
 export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
   const t = dict.footer;
-  const iconColor = { color: "#4cccc3" };
 
   return (
     <footer className="border-t bg-muted/30">
@@ -55,7 +54,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
           {/* Column 1: Logo and Tagline */}
           <div className="flex flex-col items-center space-y-3 text-center md:items-start md:text-left">
             <p className="text-2xl font-semibold">
-              <span className="text-[#4cccc3]">Net</span>
+              <span className="text-brand-teal">Net</span>
               <span className="text-muted-foreground">Walking</span>
             </p>
             <Image
@@ -67,11 +66,11 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
             />
             {locale === "ja" ? (
               <p className="text-sm text-muted-foreground">
-                <span className="text-[#4cccc3]">一歩ずつ</span>、つながりを強く。
+                <span className="text-brand-teal">一歩ずつ</span>、つながりを強く。
               </p>
             ) : (
               <p className="text-sm text-muted-foreground">
-                Building stronger relationships, <span className="text-[#4cccc3]">step by step</span>.
+                Building stronger relationships, <span className="text-brand-teal">step by step</span>.
               </p>
             )}
           </div>
@@ -94,7 +93,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
             </p>
             <Link
               href={locale === "ja" ? "/playbook" : "/en/playbook"}
-              className="inline-flex items-center gap-1.5 rounded-full border border-[#4cccc3]/30 bg-[#4cccc3]/10 px-4 py-2 text-sm font-medium text-[#4cccc3] transition-colors hover:bg-[#4cccc3]/20 w-fit"
+              className="inline-flex items-center gap-1.5 rounded-full border border-brand-teal/30 bg-brand-teal/10 px-4 py-2 text-sm font-medium text-brand-teal transition-colors hover:bg-brand-teal/20 w-fit"
             >
               {dict.playbook.footerLink} &rarr;
             </Link>
@@ -107,37 +106,37 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
             </p>
             <nav className="flex flex-col items-center gap-2 text-sm md:items-start" aria-label="Social links">
               <Link href={socialLinks.line} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
-                <LineLogo className="h-4 w-4" style={iconColor} />
+                <LineLogo className="h-4 w-4 text-brand-teal" />
                 <span>LINE</span>
               </Link>
               <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
-                <Instagram className="h-4 w-4" style={iconColor} />
+                <Instagram className="h-4 w-4 text-brand-teal" />
                 <span>Instagram</span>
               </Link>
               <Link href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
-                <Facebook className="h-4 w-4" style={iconColor} />
+                <Facebook className="h-4 w-4 text-brand-teal" />
                 <span>Facebook</span>
               </Link>
               <Link href={socialLinks.meetup} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
-                <SiMeetup className="h-4 w-4" style={iconColor} />
+                <SiMeetup className="h-4 w-4 text-brand-teal" />
                 <span>Meetup</span>
               </Link>
               <Link href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
-                <Linkedin className="h-4 w-4" style={iconColor} />
+                <Linkedin className="h-4 w-4 text-brand-teal" />
                 <span>LinkedIn</span>
               </Link>
               <Link href={socialLinks.x} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
-                <XLogo className="h-4 w-4" style={iconColor} />
+                <XLogo className="h-4 w-4 text-brand-teal" />
                 <span>Follow on X</span>
               </Link>
               <Link href={socialLinks.skool} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground transition hover:text-foreground">
-                <Users className="h-4 w-4" style={iconColor} />
+                <Users className="h-4 w-4 text-brand-teal" />
                 <span>{t.onlineCommunity}</span>
               </Link>
             </nav>
             <p className="text-xs text-muted-foreground">
               &copy; {new Date().getFullYear()}{" "}
-              <span className="text-[#4cccc3]">Net</span>
+              <span className="text-brand-teal">Net</span>
               <span>Walking</span>. {t.copyright}
             </p>
           </div>

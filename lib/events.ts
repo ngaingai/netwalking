@@ -25,7 +25,6 @@ export interface Event {
   photos: string[];
   status: "past" | "upcoming";
   description: string;
-  descriptionJp: string;
   teaser: string;
   teaserJp: string;
 }
@@ -34,11 +33,9 @@ interface EventFrontmatter {
   no: string;
   series?: string;
   title: string;
-  titleJp?: string;
   date: string | Date;
   time: string;
   course: string;
-  courseJp?: string;
   meetingPoint: string;
   meetingPointJp?: string;
   mapLink?: string;
@@ -49,8 +46,6 @@ interface EventFrontmatter {
   komootLink?: string;
   attendees?: number;
   coverImage?: string;
-  photos?: string;
-  descriptionJp?: string;
   teaser?: string;
   teaserJp?: string;
 }
@@ -105,7 +100,6 @@ function parseEventFile(filePath: string): Event {
     photos,
     status: getEventStatus(dateStr),
     description: content.trim(),
-    descriptionJp: frontmatter.descriptionJp || "",
     teaser: frontmatter.teaser || "",
     teaserJp: frontmatter.teaserJp || "",
   };

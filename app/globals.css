@@ -35,9 +35,9 @@
     @apply bg-background text-foreground;
   }
   a {
-    color: #4cccc3;
+    color: theme('colors.brand.teal');
   }
   a:hover {
-    color: #3ab7a8;
+    color: theme('colors.brand.teal-dark');
   }
 }

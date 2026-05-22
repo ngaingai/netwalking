@@ -19,14 +19,14 @@ export function Header({ locale }: { locale: Locale }) {
             priority
           />
           <span className="font-bold">
-            <span style={{ color: "#4cccc3" }}>Net</span>
+            <span className="text-brand-teal">Net</span>
             <span className="text-muted-foreground">Walking</span>
           </span>
         </Link>
         <div className="flex items-center gap-3">
           <Link
             href={locale === "ja" ? "/playbook" : "/en/playbook"}
-            className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#4cccc3]/30 bg-[#4cccc3]/10 px-3 py-1.5 text-xs font-medium text-[#4cccc3] transition-colors hover:bg-[#4cccc3]/20"
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-brand-teal/30 bg-brand-teal/10 px-3 py-1.5 text-xs font-medium text-brand-teal transition-colors hover:bg-brand-teal/20"
           >
             {locale === "ja" ? "自分で始める" : "Start your own"} &rarr;
           </Link>

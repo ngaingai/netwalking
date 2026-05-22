@@ -1,19 +1,54 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const SWIPE_THRESHOLD = 50;
 
 export function PhotoCarousel({ photos, alt }: { photos: string[]; alt: string }) {
   const [current, setCurrent] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (photos.length <= 1) return undefined;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        setCurrent((c) => (c === 0 ? photos.length - 1 : c - 1));
+      } else if (e.key === "ArrowRight") {
+        setCurrent((c) => (c === photos.length - 1 ? 0 : c + 1));
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [photos.length]);
 
   if (photos.length === 0) return null;
 
   const prev = () => setCurrent((c) => (c === 0 ? photos.length - 1 : c - 1));
   const next = () => setCurrent((c) => (c === photos.length - 1 ? 0 : c + 1));
 
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      if (delta > 0) prev();
+      else next();
+    }
+    touchStartX.current = null;
+  };
+
+  const nextSrc = photos.length > 1 ? photos[(current + 1) % photos.length] : null;
+
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-muted/60">
+    <div
+      className="relative overflow-hidden rounded-2xl bg-muted/60"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       <div className="aspect-[3/2] relative">
         <Image
           src={photos[current]}
@@ -22,6 +57,17 @@ export function PhotoCarousel({ photos, alt }: { photos: string[]; alt: string }
           className="object-contain"
           sizes="(max-width: 768px) 100vw, 768px"
         />
+        {nextSrc && (
+          <div className="invisible absolute inset-0" aria-hidden="true">
+            <Image
+              src={nextSrc}
+              alt=""
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          </div>
+        )}
       </div>
 
       {photos.length > 1 && (

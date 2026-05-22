@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Calendar, Clock } from "lucide-react";
-import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
-import { getAllEvents, getLatestUpcomingEvent } from "@/lib/events";
+import { getDictionary, isValidLocale, localized, type Locale } from "@/lib/i18n";
+import { getLatestUpcomingEvent, getPastEvents } from "@/lib/events";
 import { LineCta } from "@/components/line-cta";
 import { BrandedText } from "@/components/branded-text";
 import { notFound } from "next/navigation";
@@ -18,8 +18,9 @@ export default async function HomePage({
 
   const dict = await getDictionary(locale as Locale);
   const upcomingEvent = getLatestUpcomingEvent();
-  const allEvents = getAllEvents();
-  const pastCount = allEvents.filter((e) => e.status === "past").length;
+  const pastEvents = getPastEvents();
+  const pastCount = pastEvents.length;
+  const recentPast = pastEvents.slice(0, 4);
   const eventsHref = locale === "ja" ? "/events" : "/en/events";
 
   return (
@@ -37,12 +38,12 @@ export default async function HomePage({
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
           {locale === "ja" ? (
             <>
-              <span className="text-[#4cccc3]">一歩ずつ</span>、つながりを強く。
+              <span className="text-brand-teal">一歩ずつ</span>、つながりを強く。
             </>
           ) : (
             <>
               Building stronger relationships,{" "}
-              <span className="text-[#4cccc3]">step by step</span>.
+              <span className="text-brand-teal">step by step</span>.
             </>
           )}
         </h1>
@@ -72,37 +73,35 @@ export default async function HomePage({
               </div>
               <div className="flex flex-col gap-4 p-6">
                 <div>
-                  <p className="mb-1 text-xs font-medium uppercase tracking-wide text-[#4cccc3]">
+                  <p className="mb-1 text-xs font-medium uppercase tracking-wide text-brand-teal">
                     {upcomingEvent.series} #{upcomingEvent.no}
                   </p>
                   <h3 className="text-xl font-semibold">{upcomingEvent.title}</h3>
                 </div>
-                {(locale === "ja" ? upcomingEvent.teaserJp : upcomingEvent.teaser) && (
+                {localized(upcomingEvent, "teaser", locale as Locale) && (
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    <BrandedText text={locale === "ja" ? upcomingEvent.teaserJp : upcomingEvent.teaser} />
+                    <BrandedText text={localized(upcomingEvent, "teaser", locale as Locale)} />
                   </p>
                 )}
                 <div className="flex flex-col gap-2 text-sm text-muted-foreground">
                   <p className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-[#4cccc3]" />
+                    <Calendar className="h-4 w-4 text-brand-teal" />
                     {format(new Date(upcomingEvent.date), "MMMM d, yyyy")}
                   </p>
                   <p className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-[#4cccc3]" />
+                    <Clock className="h-4 w-4 text-brand-teal" />
                     {upcomingEvent.time}
                   </p>
                   <p className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-[#4cccc3]" />
-                    {locale === "ja" && upcomingEvent.meetingPointJp
-                      ? upcomingEvent.meetingPointJp
-                      : upcomingEvent.meetingPoint}
+                    <MapPin className="h-4 w-4 text-brand-teal" />
+                    {localized(upcomingEvent, "meetingPoint", locale as Locale)}
                   </p>
                   {upcomingEvent.mapLink && (
                     <a
                       href={upcomingEvent.mapLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#4cccc3] hover:underline"
+                      className="text-brand-teal hover:underline"
                     >
                       {dict.nextWalk.map} &rarr;
                     </a>
@@ -135,20 +134,20 @@ export default async function HomePage({
         <div className="container mx-auto max-w-4xl">
           <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
             <div className="text-center md:text-left">
-              <p className="text-4xl font-bold text-[#4cccc3]">{pastCount}+</p>
+              <p className="text-4xl font-bold text-brand-teal">{pastCount}+</p>
               <p className="text-muted-foreground">{dict.socialProof.walkCount}</p>
             </div>
 
             {/* Community photos from recent walks */}
             <div className="flex gap-3">
-              {[19, 18, 17, 16].map((n) => (
+              {recentPast.map((event) => (
                 <div
-                  key={n}
+                  key={event.slug}
                   className="relative h-20 w-20 overflow-hidden rounded-xl md:h-24 md:w-24"
                 >
                   <Image
-                    src={`/events/netwalking-${String(n).padStart(3, "0")}.webp`}
-                    alt={`NetWalking #${n}`}
+                    src={event.coverImage}
+                    alt={`${event.series} #${event.no}: ${event.title}`}
                     fill
                     className="object-cover"
                     sizes="96px"
@@ -159,7 +158,7 @@ export default async function HomePage({
 
             <Link
               href={eventsHref}
-              className="text-sm font-medium text-[#4cccc3] hover:underline"
+              className="text-sm font-medium text-brand-teal hover:underline"
             >
               {dict.socialProof.seeAll} &rarr;
             </Link>
@@ -180,7 +179,7 @@ export default async function HomePage({
               { num: "3", title: dict.howItWorks.step3Title, desc: dict.howItWorks.step3Desc },
             ].map((step) => (
               <div key={step.num} className="flex flex-col items-center text-center md:items-start md:text-left">
-                <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#4cccc3] text-lg font-bold text-white">
+                <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-brand-teal text-lg font-bold text-white">
                   {step.num}
                 </span>
                 <h3 className="mb-2 font-semibold">{step.title}</h3>

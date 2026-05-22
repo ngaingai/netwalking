@@ -12,7 +12,7 @@ linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-001.jpg"
+coverImage: "/events/netwalking-001.webp"
 ---
 
 Our first walk around the Imperial Palace

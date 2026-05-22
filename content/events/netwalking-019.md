@@ -13,7 +13,7 @@ linkedinReportLink: "https://www.linkedin.com/feed/update/urn:li:activity:743765
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-019.jpg"
+coverImage: "/events/netwalking-019.webp"
 ---
 
 [ Quality is Quantity ]

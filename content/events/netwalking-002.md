@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/posts/alex-ngai_10-total-strangers
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-002.jpg"
+coverImage: "/events/netwalking-002.webp"
 ---
 
 🤝 10 total strangers

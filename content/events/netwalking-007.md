@@ -12,7 +12,7 @@ linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-007.jpg"
+coverImage: "/events/netwalking-007.webp"
 ---
 
 A scenic walk along the Meguro River

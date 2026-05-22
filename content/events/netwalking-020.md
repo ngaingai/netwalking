@@ -14,7 +14,7 @@ linkedinReportLink: "https://www.linkedin.com/feed/update/urn:li:activity:746307
 stravaLink: ""
 komootLink: ""
 attendees: 12
-coverImage: "/events/netwalking-020.jpg"
+coverImage: "/events/netwalking-020.webp"
 ---
 
 Old friends, New friends,

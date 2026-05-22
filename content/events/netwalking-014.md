@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/posts/alex-ngai_the-least-weve-eve
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-014.jpg"
+coverImage: "/events/netwalking-014.webp"
 ---
 
 🖼️ NetWalking #14: Walking x Atelier Shinkai

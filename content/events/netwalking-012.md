@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/posts/alex-ngai_yes-it-rained-yes-
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-012.jpg"
+coverImage: "/events/netwalking-012.webp"
 ---
 
 🌳 NetWalking #12: Yoyogi Park! 🌳

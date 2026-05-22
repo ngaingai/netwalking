@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/posts/alex-ngai_event-overload-ive
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-015.jpg"
+coverImage: "/events/netwalking-015.webp"
 ---
 
 🍂 NetWalking #15: Meguro River! 🍂

@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/feed/update/urn:li:activity:739960
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-016.jpg"
+coverImage: "/events/netwalking-016.webp"
 ---
 
 🍂 NetWalking #16: Komazawa Park! 🍂

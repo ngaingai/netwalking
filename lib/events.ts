@@ -101,7 +101,7 @@ function parseEventFile(filePath: string): Event {
     stravaLink: frontmatter.stravaLink || "",
     komootLink: frontmatter.komootLink || "",
     attendees: frontmatter.attendees || 0,
-    coverImage: frontmatter.coverImage || `/events/${slug}.jpg`,
+    coverImage: frontmatter.coverImage || `/events/${slug}.webp`,
     photos,
     status: getEventStatus(dateStr),
     description: content.trim(),

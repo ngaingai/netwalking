@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/posts/alex-ngai_17846-linkedin-act
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-005.jpg"
+coverImage: "/events/netwalking-005.webp"
 ---
 
 🇸🇪 🇯🇵 🇨🇦 🇻🇪 🇬🇧 🇺🇸

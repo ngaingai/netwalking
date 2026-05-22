@@ -12,7 +12,7 @@ linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-017.jpg"
+coverImage: "/events/netwalking-017.webp"
 ---
 
 🎉 NetWalking #17: 忘年Walk! 🎉

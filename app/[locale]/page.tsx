@@ -147,7 +147,7 @@ export default async function HomePage({
                   className="relative h-20 w-20 overflow-hidden rounded-xl md:h-24 md:w-24"
                 >
                   <Image
-                    src={`/events/netwalking-${String(n).padStart(3, "0")}.jpg`}
+                    src={`/events/netwalking-${String(n).padStart(3, "0")}.webp`}
                     alt={`NetWalking #${n}`}
                     fill
                     className="object-cover"

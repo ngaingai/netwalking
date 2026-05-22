@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/posts/alex-ngai_0-%E5%90%8D%E5%88%
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-003.jpg"
+coverImage: "/events/netwalking-003.webp"
 ---
 
 0: 名刺 (Business cards)

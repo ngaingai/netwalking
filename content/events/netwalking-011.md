@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/posts/alex-ngai_weve-walked-with-c
 stravaLink: ""
 komootLink: ""
 attendees: 8
-coverImage: "/events/netwalking-011.jpg"
+coverImage: "/events/netwalking-011.webp"
 ---
 
 🎡NetWalking #10: Yokohama Bay Walk!🎡

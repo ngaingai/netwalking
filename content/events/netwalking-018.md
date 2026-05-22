@@ -13,7 +13,7 @@ linkedinReportLink: "https://www.linkedin.com/feed/update/urn:li:activity:741991
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-018.jpg"
+coverImage: "/events/netwalking-018.webp"
 ---
 
 Wed. at 12:00 is not a good time for an event.

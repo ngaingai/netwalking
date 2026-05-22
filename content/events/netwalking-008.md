@@ -12,7 +12,7 @@ linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-008.jpg"
+coverImage: "/events/netwalking-008.webp"
 ---
 
 Walk along the beautiful Sumida River

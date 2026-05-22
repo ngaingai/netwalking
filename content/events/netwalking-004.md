@@ -12,7 +12,7 @@ linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-004.jpg"
+coverImage: "/events/netwalking-004.webp"
 ---
 
 Walk along Tokyo Bay

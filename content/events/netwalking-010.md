@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/posts/alex-ngai_activity-731298645
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-010.jpg"
+coverImage: "/events/netwalking-010.webp"
 ---
 
 🌸 NetWalking #10: Hanami Walk 🌸

@@ -12,7 +12,7 @@ linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-009.jpg"
+coverImage: "/events/netwalking-009.webp"
 ---
 
 A scenic walk around the Imperial Palace

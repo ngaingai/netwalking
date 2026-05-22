@@ -12,7 +12,7 @@ linkedinReportLink: "https://www.linkedin.com/posts/alex-ngai_2km-in-the-heat-th
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-013.jpg"
+coverImage: "/events/netwalking-013.webp"
 ---
 
 🗼 NetWalking #13: 芝公園 Shiba Park! 🗼

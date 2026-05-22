@@ -12,7 +12,7 @@ linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
 attendees: 0
-coverImage: "/events/netwalking-006.jpg"
+coverImage: "/events/netwalking-006.webp"
 ---
 
 Walk through the sumo district

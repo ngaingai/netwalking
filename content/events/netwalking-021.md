@@ -8,15 +8,15 @@ course: "Yahatagawa North Greenway 谷端川北緑道"
 meetingPoint: "Ikebukuro West Park (Peace Statue)"
 meetingPointJp: "池袋西口公園 平和記念像"
 mapLink: "https://maps.app.goo.gl/91Af5oH1RFqTYRZq9"
-meetupLink: ""
-linkedinLink: ""
+meetupLink: "https://www.meetup.com/netwalking/events/315004592/"
+linkedinLink: "https://www.linkedin.com/events/7464871955565875200/"
 linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
 attendees: 0
 coverImage: "/events/netwalking-021.webp"
 teaser: "Last daytime walk before summer!"
-teaserJp: ""
+teaserJp: "夏が来る前、最後の昼ウォーキング！"
 ---
 
 NetWalking #21: Ikebukuro!

@@ -9,6 +9,7 @@ export interface Event {
   no: string;
   series: string;
   title: string;
+  titleJp: string;
   date: string;
   time: string;
   course: string;
@@ -22,6 +23,10 @@ export interface Event {
   komootLink: string;
   attendees: number;
   coverImage: string;
+  /* Actual walked distance from Garmin; null falls back to the flat 5km estimate */
+  distanceKm: number | null;
+  /* GPS route image, convention: /events/<slug>-route.png */
+  routeImage: string;
   photos: string[];
   status: "past" | "upcoming";
   description: string;
@@ -33,6 +38,7 @@ interface EventFrontmatter {
   no: string;
   series?: string;
   title: string;
+  titleJp?: string;
   date: string | Date;
   time: string;
   course: string;
@@ -46,6 +52,7 @@ interface EventFrontmatter {
   komootLink?: string;
   attendees?: number;
   coverImage?: string;
+  distanceKm?: number;
   teaser?: string;
   teaserJp?: string;
 }
@@ -68,6 +75,20 @@ function parseEventFile(filePath: string): Event {
       ? frontmatter.date.toISOString().split("T")[0]
       : String(frontmatter.date);
 
+  let routeImage = "";
+  for (const ext of ["png", "webp", "jpg"]) {
+    const candidate = path.join(
+      process.cwd(),
+      "public",
+      "events",
+      `${slug}-route.${ext}`
+    );
+    if (fs.existsSync(candidate)) {
+      routeImage = `/events/${slug}-route.${ext}`;
+      break;
+    }
+  }
+
   // Scan for post-walk photos in /public/events/[slug]/
   const photosDir = path.join(process.cwd(), "public", "events", slug);
   let photos: string[] = [];
@@ -84,6 +105,7 @@ function parseEventFile(filePath: string): Event {
     no: frontmatter.no,
     series: frontmatter.series || "NetWalking",
     title: frontmatter.title,
+    titleJp: frontmatter.titleJp || "",
     date: dateStr,
     time: frontmatter.time || "12:00",
     course: frontmatter.course,
@@ -97,6 +119,9 @@ function parseEventFile(filePath: string): Event {
     komootLink: frontmatter.komootLink || "",
     attendees: frontmatter.attendees || 0,
     coverImage: frontmatter.coverImage || `/events/${slug}.webp`,
+    distanceKm:
+      typeof frontmatter.distanceKm === "number" ? frontmatter.distanceKm : null,
+    routeImage,
     photos,
     status: getEventStatus(dateStr),
     description: content.trim(),
@@ -137,6 +162,26 @@ export function getPastEvents(): Event[] {
 
 export function getUpcomingEvents(): Event[] {
   return getAllEvents().filter((e) => e.status === "upcoming");
+}
+
+/* Odometer: real distances where recorded, flat 5km estimate otherwise */
+export function getTotalKmWalked(): number {
+  return getPastEvents().reduce((sum, e) => sum + (e.distanceKm ?? 5), 0);
+}
+
+/* Prev/next station within the same series, by event number */
+export function getAdjacentEvents(event: Event): {
+  prev: Event | null;
+  next: Event | null;
+} {
+  const line = getAllEvents()
+    .filter((e) => e.series === event.series)
+    .sort((a, b) => parseInt(a.no, 10) - parseInt(b.no, 10));
+  const index = line.findIndex((e) => e.slug === event.slug);
+  return {
+    prev: index > 0 ? line[index - 1] : null,
+    next: index >= 0 && index < line.length - 1 ? line[index + 1] : null,
+  };
 }
 
 export function getLatestUpcomingEvent(): Event | null {

@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Calendar, Clock } from "lucide-react";
-import { getDictionary, isValidLocale, localized, type Locale } from "@/lib/i18n";
-import { getLatestUpcomingEvent, getPastEvents } from "@/lib/events";
-import { LineCta } from "@/components/line-cta";
-import { BrandedText } from "@/components/branded-text";
 import { notFound } from "next/navigation";
-import { format } from "date-fns";
+import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
+import { getLatestUpcomingEvent, getPastEvents } from "@/lib/events";
+import { HankoCta } from "@/components/hanko-cta";
+import { RouteRail } from "@/components/route-rail";
+import { Station, SectionHeading } from "@/components/station";
+import { DepartureBoard } from "@/components/departure-board";
+import { NextWalkBoard } from "@/components/next-walk-board";
 
 export default async function HomePage({
   params,
@@ -22,175 +23,174 @@ export default async function HomePage({
   const pastCount = pastEvents.length;
   const recentPast = pastEvents.slice(0, 4);
   const eventsHref = locale === "ja" ? "/events" : "/en/events";
+  const displayFont =
+    locale === "ja" ? "font-display-jp" : "font-display-en font-expanded";
 
   return (
-    <div className="flex flex-col">
-      {/* Section 1: Hero */}
-      <section className="flex flex-col items-center gap-6 px-4 pt-12 pb-16 text-center">
-        <Image
-          src="/images/NetWalking-Logo.jpg"
-          alt="NetWalking Logo"
-          width={280}
-          height={187}
-          className="w-56 md:w-64 h-auto"
-          priority
-        />
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
-          {locale === "ja" ? (
-            <>
-              <span className="text-brand-teal">一歩ずつ</span>、<br />つながりを強く。
-            </>
-          ) : (
-            <>
-              Building stronger relationships,
-              <br />
-              <span className="text-brand-teal">step by step</span>.
-            </>
-          )}
-        </h1>
-        <p className="max-w-xl text-lg text-muted-foreground whitespace-pre-line">
-          {dict.hero.subtitle}
-        </p>
-        <LineCta label={dict.hero.cta} size="large" />
-      </section>
+    <div className="relative overflow-x-clip">
+      <RouteRail />
 
-      {/* Section 2: Next Walk (conditional, shown right after hero) */}
-      {upcomingEvent && (
-        <section className="px-4 pb-16">
-          <div className="container mx-auto max-w-2xl">
-            <h2 className="mb-8 text-center text-2xl font-semibold">
-              {dict.nextWalk.heading}
-            </h2>
-            <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-              <div className="aspect-[2/1] relative bg-muted/40">
-                <Image
-                  src={upcomingEvent.coverImage}
-                  alt={`${upcomingEvent.series} #${upcomingEvent.no}: ${upcomingEvent.title}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 672px"
-                  priority
-                />
-              </div>
-              <div className="flex flex-col gap-4 p-6">
-                <div>
-                  <p className="mb-1 text-xs font-medium uppercase tracking-wide text-brand-teal">
-                    {upcomingEvent.series} #{upcomingEvent.no}
-                  </p>
-                  <h3 className="text-xl font-semibold">{upcomingEvent.title}</h3>
-                </div>
-                {localized(upcomingEvent, "teaser", locale as Locale) && (
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    <BrandedText text={localized(upcomingEvent, "teaser", locale as Locale)} />
-                  </p>
-                )}
-                <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-                  <p className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-brand-teal" />
-                    {format(new Date(upcomingEvent.date), "MMMM d, yyyy")}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-brand-teal" />
-                    {upcomingEvent.time}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-brand-teal" />
-                    {localized(upcomingEvent, "meetingPoint", locale as Locale)}
-                  </p>
-                  {upcomingEvent.mapLink && (
-                    <a
-                      href={upcomingEvent.mapLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand-teal hover:underline"
-                    >
-                      {dict.nextWalk.map} &rarr;
-                    </a>
-                  )}
-                </div>
-                <div className="flex justify-center pt-2">
-                  <LineCta label={dict.nextWalk.cta} />
-                </div>
-              </div>
+      {/* 0.0km 出発 Hero */}
+      <Station km="0.0km" label={dict.hero.stationLabel}>
+        <div className="flex flex-col items-start gap-6 pt-6 md:pt-12">
+          <h1
+            className={`text-4xl font-black leading-tight md:text-6xl ${displayFont}`}
+          >
+            {dict.hero.h1}
+          </h1>
+          <p className="text-lg leading-relaxed text-slate md:text-xl">
+            {dict.hero.subLines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </p>
+          <p className="text-sm text-slate">{dict.hero.small}</p>
+          <HankoCta label={dict.hero.cta} size="large" />
+        </div>
+      </Station>
+
+      {/* 0.8km Manifesto departure board */}
+      <Station km="0.8km">
+        <SectionHeading
+          text={dict.manifesto.heading}
+          alt={dict.manifesto.headingAlt}
+          locale={locale}
+        />
+        <DepartureBoard
+          cancelledRows={dict.manifesto.cancelledRows}
+          onTimeRow={dict.manifesto.onTimeRow}
+          cancelledLabel={dict.manifesto.cancelledLabel}
+          cancelledLabelAlt={dict.manifesto.cancelledLabelAlt}
+          onTimeLabel={dict.manifesto.onTimeLabel}
+          onTimeLabelAlt={dict.manifesto.onTimeLabelAlt}
+        />
+        <p className="mt-4 text-slate">{dict.manifesto.below}</p>
+      </Station>
+
+      {/* 1.6km Spec grid */}
+      <Station km="1.6km">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+          {dict.specs.tiles.map((tile) => (
+            <div
+              key={tile.label}
+              className="rounded-b-lg border-t-4 border-green bg-white px-4 py-5 shadow-sm"
+            >
+              <p className="font-mono text-2xl font-semibold tabular-nums md:text-3xl">
+                {tile.value}
+              </p>
+              <p className="mt-1 text-xs text-slate md:text-sm">{tile.label}</p>
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
+        <p className="mt-5 text-sm leading-relaxed text-slate">
+          {dict.specs.note}
+        </p>
+      </Station>
+
+      {/* 2.4km Language */}
+      <Station km="2.4km">
+        <SectionHeading
+          text={dict.language.heading}
+          alt={dict.language.headingAlt}
+          locale={locale}
+        />
+        <div className="border-l-4 border-green pl-5 md:pl-6">
+          {dict.language.lines.map((line) => (
+            <p key={line} className="mb-3 leading-relaxed last:mb-0">
+              {line}
+            </p>
+          ))}
+        </div>
+        <div className="mt-7">
+          <HankoCta label={dict.language.cta} />
+        </div>
+      </Station>
+
+      {/* 3.2km Next walk (station collapses when nothing is scheduled) */}
+      {upcomingEvent && (
+        <Station km="3.2km">
+          <NextWalkBoard
+            event={upcomingEvent}
+            dict={dict.nextWalk}
+            locale={locale as Locale}
+          />
+        </Station>
       )}
 
-      {/* Section 3: What This Is */}
-      <section className="bg-muted/30 px-4 py-16">
-        <div className="container mx-auto max-w-2xl">
-          <h2 className="mb-6 text-2xl font-semibold"><BrandedText text={dict.whatThisIs.heading} /></h2>
-          <p className="mb-4 text-base leading-relaxed text-muted-foreground">
-            <BrandedText text={dict.whatThisIs.pitch} />
+      {/* 4.0km How it works */}
+      <Station km="4.0km">
+        <SectionHeading
+          text={dict.howItWorks.heading}
+          alt={dict.howItWorks.headingAlt}
+          locale={locale}
+        />
+        <ol className="flex flex-col gap-7">
+          {dict.howItWorks.steps.map((step, i) => (
+            <li key={step.title} className="flex items-start gap-4">
+              <span
+                aria-hidden="true"
+                className="mt-0.5 shrink-0 font-mono text-lg font-semibold text-green"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 className="font-bold">{step.title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-slate">
+                  {step.desc}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Station>
+
+      {/* 4.6km Why + proof */}
+      <Station km="4.6km">
+        <SectionHeading
+          text={dict.why.heading}
+          alt={dict.why.headingAlt}
+          locale={locale}
+        />
+        {dict.why.paragraphs.map((paragraph) => (
+          <p key={paragraph} className="mb-4 leading-relaxed">
+            {paragraph}
           </p>
-          <p className="text-base leading-relaxed text-muted-foreground">
-            {dict.whatThisIs.dadAngle}
+        ))}
+        <p className="font-bold text-slate">{dict.why.sig}</p>
+
+        <div className="mt-12">
+          <p className="text-2xl font-bold md:text-3xl">
+            <span className="font-mono text-4xl tabular-nums text-green md:text-5xl">
+              {pastCount}
+            </span>
+            {locale === "ja" ? "" : " "}
+            {dict.proof.countSuffix}
           </p>
-        </div>
-      </section>
-
-      {/* Section 3: Social Proof Strip */}
-      <section className="px-4 py-16">
-        <div className="container mx-auto max-w-4xl">
-          <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
-            <div className="text-center md:text-left">
-              <p className="text-4xl font-bold text-brand-teal">{pastCount}+</p>
-              <p className="text-muted-foreground">{dict.socialProof.walkCount}</p>
-            </div>
-
-            {/* Community photos from recent walks */}
-            <div className="flex gap-3">
-              {recentPast.map((event) => (
-                <div
-                  key={event.slug}
-                  className="relative h-20 w-20 overflow-hidden rounded-xl md:h-24 md:w-24"
-                >
-                  <Image
-                    src={event.coverImage}
-                    alt={`${event.series} #${event.no}: ${event.title}`}
-                    fill
-                    className="object-cover"
-                    sizes="96px"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <Link
-              href={eventsHref}
-              className="text-sm font-medium text-brand-teal hover:underline"
-            >
-              {dict.socialProof.seeAll} &rarr;
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 4: How It Works */}
-      <section className="bg-muted/30 px-4 py-16">
-        <div className="container mx-auto max-w-3xl">
-          <h2 className="mb-10 text-center text-2xl font-semibold">
-            {dict.howItWorks.heading}
-          </h2>
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              { num: "1", title: dict.howItWorks.step1Title, desc: dict.howItWorks.step1Desc },
-              { num: "2", title: dict.howItWorks.step2Title, desc: dict.howItWorks.step2Desc },
-              { num: "3", title: dict.howItWorks.step3Title, desc: dict.howItWorks.step3Desc },
-            ].map((step) => (
-              <div key={step.num} className="flex flex-col items-center text-center md:items-start md:text-left">
-                <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-brand-teal text-lg font-bold text-white">
-                  {step.num}
-                </span>
-                <h3 className="mb-2 font-semibold">{step.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
+          <div className="mt-6 grid grid-cols-4 gap-2 md:gap-3">
+            {recentPast.map((event) => (
+              <div
+                key={event.slug}
+                className="relative aspect-square overflow-hidden rounded-lg"
+              >
+                <Image
+                  src={event.coverImage}
+                  alt={`${event.series} #${event.no}: ${event.title}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 25vw, 160px"
+                />
               </div>
             ))}
           </div>
+          <Link
+            href={eventsHref}
+            className="mt-5 inline-block font-mono text-sm font-semibold text-green hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green"
+          >
+            {dict.proof.archiveLink} &rarr;
+          </Link>
         </div>
-      </section>
-
+      </Station>
     </div>
   );
 }

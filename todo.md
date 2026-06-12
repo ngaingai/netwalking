@@ -53,6 +53,7 @@
 - [ ] Verify LINE link `https://lin.ee/nB41KHn` is still active before launch
 
 ### Design / polish
+- [ ] Garmin GPS route image as a recurring motif on event detail pages (next item after the route-homepage rebuild)
 - [ ] Visual refresh pass: light/airy, outdoor park energy, warm accents
 - [ ] Mobile-first audit at 375px (hero CTA, upcoming event, "what this is" must all be above the fold)
 - [ ] Friendlier typography (currently Inter — may want something warmer)

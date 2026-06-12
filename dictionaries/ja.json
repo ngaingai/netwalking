@@ -1,51 +1,121 @@
 {
   "meta": {
-    "title": "NetWalking | 東京のウォーキングコミュニティ",
-    "description": "NetWalkingは、東京で毎月開催されるバイリンガルのウォーキングコミュニティです。起業家、フリーランス、パパママ仲間と、歩きながらつながりましょう。",
-    "ogDescription": "東京で毎月開催。歩きながら、つながりを深めるウォーキングイベント。"
+    "title": "NetWalking | 東京を歩く、月1回のコミュニティ",
+    "description": "名刺より、5km。東京を歩く、月1回のコミュニティ。売り込みなし。予約不要。参加無料。",
+    "ogDescription": "名刺より、5km。東京を歩く、月1回のコミュニティ。"
+  },
+  "header": {
+    "stationName": "ネットウォーキング",
+    "stationNameAlt": "NetWalking"
   },
   "hero": {
-    "tagline": "一歩ずつ、つながりを強く。",
-    "subtitle": "東京の最高の仲間たちと歩く5kmのお散歩。\n毎月開催、12〜14時。\n参加無料！",
+    "stationLabel": "出発",
+    "stationLabelAlt": "DEPARTURE",
+    "h1": "名刺より、5km。",
+    "subLines": [
+      "東京を歩く、月1回のコミュニティ。",
+      "売り込みなし。予約不要。参加無料。"
+    ],
+    "small": "パパが作ったコミュニティです。",
     "cta": "LINEで参加する"
   },
-  "whatThisIs": {
-    "heading": "NetWalkingとは",
-    "pitch": "東京で毎月開催されるウォーキングコミュニティです。起業家、フリーランス、パパママ仲間たちが集まり、5kmを歩きながら会話を楽しみます。午後12時スタート、参加無料、日本語・英語どちらもOK。",
-    "dadAngle": "起業家ですが、パパでもあります。毎晩子どもたちと一緒にごはんを食べたい。だから、よくある夜のネットワーキングじゃなくて、午後のオープンエア版を作りました。"
+  "manifesto": {
+    "heading": "NetWalkingに、ないもの。",
+    "headingAlt": "What NetWalking doesn't have.",
+    "cancelledLabel": "運休",
+    "cancelledLabelAlt": "CANCELLED",
+    "onTimeLabel": "運行中",
+    "onTimeLabelAlt": "ON TIME",
+    "cancelledRows": ["売り込み", "スポンサー", "予約", "名刺の山・立食の気まずさ"],
+    "onTimeRow": "東京の街、5km、ひとつの良い会話",
+    "below": "それだけです。"
   },
-  "socialProof": {
-    "heading": "コミュニティ",
-    "walkCount": "回以上の開催実績",
-    "seeAll": "過去のイベントを見る"
+  "specs": {
+    "tiles": [
+      { "value": "×1", "label": "毎月1回" },
+      { "value": "12:00", "label": "12:00〜14:00" },
+      { "value": "5km", "label": "約5km" },
+      { "value": "¥0", "label": "参加費" }
+    ],
+    "note": "最後に、歩いた1kmにつき100円をチャリティーに寄付しています。もちろん任意です。"
   },
-  "howItWorks": {
-    "heading": "参加の流れ",
-    "step1Title": "集合場所に来る",
-    "step1Desc": "最初の20〜30分は待ち時間。遅れても大丈夫です。",
-    "step2Title": "歩いて話す",
-    "step2Desc": "約2時間、5kmほどのウォーキング。自然な会話を楽しみましょう。",
-    "step3Title": "自己紹介と連絡先交換",
-    "step3Desc": "途中で自己紹介タイム（名前、日本にいる期間、呼び方）。最後に連絡先を交換します。"
+  "language": {
+    "heading": "英語、できなくて大丈夫。",
+    "headingAlt": "Zero Japanese? You're in.",
+    "lines": [
+      "日本語OK。英語OK。まざってもOK。",
+      "いちばん心配な人ほど、歓迎されます。",
+      "海外のお客様と、レジ越しじゃない場所で話してみたい。そんな店主さんにも、ぴったりの2時間です。"
+    ],
+    "cta": "LINEで参加する"
   },
   "nextWalk": {
-    "heading": "次回のウォーク",
+    "boardLabel": "NEXT DEPARTURE",
     "date": "日時",
-    "location": "場所",
+    "time": "時間",
     "meetingPoint": "集合場所",
     "map": "地図を見る",
     "cta": "LINEで参加する"
   },
+  "howItWorks": {
+    "heading": "参加の流れ",
+    "headingAlt": "How it works",
+    "steps": [
+      {
+        "title": "集合場所に来る",
+        "desc": "予約はいりません。最初の20〜30分は待ち時間なので、遅れても大丈夫。"
+      },
+      {
+        "title": "歩いて話す",
+        "desc": "約2時間、5kmほど。途中でグループをシャッフルします。"
+      },
+      {
+        "title": "自己紹介と連絡先交換",
+        "desc": "途中で自己紹介タイム（名前、日本にいる期間、呼び方）。最後に連絡先を交換して解散です。"
+      }
+    ]
+  },
+  "why": {
+    "heading": "なぜ、昼に歩くのか。",
+    "headingAlt": "Why we walk at lunch.",
+    "paragraphs": [
+      "僕は起業家ですが、パパでもあります。毎晩、子どもたちと晩ごはんを食べたい。だから、夜の交流会には行きません。",
+      "代わりに、昼のオープンエア版を作りました。それが、NetWalkingです。"
+    ],
+    "sig": "— Alex"
+  },
+  "proof": {
+    "countSuffix": "回、歩いてきました。",
+    "archiveLink": "過去のイベントを見る"
+  },
   "footer": {
+    "stationLabel": "到着",
+    "stationLabelAlt": "ARRIVAL",
+    "arrival": "5km、完歩。あとは本物を歩くだけ。",
+    "cta": "LINEで参加する",
+    "tagline": "一歩ずつ、つながりを強く。",
     "producedBy": "Produced by",
     "stayConnected": "つながる",
     "onlineCommunity": "オンラインコミュニティ",
-    "blurb": "NetWalkingは、東京で毎月集まって歩くコミュニティです。つながり、会話、ちょっとした冒険を一緒に。いつでも自由に参加できます。",
     "copyright": "All rights reserved."
   },
   "events": {
     "heading": "過去のイベント",
-    "noEvents": "まだイベントがありません。"
+    "noEvents": "まだイベントがありません。",
+    "lineTitle": "これまでのルート",
+    "lineTitleAlt": "The NetWalking Line",
+    "odometerLabel": "みんなで歩いた距離（概算）",
+    "odometerPrefix": "約",
+    "nextDeparture": "NEXT DEPARTURE",
+    "course": "コース",
+    "meet": "集合",
+    "record": "記録",
+    "attendeesSuffix": "人参加",
+    "walkReport": "ウォークレポート",
+    "walkReportAlt": "Walk Report",
+    "prevStation": "前の駅",
+    "nextStation": "次の駅",
+    "stamp": "完歩"
   },
   "playbook": {
     "title": "NetWalkingの始め方",

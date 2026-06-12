@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { isValidLocale, getDictionary, type Locale } from "@/lib/i18n";
+import { getAllEvents } from "@/lib/events";
 
 const SITE_URL = "https://netwalking.net";
 
@@ -47,6 +48,10 @@ export default async function LocaleLayout({
 
   const dict = await getDictionary(locale as Locale);
 
+  // Station-code badge number: latest NetWalking event (by date) in the markdown.
+  const latestNetWalk = getAllEvents().find((e) => e.series === "NetWalking");
+  const latestWalkNumber = latestNetWalk ? parseInt(latestNetWalk.no, 10) : 0;
+
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -82,7 +87,11 @@ export default async function LocaleLayout({
         }}
       />
       <div className="flex flex-col min-h-screen">
-        <Header locale={locale as Locale} />
+        <Header
+          locale={locale as Locale}
+          dict={dict}
+          latestWalkNumber={latestWalkNumber}
+        />
         <main className="flex-1">{children}</main>
         <Footer locale={locale as Locale} dict={dict} />
       </div>

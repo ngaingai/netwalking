@@ -16,9 +16,21 @@ const config: Config = {
     },
     extend: {
       colors: {
+        // Route palette (wayfinding)
+        paper: "var(--paper)",
+        ink: "var(--ink)",
+        green: {
+          DEFAULT: "var(--green)",
+          dark: "#007A3B",
+        },
+        vermillion: "var(--vermillion)",
+        sign: "var(--sign)",
+        slate: "var(--slate)",
+        // Legacy alias: events/playbook pages use brand-teal classes;
+        // they inherit the route accent through this mapping.
         brand: {
-          teal: "#4cccc3",
-          "teal-dark": "#3ab7a8",
+          teal: "#00A24E",
+          "teal-dark": "#007A3B",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -53,6 +65,12 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontFamily: {
+        sans: ["var(--font-body)", "system-ui", "sans-serif"],
+        "display-jp": ["var(--font-display-jp)", "var(--font-body)", "sans-serif"],
+        "display-en": ["var(--font-display-en)", "var(--font-body)", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -4,25 +4,34 @@
 
 @layer base {
   :root {
-    --background: 40 33% 98%;
-    --foreground: 220 20% 14%;
+    /* Route tokens (NetWalking wayfinding palette) */
+    --paper: #FAFAF8;
+    --ink: #14181C;
+    --green: #00A24E;
+    --vermillion: #E8482B;
+    --sign: #14222E;
+    --slate: #5C6670;
+
+    /* Component-level variables remapped to the route palette */
+    --background: 60 11% 98%;
+    --foreground: 210 17% 9%;
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 14%;
+    --card-foreground: 210 17% 9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 14%;
-    --primary: 175 50% 53%;
+    --popover-foreground: 210 17% 9%;
+    --primary: 149 100% 32%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 40 20% 95%;
-    --secondary-foreground: 220 20% 14%;
-    --muted: 40 20% 95%;
-    --muted-foreground: 215 14% 45%;
-    --accent: 40 20% 95%;
-    --accent-foreground: 220 20% 14%;
-    --destructive: 0 84.2% 60.2%;
+    --secondary: 60 8% 94%;
+    --secondary-foreground: 210 17% 9%;
+    --muted: 60 8% 94%;
+    --muted-foreground: 210 10% 40%;
+    --accent: 60 8% 94%;
+    --accent-foreground: 210 17% 9%;
+    --destructive: 9 80% 54%;
     --destructive-foreground: 0 0% 98%;
-    --border: 40 15% 89%;
-    --input: 40 15% 89%;
-    --ring: 175 50% 53%;
+    --border: 50 8% 88%;
+    --input: 50 8% 88%;
+    --ring: 149 100% 32%;
     --radius: 0.625rem;
   }
 }
@@ -32,12 +41,64 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-paper text-ink;
   }
   a {
-    color: theme('colors.brand.teal');
+    color: var(--green);
   }
   a:hover {
-    color: theme('colors.brand.teal-dark');
+    color: #007a3b;
+  }
+}
+
+@layer utilities {
+  /* Archivo variable width axis for sign-style labels */
+  .font-expanded {
+    font-stretch: 120%;
+  }
+}
+
+/* Departure-board cancelled rows */
+.board-strike {
+  text-decoration: line-through;
+  text-decoration-color: var(--vermillion);
+  text-decoration-thickness: 2px;
+}
+
+/* Hanko stamp: pops on CTA hover/focus */
+.hanko-stamp {
+  opacity: 0;
+  transform: scale(0) rotate(-14deg);
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.15s ease-out;
+  will-change: transform;
+}
+.group:hover .hanko-stamp,
+.group:focus-visible .hanko-stamp {
+  opacity: 1;
+  transform: scale(1) rotate(-6deg);
+}
+
+/* Pulsing dot on the next-walk board header */
+@keyframes nw-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.pulse-dot {
+  animation: nw-pulse 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hanko-stamp {
+    display: none;
+  }
+  .pulse-dot {
+    animation: none;
   }
 }

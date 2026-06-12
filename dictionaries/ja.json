@@ -101,7 +101,21 @@
   },
   "events": {
     "heading": "過去のイベント",
-    "noEvents": "まだイベントがありません。"
+    "noEvents": "まだイベントがありません。",
+    "lineTitle": "これまでのルート",
+    "lineTitleAlt": "The NetWalking Line",
+    "odometerLabel": "みんなで歩いた距離（概算）",
+    "odometerPrefix": "約",
+    "nextDeparture": "NEXT DEPARTURE",
+    "course": "コース",
+    "meet": "集合",
+    "record": "記録",
+    "attendeesSuffix": "人参加",
+    "walkReport": "ウォークレポート",
+    "walkReportAlt": "Walk Report",
+    "prevStation": "前の駅",
+    "nextStation": "次の駅",
+    "stamp": "完歩"
   },
   "playbook": {
     "title": "NetWalkingの始め方",

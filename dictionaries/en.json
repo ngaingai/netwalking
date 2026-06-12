@@ -101,7 +101,21 @@
   },
   "events": {
     "heading": "Past Events",
-    "noEvents": "No past events to display."
+    "noEvents": "No past events to display.",
+    "lineTitle": "The NetWalking Line",
+    "lineTitleAlt": "これまでのルート",
+    "odometerLabel": "Total walked together (approx.)",
+    "odometerPrefix": "~",
+    "nextDeparture": "NEXT DEPARTURE",
+    "course": "Course",
+    "meet": "Meet",
+    "record": "Record",
+    "attendeesSuffix": "walkers",
+    "walkReport": "Walk Report",
+    "walkReportAlt": "ウォークレポート",
+    "prevStation": "Prev station",
+    "nextStation": "Next station",
+    "stamp": "完歩"
   },
   "playbook": {
     "title": "NetWalking: How To Run Your Own",

@@ -10,32 +10,31 @@ meetingPointJp: "池袋西口公園 平和記念像"
 mapLink: "https://maps.app.goo.gl/91Af5oH1RFqTYRZq9"
 meetupLink: "https://www.meetup.com/netwalking/events/315004592/"
 linkedinLink: "https://www.linkedin.com/events/7464871955565875200/"
-linkedinReportLink: ""
+linkedinReportLink: "https://www.linkedin.com/posts/netwalking_netwalking-overcomes-rainy-season-ikebukuro-activity-7475043517539512320-5oV4"
 stravaLink: ""
 komootLink: ""
-attendees: 0
+attendees: 10
 coverImage: "/events/netwalking-021.webp"
 teaser: "Last daytime walk before summer!"
 teaserJp: "夏が来る前、最後の昼ウォーキング！"
 ---
 
-NetWalking #21: Ikebukuro!
+NetWalking overcomes Rainy Season!☀️
 
-Date: June 22nd (Mon)
-Time: 12:00-14:00
-Place: Ikebukuro Station
+[Ikebukuro Greenway: NetWalking #21🏡]
 
-Finally making our way to the
-Northwest side of the Yamanote!🙌
+Cloudy, rainy, HEAVY rain
+For about 2 weeks straight in Tokyo☔️
 
-Bring water!🌊
+I set event days a month in advance,
+so the weather is always a gamble🎲
+Extra risky in rainy season too...
 
-I lived around here
-when I first came to Tokyo,
-so it's a cool full-circle moment🔄
+But we won!🙌
+Hazy day beats rainy day every time!
 
-As always,
-¥100 per 1km
-charity donation optional!🙏
+Thank you for joining us yesterday!
+Incredible group of new & old friends✨
+This was a fun walk through a local neighborhood!
 
-See you there!
+Kali Koda, Jayson Young, Adam Bittner, Muskaan Wadhwa, Chie Sawa, Umida Halilova, Wouter Lausberg, Jeremy Lai, 西山寛二, Kerstin Espinoza

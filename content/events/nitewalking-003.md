@@ -1,0 +1,20 @@
+---
+no: "003"
+series: "NiteWalking"
+title: "Zenso Collab: Walk x Sound Bath"
+date: "2026-07-17"
+time: "18:00-20:00"
+course: "Yoyogi Park 代々木公園"
+meetingPoint: "Jingu Bashi (Shrine Bridge)"
+meetingPointJp: "神宮橋"
+mapLink: "https://maps.app.goo.gl/azbrEbNEgpzVUSyP7"
+meetupLink: ""
+linkedinLink: ""
+linkedinReportLink: ""
+stravaLink: ""
+komootLink: ""
+attendees: 0
+coverImage: "/events/nitewalking-003.webp"
+teaser: ""
+teaserJp: ""
+---

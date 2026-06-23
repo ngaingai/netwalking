@@ -36,5 +36,3 @@ Hazy day beats rainy day every time!
 Thank you for joining us yesterday!
 Incredible group of new & old friends✨
 This was a fun walk through a local neighborhood!
-
-Kali Koda, Jayson Young, Adam Bittner, Muskaan Wadhwa, Chie Sawa, Umida Halilova, Wouter Lausberg, Jeremy Lai, 西山寛二, Kerstin Espinoza

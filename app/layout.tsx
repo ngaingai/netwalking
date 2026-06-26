@@ -61,7 +61,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${displayJp.variable} ${displayEn.variable} ${body.variable} ${mono.variable}`}
+      className={`scroll-smooth ${displayJp.variable} ${displayEn.variable} ${body.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-paper font-sans antialiased">

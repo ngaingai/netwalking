@@ -31,7 +31,7 @@ export default async function HomePage({
       <RouteRail />
 
       {/* 0.0km 出発 Hero */}
-      <Station km="0.0km" label={dict.hero.stationLabel}>
+      <Station km="0.0km" label={dict.hero.stationLabel} id="top" className="scroll-mt-20">
         <div className="flex flex-col items-start gap-6 pt-6 md:pt-12">
           <h1
             className={`text-4xl font-black leading-tight md:text-6xl ${displayFont}`}
@@ -51,7 +51,7 @@ export default async function HomePage({
       </Station>
 
       {/* 0.8km Manifesto departure board */}
-      <Station km="0.8km">
+      <Station km="0.8km" id="manifesto" className="scroll-mt-20">
         <SectionHeading
           text={dict.manifesto.heading}
           alt={dict.manifesto.headingAlt}
@@ -69,7 +69,7 @@ export default async function HomePage({
       </Station>
 
       {/* 1.6km Spec grid */}
-      <Station km="1.6km">
+      <Station km="1.6km" id="stats" className="scroll-mt-20">
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
           {dict.specs.tiles.map((tile) => (
             <div
@@ -89,7 +89,7 @@ export default async function HomePage({
       </Station>
 
       {/* 2.4km Language */}
-      <Station km="2.4km">
+      <Station km="2.4km" id="language" className="scroll-mt-20">
         <SectionHeading
           text={dict.language.heading}
           alt={dict.language.headingAlt}
@@ -109,7 +109,7 @@ export default async function HomePage({
 
       {/* 3.2km Next walk (station collapses when nothing is scheduled) */}
       {upcomingEvent && (
-        <Station km="3.2km">
+        <Station km="3.2km" id="next-walk" className="scroll-mt-20">
           <NextWalkBoard
             event={upcomingEvent}
             dict={dict.nextWalk}
@@ -119,7 +119,7 @@ export default async function HomePage({
       )}
 
       {/* 4.0km How it works */}
-      <Station km="4.0km">
+      <Station km="4.0km" id="how-it-works" className="scroll-mt-20">
         <SectionHeading
           text={dict.howItWorks.heading}
           alt={dict.howItWorks.headingAlt}
@@ -146,7 +146,7 @@ export default async function HomePage({
       </Station>
 
       {/* 4.6km Why + proof */}
-      <Station km="4.6km">
+      <Station km="4.6km" id="why" className="scroll-mt-20">
         <SectionHeading
           text={dict.why.heading}
           alt={dict.why.headingAlt}

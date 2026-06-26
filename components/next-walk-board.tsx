@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { format } from "date-fns";
 import { ja as jaLocale } from "date-fns/locale";
 import { localized, type Locale } from "@/lib/i18n";
@@ -38,6 +39,17 @@ export function NextWalkBoard({
 
   return (
     <div className="overflow-hidden rounded-xl border border-sign/10 bg-white shadow-md">
+      {event.coverImage && (
+        <div className="relative h-32 w-full sm:h-40 md:h-44">
+          <Image
+            src={event.coverImage}
+            alt={`${event.series} #${walkNumber}: ${event.title}`}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 672px"
+          />
+        </div>
+      )}
       <div className="flex items-center gap-2.5 bg-sign px-4 py-3 md:px-6">
         <span
           aria-hidden="true"

@@ -1,0 +1,20 @@
+---
+no: "022"
+series: "NetWalking"
+title: "Moat Walk"
+date: "2026-09-30"
+time: "12:00-14:00"
+course: "Imperial Palace Moat 皇居外濠"
+meetingPoint: "Iidabashi Station, West Exit"
+meetingPointJp: "飯田橋駅西口"
+mapLink: "https://maps.app.goo.gl/6ExHVGxit1Qmg94q7"
+meetupLink: "https://www.meetup.com/netwalking/events/316309160/"
+linkedinLink: "https://www.linkedin.com/events/7498998450039095296/"
+linkedinReportLink: ""
+stravaLink: ""
+komootLink: ""
+attendees: 0
+coverImage: "/events/netwalking-022.webp"
+teaser: ""
+teaserJp: ""
+---

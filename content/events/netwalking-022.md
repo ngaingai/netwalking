@@ -10,7 +10,7 @@ meetingPointJp: "飯田橋駅西口"
 mapLink: "https://maps.app.goo.gl/6ExHVGxit1Qmg94q7"
 meetupLink: "https://www.meetup.com/netwalking/events/316309160/"
 linkedinLink: "https://www.linkedin.com/events/7498998450039095296/"
-linkedinReportLink: ""
+linkedinReportLink: "https://www.linkedin.com/posts/35-days-of-rain-2-hours-of-dry-walking-ugcPost-7513105568799072256-l6kQ/"
 stravaLink: ""
 komootLink: ""
 attendees: 4

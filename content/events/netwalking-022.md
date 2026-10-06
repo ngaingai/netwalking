@@ -13,8 +13,29 @@ linkedinLink: "https://www.linkedin.com/events/7498998450039095296/"
 linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
-attendees: 0
+attendees: 4
 coverImage: "/events/netwalking-022.webp"
-teaser: ""
-teaserJp: ""
 ---
+
+35 days of rain
+2 hours of dry walking
+
+[ NetWalking stops the rain!😁 ]
+
+September was the new rainy season
+Rain for a month straight is tough
+
+And risky for planning outdoor walks!😅
+
+Even an hour before we started,
+I wasn't sure if we needed to move indoors
+
+But the rain spirits knew NetWalking was happening
+So miraculously, the rain completely stopped
+for exactly 2 hours as we walked
+
+When we finished, it rained again☔️
+Coincidence? I like to think the
+spirits are NetWalkers too😜
+
+Thanks for an awesome time!

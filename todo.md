@@ -75,7 +75,7 @@
 
 ### Workflow tooling
 - [ ] Build a Claude Code skill for "add new event" — takes Alex's prompt, creates markdown file, places cover image, generates LinkedIn + Meetup paste-ready copy
-- [x] Build a Claude Code skill for "post-event update" — `netwalking-recap` in the alex-os-skills repo (content plugin), first run on #22, 2026-10-06. Attendance lives in the zett wiki, not a cowork log
+- [x] Build a Claude Code skill for "post-event update" — `netwalking-recap` in the alex-os-skills repo (netwalking plugin), first run on #22, 2026-10-06. Attendance lives in the zett wiki, not a cowork log
 - [ ] Set up the attendance log file in the cowork repo (`Glokyo/NetWalking/attendance.md`)
 
 ### Housekeeping

@@ -1,0 +1,20 @@
+---
+no: "023"
+series: "NetWalking"
+title: "Tamagawa River Walk"
+date: "2026-10-28"
+time: "12:00-14:00"
+course: "Tamagawa River 多摩川"
+meetingPoint: "Futako-tamagawa Station, ticket gates"
+meetingPointJp: "二子玉川駅 改札前"
+mapLink: "https://maps.app.goo.gl/cY47iMVYJMq5R5zx9"
+meetupLink: ""
+linkedinLink: ""
+linkedinReportLink: ""
+stravaLink: ""
+komootLink: ""
+attendees: 0
+coverImage: "/events/netwalking-023.webp"
+teaser: "Two hours along the Tamagawa in autumn walking weather."
+teaserJp: "秋の多摩川沿いを、2時間歩きます。"
+---

@@ -17,6 +17,7 @@ export interface Event {
   meetingPointJp: string;
   mapLink: string;
   meetupLink: string;
+  peatixLink: string;
   linkedinLink: string;
   linkedinReportLink: string;
   stravaLink: string;
@@ -46,6 +47,7 @@ interface EventFrontmatter {
   meetingPointJp?: string;
   mapLink?: string;
   meetupLink?: string;
+  peatixLink?: string;
   linkedinLink?: string;
   linkedinReportLink?: string;
   stravaLink?: string;
@@ -113,6 +115,7 @@ function parseEventFile(filePath: string): Event {
     meetingPointJp: frontmatter.meetingPointJp || "",
     mapLink: frontmatter.mapLink || "",
     meetupLink: frontmatter.meetupLink || "",
+    peatixLink: frontmatter.peatixLink || "",
     linkedinLink: frontmatter.linkedinLink || "",
     linkedinReportLink: frontmatter.linkedinReportLink || "",
     stravaLink: frontmatter.stravaLink || "",

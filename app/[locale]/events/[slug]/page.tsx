@@ -284,6 +284,9 @@ export default async function EventDetailPage({
             {event.meetupLink && (
               <ExternalLinkButton href={event.meetupLink}>Meetup</ExternalLinkButton>
             )}
+            {event.peatixLink && (
+              <ExternalLinkButton href={event.peatixLink}>Peatix</ExternalLinkButton>
+            )}
             {event.linkedinLink && (
               <ExternalLinkButton href={event.linkedinLink}>LinkedIn Event</ExternalLinkButton>
             )}

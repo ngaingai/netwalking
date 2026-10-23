@@ -80,6 +80,7 @@ meetingPoint: "Sendagi Station, Exit 1"
 meetingPointJp: "千駄木駅 1番出口"    # optional
 mapLink: "https://maps.app.goo.gl/..."
 meetupLink: "https://www.meetup.com/netwalking/events/..."
+peatixLink: "https://peatix.com/event/..."     # optional; shows a Peatix button on upcoming walks
 linkedinLink: "https://www.linkedin.com/events/..."
 linkedinReportLink: ""
 coverImage: "/events/netwalking-019.jpg"

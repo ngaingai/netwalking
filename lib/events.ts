@@ -4,6 +4,43 @@ import matter from "gray-matter";
 
 const EVENTS_DIR = path.join(process.cwd(), "content", "events");
 
+/*
+ * Event slugs are file names in content/events, e.g. "netwalking-023":
+ * lowercase letters and digits in hyphen-separated runs. Anything else (dots,
+ * slashes, backslashes, percent-escapes, uppercase) is never a valid slug.
+ */
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const MAX_SLUG_LENGTH = 100;
+
+export function isValidEventSlug(slug: unknown): slug is string {
+  return (
+    typeof slug === "string" &&
+    slug.length <= MAX_SLUG_LENGTH &&
+    SLUG_PATTERN.test(slug)
+  );
+}
+
+/*
+ * Resolve a route slug to its event file, or null. The slug must match the
+ * grammar, name an existing event file, and resolve (symlinks included) to a
+ * file directly inside EVENTS_DIR. Nothing is read before all three pass.
+ */
+function resolveEventPath(slug: unknown): string | null {
+  if (!isValidEventSlug(slug)) return null;
+  if (!getAllEventSlugs().includes(slug)) return null;
+
+  const root = fs.realpathSync(EVENTS_DIR);
+  let filePath: string;
+  try {
+    filePath = fs.realpathSync(path.join(root, `${slug}.md`));
+  } catch {
+    return null;
+  }
+  if (path.dirname(filePath) !== root) return null;
+  if (!fs.statSync(filePath).isFile()) return null;
+  return filePath;
+}
+
 export interface Event {
   slug: string;
   no: string;
@@ -133,17 +170,22 @@ function parseEventFile(filePath: string): Event {
   };
 }
 
-export function getAllEvents(): Event[] {
+/* Slugs of every regular event file (no symlinks) whose name fits the grammar */
+export function getAllEventSlugs(): string[] {
   if (!fs.existsSync(EVENTS_DIR)) {
     return [];
   }
 
-  const files = fs
-    .readdirSync(EVENTS_DIR)
-    .filter((f) => f.endsWith(".md"));
+  return fs
+    .readdirSync(EVENTS_DIR, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
+    .map((entry) => entry.name.slice(0, -".md".length))
+    .filter(isValidEventSlug);
+}
 
-  const events = files.map((file) =>
-    parseEventFile(path.join(EVENTS_DIR, file))
+export function getAllEvents(): Event[] {
+  const events = getAllEventSlugs().map((slug) =>
+    parseEventFile(path.join(EVENTS_DIR, `${slug}.md`))
   );
 
   return events.sort(
@@ -152,8 +194,8 @@ export function getAllEvents(): Event[] {
 }
 
 export function getEventBySlug(slug: string): Event | null {
-  const filePath = path.join(EVENTS_DIR, `${slug}.md`);
-  if (!fs.existsSync(filePath)) {
+  const filePath = resolveEventPath(slug);
+  if (!filePath) {
     return null;
   }
   return parseEventFile(filePath);

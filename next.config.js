@@ -1,5 +1,10 @@
+// Production builds do not need eval; next dev does (React debugging), so
+// 'unsafe-eval' is only added there (security audit W-Y8, 2026-10-28).
+const isDev = process.env.NODE_ENV === "development";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  poweredByHeader: false,
   turbopack: {},
   async headers() {
     return [
@@ -30,7 +35,7 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: blob: https://netwalking.net https://www.netwalking.net",

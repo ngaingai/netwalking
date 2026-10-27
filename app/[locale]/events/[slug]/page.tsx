@@ -15,6 +15,11 @@ import { format } from "date-fns";
 import fs from "fs";
 import path from "path";
 
+// Events are Markdown files in content/events, added by commit and deploy, so
+// every valid slug is known at build time. Anything else 404s without
+// rendering; getEventBySlug also validates on its own.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const events = getAllEvents();
   const params: { locale: string; slug: string }[] = [];

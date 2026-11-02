@@ -14,8 +14,25 @@ linkedinLink: "https://www.linkedin.com/events/7513829784611721216/"
 linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""
-attendees: 0
+attendees: 3
 coverImage: "/events/netwalking-023.webp"
-teaser: "Two hours along the Tamagawa in autumn walking weather."
-teaserJp: "秋の多摩川沿いを、2時間歩きます。"
 ---
+
+Beautiful day for walking!
+Thank you to everyone for coming out!
+
+[ NetWalking #23, Tamagawa River Walk!🌊 ]
+
+I always had a thing for
+Japanese riversides❤️
+
+Concrete & grass & water
+Are all mixed perfectly for
+Jogging, picnics, dog-walks & NetWalks!
+
+A majority of my time in Japan
+has been spent living the
+土手 life!🌊
+
+So it's a ton of fun to experience
+this with cool people & cool conversations🙌

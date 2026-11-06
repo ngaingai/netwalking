@@ -10,6 +10,7 @@ meetingPointJp: "いちょう並木 青山通り側（外苑前駅・青山一�
 mapLink: "https://maps.app.goo.gl/t2fxesX6kwm3HHgf8"
 meetupLink: "https://www.meetup.com/netwalking/events/317310247/"
 linkedinLink: "https://www.linkedin.com/events/7524350906394443776/"
+peatixLink: "https://peatix.com/event/5263643"
 linkedinReportLink: ""
 stravaLink: ""
 komootLink: ""

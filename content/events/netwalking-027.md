@@ -1,0 +1,20 @@
+---
+no: "027"
+series: "NetWalking"
+title: "Ginkgo Walk🌼"
+date: "2026-11-25"
+time: "12:00-14:00"
+course: "Jingu Gaien Ginkgo Avenue 神宮外苑いちょう並木"
+meetingPoint: "Ginkgo Avenue, Aoyama-dori side (Gaienmae or Aoyama-itchome Station)"
+meetingPointJp: "いちょう並木 青山通り側（外苑前駅・青山一丁目駅）"
+mapLink: "https://maps.app.goo.gl/t2fxesX6kwm3HHgf8"
+meetupLink: ""
+linkedinLink: ""
+linkedinReportLink: ""
+stravaLink: ""
+komootLink: ""
+attendees: 0
+coverImage: "/events/netwalking-027.webp"
+teaser: "Two hours under the Jingu Gaien ginkgo trees at peak yellow."
+teaserJp: "見頃の神宮外苑いちょう並木を、2時間歩きます。"
+---

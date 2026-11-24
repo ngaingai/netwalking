@@ -209,6 +209,23 @@ export function getUpcomingEvents(): Event[] {
   return getAllEvents().filter((e) => e.status === "upcoming");
 }
 
+/*
+ * Completed events in the one combined count (every series: NetWalking,
+ * NiteWalking, NetChilling). Past event pages plus the completed events listed
+ * in content/unlisted-events.json that have no page yet; a slug in both counts once.
+ */
+export function getCompletedEventCount(): number {
+  const slugs = new Set(getPastEvents().map((e) => e.slug));
+  const file = path.join(process.cwd(), "content", "unlisted-events.json");
+  if (fs.existsSync(file)) {
+    const { events = [] } = JSON.parse(fs.readFileSync(file, "utf8")) as {
+      events?: { slug: string }[];
+    };
+    for (const e of events) slugs.add(e.slug);
+  }
+  return slugs.size;
+}
+
 /* Odometer: real distances where recorded, flat 5km estimate otherwise */
 export function getTotalKmWalked(): number {
   return getPastEvents().reduce((sum, e) => sum + (e.distanceKm ?? 5), 0);

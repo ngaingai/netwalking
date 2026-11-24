@@ -22,7 +22,7 @@ That's it.
 
 Nametags. That's the only material.
 
-The only decision you need to make each month is where to meet. Everything else follows the standard format below. It's worked for 19+ walks in Tokyo over two years. Use it as-is or adapt it to your city.
+The only decision you need to make each month is where to meet. Everything else follows the standard format below. It's worked for {{eventCount}}+ walks in Tokyo over two years. Use it as-is or adapt it to your city.
 
 ---
 
@@ -137,4 +137,4 @@ That's the whole trick. There is no trick. Just walk.
 
 ---
 
-*NetWalking started in Tokyo in 2024. 19+ walks and counting. If you start one in your city, let us know at netwalking.net.*
+*NetWalking started in Tokyo in 2024. {{eventCount}}+ walks and counting. If you start one in your city, let us know at netwalking.net.*

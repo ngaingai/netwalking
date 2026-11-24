@@ -1,0 +1,8 @@
+{
+  "_note": "Completed events that have no page in content/events yet. They count toward the combined event number (Alex, 2026-11-24). When an event gets its page, delete its line here or leave it: a slug that also has a page is only counted once.",
+  "events": [
+    { "slug": "nitewalking-001", "note": "NiteWalking #1, about 2026-02-26" },
+    { "slug": "netchilling-001", "note": "NetChilling, rain day, rented living room; date pending" },
+    { "slug": "netchilling-002", "note": "NetChilling, rain day, rented living room; date pending" }
+  ]
+}

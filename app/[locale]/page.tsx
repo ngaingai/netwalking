@@ -2,7 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
-import { getLatestUpcomingEvent, getPastEvents } from "@/lib/events";
+import {
+  getCompletedEventCount,
+  getLatestUpcomingEvent,
+  getPastEvents,
+} from "@/lib/events";
 import { HankoCta } from "@/components/hanko-cta";
 import { RouteRail } from "@/components/route-rail";
 import { Station, SectionHeading } from "@/components/station";
@@ -20,7 +24,7 @@ export default async function HomePage({
   const dict = await getDictionary(locale as Locale);
   const upcomingEvent = getLatestUpcomingEvent();
   const pastEvents = getPastEvents();
-  const pastCount = pastEvents.length;
+  const pastCount = getCompletedEventCount();
   const recentPast = pastEvents.slice(0, 4);
   const eventsHref = locale === "ja" ? "/events" : "/en/events";
   const displayFont =

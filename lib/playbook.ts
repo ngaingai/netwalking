@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { Locale } from "./i18n";
+import { getCompletedEventCount } from "./events";
 
 const PLAYBOOK_DIR = path.join(process.cwd(), "content", "playbook");
 
@@ -12,5 +13,8 @@ export function getPlaybookContent(locale: Locale): string {
     return "";
   }
 
-  return fs.readFileSync(filePath, "utf8");
+  // {{eventCount}} in the playbook text is the live combined event count
+  return fs
+    .readFileSync(filePath, "utf8")
+    .replace(/\{\{eventCount\}\}/g, String(getCompletedEventCount()));
 }

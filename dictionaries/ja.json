@@ -97,7 +97,15 @@
     "producedBy": "Produced by",
     "stayConnected": "つながる",
     "onlineCommunity": "オンラインコミュニティ",
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved.",
+    "email": {
+      "label": "次回のウォークのお知らせをメールで受け取る",
+      "placeholder": "メールアドレス",
+      "button": "受け取る",
+      "sending": "送信中…",
+      "done": "登録しました。次回のウォークが決まったら、メールでお知らせします。",
+      "error": "うまく送信できませんでした。少し時間をおいて、もう一度お試しください。"
+    }
   },
   "events": {
     "heading": "過去のイベント",

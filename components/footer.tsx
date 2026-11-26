@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Linkedin, Users, Instagram, Facebook } from "lucide-react";
 import { SiMeetup } from "react-icons/si";
+import { EmailSignup, type EmailSignupDict } from "@/components/email-signup";
 import { HankoCta } from "@/components/hanko-cta";
 import type { Locale } from "@/lib/i18n";
 
@@ -41,6 +42,7 @@ interface FooterDict {
     stayConnected: string;
     onlineCommunity: string;
     copyright: string;
+    email: EmailSignupDict;
   };
   playbook: {
     footerLink: string;
@@ -77,6 +79,10 @@ export function Footer({ locale, dict }: { locale: Locale; dict: FooterDict }) {
 
         <div className="mt-7">
           <HankoCta label={t.cta} />
+        </div>
+
+        <div className="mt-8">
+          <EmailSignup locale={locale} t={t.email} />
         </div>
 
         <p className="mt-6 text-sm text-white/70">{t.tagline}</p>

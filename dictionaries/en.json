@@ -97,7 +97,15 @@
     "producedBy": "Produced by",
     "stayConnected": "Stay Connected",
     "onlineCommunity": "Online Community",
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved.",
+    "email": {
+      "label": "Get the next walk by email",
+      "placeholder": "Email address",
+      "button": "Sign up",
+      "sending": "Sending…",
+      "done": "You're on the list. We'll email you when the next walk is set.",
+      "error": "That didn't go through. Please try again in a moment."
+    }
   },
   "events": {
     "heading": "Past Events",

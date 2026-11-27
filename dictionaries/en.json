@@ -102,11 +102,11 @@
     "onlineCommunity": "Online Community",
     "copyright": "All rights reserved.",
     "email": {
-      "label": "Get the next walk by email",
+      "label": "Get updates",
       "placeholder": "Email address",
       "button": "Sign up",
       "sending": "Sending…",
-      "done": "You're on the list. We'll email you when the next walk is set.",
+      "done": "You're signed up. Thanks!",
       "error": "That didn't go through. Please try again in a moment."
     }
   },

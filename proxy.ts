@@ -32,6 +32,14 @@ export function proxy(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
+  // Japanese lives at the unprefixed URL. /ja and /ja/... are the internal
+  // rewrite target, so a direct request is sent to the one public URL.
+  if (pathname === "/ja" || pathname.startsWith("/ja/")) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.slice(3) || "/";
+    return NextResponse.redirect(url, 308);
+  }
+
   if (pathnameHasLocale) {
     const res = NextResponse.next();
     res.headers.set("Vary", "Cookie, Accept-Language");

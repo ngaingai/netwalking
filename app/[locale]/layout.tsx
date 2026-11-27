@@ -4,8 +4,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { isValidLocale, getDictionary, type Locale } from "@/lib/i18n";
 import { getAllEvents } from "@/lib/events";
-
-const SITE_URL = "https://netwalking.net";
+import { SITE_URL } from "@/lib/site";
 
 export async function generateStaticParams() {
   return [{ locale: "ja" }, { locale: "en" }];
@@ -26,13 +25,8 @@ export async function generateMetadata({
       template: `%s | NetWalking`,
     },
     description: dict.meta.description,
-    alternates: {
-      canonical: locale === "ja" ? SITE_URL : `${SITE_URL}/en`,
-      languages: {
-        ja: SITE_URL,
-        en: `${SITE_URL}/en`,
-      },
-    },
+    // Canonical and hreflang are set per page (lib/site.ts pageAlternates),
+    // so a 404 or a new page never inherits the homepage canonical.
   };
 }
 

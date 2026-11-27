@@ -13,6 +13,7 @@ import { SectionHeading } from "@/components/station";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import fs from "fs";
+import { SITE_URL, absoluteUrl, pageAlternates } from "@/lib/site";
 import path from "path";
 
 // Events are Markdown files in content/events, added by commit and deploy, so
@@ -35,13 +36,14 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const event = getEventBySlug(slug);
-  if (!event) return {};
+  if (!event || !isValidLocale(locale)) return {};
 
   return {
     title: `${event.series} #${event.no} ${event.title}`,
     description: `${event.series} #${event.no}: ${event.title} (${event.course})`,
+    alternates: pageAlternates(locale, `/events/${event.slug}`),
   };
 }
 
@@ -139,6 +141,10 @@ export default async function EventDetailPage({
     "@type": "Event",
     name: `${event.series} #${event.no}: ${event.title}`,
     startDate: `${event.date}T${event.time.split("-")[0]}:00+09:00`,
+    ...(event.time.includes("-")
+      ? { endDate: `${event.date}T${event.time.split("-")[1]}:00+09:00` }
+      : {}),
+    url: absoluteUrl(locale as Locale, `/events/${event.slug}`),
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     location: {
@@ -153,7 +159,7 @@ export default async function EventDetailPage({
     organizer: {
       "@type": "Organization",
       name: "NetWalking",
-      url: "https://netwalking.net",
+      url: SITE_URL,
     },
     isAccessibleForFree: true,
   };

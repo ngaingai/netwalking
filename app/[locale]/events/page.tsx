@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/site";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
 import {
   getPastEvents,
@@ -26,6 +27,7 @@ export async function generateMetadata({
 
   return {
     title: dict.events.lineTitle,
+    alternates: pageAlternates(locale, "/events"),
   };
 }
 

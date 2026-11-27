@@ -6,7 +6,7 @@ import type { Locale } from "@/lib/i18n";
 
 // Posts to the Hashi contacts master (hashi.jp, WEB-019). The label is stored
 // with each sign-up as the words the person agreed to: change it here and in
-// Hashi-jp src/lib/contacts.ts WORDING.netwalkingNext* together.
+// Hashi-jp src/lib/contacts.ts WORDING.netwalkingUpdates* together.
 const ENDPOINT = "https://hashi.jp/api/netwalking/subscribe";
 
 export interface EmailSignupDict {

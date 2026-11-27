@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/site";
 import { getDictionary, isValidLocale, type Locale } from "@/lib/i18n";
 import { getPlaybookContent } from "@/lib/playbook";
 import { notFound } from "next/navigation";
@@ -14,6 +15,7 @@ export async function generateMetadata({
 
   return {
     title: dict.playbook.title,
+    alternates: pageAlternates(locale, "/playbook"),
   };
 }
 

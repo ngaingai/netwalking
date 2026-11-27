@@ -55,6 +55,9 @@
     "time": "時間",
     "meetingPoint": "集合場所",
     "map": "地図を見る",
+    "noneHeading": "次のウォークは、ただいま準備中です。",
+    "noneBody": "日程が決まったら、LINEでお知らせします。",
+    "noneCta": "LINEで次回の案内を受け取る",
     "cta": "LINEで参加する"
   },
   "howItWorks": {
@@ -99,11 +102,11 @@
     "onlineCommunity": "オンラインコミュニティ",
     "copyright": "All rights reserved.",
     "email": {
-      "label": "次回のウォークのお知らせをメールで受け取る",
+      "label": "最新情報を受け取る",
       "placeholder": "メールアドレス",
       "button": "受け取る",
       "sending": "送信中…",
-      "done": "登録しました。次回のウォークが決まったら、メールでお知らせします。",
+      "done": "登録しました。ありがとうございます。",
       "error": "うまく送信できませんでした。少し時間をおいて、もう一度お試しください。"
     }
   },

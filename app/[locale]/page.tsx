@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -12,6 +13,17 @@ import { RouteRail } from "@/components/route-rail";
 import { Station, SectionHeading } from "@/components/station";
 import { DepartureBoard } from "@/components/departure-board";
 import { NextWalkBoard } from "@/components/next-walk-board";
+import { pageAlternates } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isValidLocale(locale)) return {};
+  return { alternates: pageAlternates(locale) };
+}
 
 export default async function HomePage({
   params,
@@ -111,16 +123,27 @@ export default async function HomePage({
         </div>
       </Station>
 
-      {/* 3.2km Next walk (station collapses when nothing is scheduled) */}
-      {upcomingEvent && (
-        <Station km="3.2km" id="next-walk" className="scroll-mt-20">
+      {/* 3.2km Next walk; between walks, where the next date is announced */}
+      <Station km="3.2km" id="next-walk" className="scroll-mt-20">
+        {upcomingEvent ? (
           <NextWalkBoard
             event={upcomingEvent}
             dict={dict.nextWalk}
             locale={locale as Locale}
           />
-        </Station>
-      )}
+        ) : (
+          <div className="rounded-lg border-t-4 border-green bg-white px-5 py-6 shadow-sm md:px-7">
+            <p className="font-mono text-xs font-semibold tracking-widest text-slate">
+              {dict.nextWalk.boardLabel}
+            </p>
+            <p className="mt-2 text-xl font-bold">{dict.nextWalk.noneHeading}</p>
+            <p className="mt-2 leading-relaxed text-slate">{dict.nextWalk.noneBody}</p>
+            <div className="mt-5">
+              <HankoCta label={dict.nextWalk.noneCta} />
+            </div>
+          </div>
+        )}
+      </Station>
 
       {/* 4.0km How it works */}
       <Station km="4.0km" id="how-it-works" className="scroll-mt-20">

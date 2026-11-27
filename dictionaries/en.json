@@ -55,6 +55,9 @@
     "time": "Time",
     "meetingPoint": "Meeting Point",
     "map": "View map",
+    "noneHeading": "The next walk is being planned.",
+    "noneBody": "We announce the date on LINE as soon as it is set.",
+    "noneCta": "Get the next date on LINE",
     "cta": "Join on LINE"
   },
   "howItWorks": {

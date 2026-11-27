@@ -39,7 +39,8 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: blob: https://netwalking.net https://www.netwalking.net",
-              "connect-src 'self'",
+              // The footer email sign-up posts to the Hashi contacts master.
+              "connect-src 'self' https://hashi.jp",
               "frame-src 'self'",
               "object-src 'none'",
               "base-uri 'self'",

@@ -55,6 +55,9 @@
     "time": "時間",
     "meetingPoint": "集合場所",
     "map": "地図を見る",
+    "noneHeading": "次のウォークは、ただいま準備中です。",
+    "noneBody": "日程が決まったら、LINEでお知らせします。",
+    "noneCta": "LINEで次回の案内を受け取る",
     "cta": "LINEで参加する"
   },
   "howItWorks": {
